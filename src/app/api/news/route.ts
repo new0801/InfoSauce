@@ -3,6 +3,7 @@ import {
   getNewsByArea,
   getNewsByTopic,
   getNewsById,
+  getFactCheckDetails,
 } from "@/data/newsFunction";
 
 export async function GET(request: Request) {
@@ -11,6 +12,7 @@ export async function GET(request: Request) {
   const area = searchParams.get("area");
   const topic = searchParams.get("topic");
   const id = searchParams.get("id");
+  const factCheck = searchParams.get("factCheck");
 
   if (id) {
     const result = getNewsById(id);
@@ -18,6 +20,19 @@ export async function GET(request: Request) {
     if (!result) {
       return NextResponse.json(
         { error: "News not found" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(result);
+  }
+
+  if (factCheck) {
+    const result = getFactCheckDetails(factCheck);
+
+    if (!result) {
+      return NextResponse.json(
+        { error: "Fact check not found" },
         { status: 404 }
       );
     }
