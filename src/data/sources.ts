@@ -1,9 +1,11 @@
+export type SourceType = "official" | "news" | "social_media";
+
 export interface Source {
   id: string;
   name: string;
   platform: string;
   url: string;
-  sourceType: "official" | "news" | "social_media";
+  sourceType: SourceType;
   credibility?: number;
 }
 

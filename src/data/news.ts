@@ -1,3 +1,5 @@
+import type { SourceType } from "./sources";
+
 export type NewsItem = {
   id: string;
   title: string;
@@ -5,9 +7,9 @@ export type NewsItem = {
   area: string;
   topic: string;
   source: string;
-  sourceType: "official" | "news" | "social";
+  sourceType: SourceType;
   url: string;
-  publishedAt: string;
+  publishedAt: string | null;
 };
 
 export const news: NewsItem[] = [
