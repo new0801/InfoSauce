@@ -5,3 +5,8 @@ export * from "./sources";
 export * from "./factCheck";
 export * from "./evidence";
 export * from "./aiInput";
+export * from "./apiTypes";
+export * from "./research/index";
+export * from "./normalizeNews";
+export * from "./categorizeNews";
+export * from "./prepareAiInput";

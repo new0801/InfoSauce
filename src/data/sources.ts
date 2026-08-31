@@ -35,3 +35,7 @@ export const sources: Source[] = [
     credibility: 70,
   },
 ];
+
+export function findSourceById(id: string): Source | undefined {
+  return sources.find((source) => source.id === id);
+}

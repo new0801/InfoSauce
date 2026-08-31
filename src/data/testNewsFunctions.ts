@@ -3,7 +3,7 @@ import {
   getNewsByTopic,
   getNewsById,
   getFactCheckDetails,
-} from "./newsFunction";
+} from "./index";
 
 console.log("AREA TEST:");
 console.log(getNewsByArea("AI & Technology"));

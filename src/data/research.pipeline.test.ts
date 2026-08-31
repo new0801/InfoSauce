@@ -1,5 +1,4 @@
-import assert from "node:assert/strict";
-import test from "node:test";
+import { describe, expect, it } from "vitest";
 
 import { categorizeNews } from "./categorizeNews";
 import { normalizeRawResearchItem } from "./normalizeNews";
@@ -18,59 +17,79 @@ const rawItem: RawResearchItem = {
   platform: "twitter",
 };
 
-test("normalizes, categorizes, and prepares an AI input without losing source fields", () => {
-  const normalized = normalizeRawResearchItem(rawItem);
+describe("Day 4 research pipeline", () => {
+  it("normalizes, categorizes, and prepares an AI input without losing source fields", () => {
+    const normalized = normalizeRawResearchItem(rawItem);
 
-  assert.equal(normalized.ok, true);
-  if (!normalized.ok) return;
+    expect(normalized.ok).toBe(true);
+    if (!normalized.ok) return;
 
-  assert.equal(normalized.item.title, rawItem.title);
-  assert.equal(normalized.item.content, rawItem.content);
-  assert.equal(normalized.item.url, rawItem.url);
-  assert.equal(normalized.item.source, rawItem.source);
-  assert.equal(normalized.item.sourceType, "social_media");
-  assert.equal(normalized.item.area, "AI & Technology");
-  assert.equal(normalized.item.topic, "Cybersecurity");
+    expect(normalized.item.title).toBe(rawItem.title);
+    expect(normalized.item.content).toBe(rawItem.content);
+    expect(normalized.item.url).toBe(rawItem.url);
+    expect(normalized.item.source).toBe(rawItem.source);
+    expect(normalized.item.sourceType).toBe("social_media");
+    expect(normalized.item.area).toBe("AI & Technology");
+    expect(normalized.item.topic).toBe("Cybersecurity");
 
-  const aiInput = prepareAiInput(normalized.item);
-  assert.deepEqual(aiInput.sources, [rawItem.url]);
-  assert.equal(aiInput.newsId, normalized.item.id);
-  assert.equal(aiInput.claim, rawItem.title);
-  assert.deepEqual(aiInput.evidence, []);
-});
+    const aiInput = prepareAiInput(normalized.item);
 
-test("uses an existing default category when no keyword matches", () => {
-  const category = categorizeNews("Unrelated announcement", "A short neutral update.");
-
-  assert.equal(category.area, "World & Local");
-  assert.equal(category.topic, "International News");
-});
-
-test("returns a safe error instead of a NewsItem for missing required source data", () => {
-  const result = normalizeRawResearchItem({ ...rawItem, title: "", url: "not-a-url" });
-
-  assert.deepEqual(result, {
-    ok: false,
-    errors: ["title is required", "url must be an absolute http(s) URL"],
-  });
-});
-
-test("requests JSON output from mcporter before parsing Exa results", async () => {
-  let receivedArgs: string[] = [];
-  const result = await searchExa("OpenAI official news", async (_command, args) => {
-    receivedArgs = args;
-    return {
-      stdout: JSON.stringify({
-        content: [{
-          type: "text",
-          text: "Title: OpenAI News\nURL: https://openai.com/news/\nPublished: N/A\nAuthor: N/A\nHighlights:\nOpenAI News | OpenAI",
-        }],
-      }),
-      stderr: "",
-    };
+    expect(aiInput.sources).toEqual([rawItem.url]);
+    expect(aiInput.newsId).toBe(normalized.item.id);
+    expect(aiInput.claim).toBe(rawItem.title);
+    expect(aiInput.evidence).toEqual([]);
   });
 
-  assert.deepEqual(receivedArgs.slice(-2), ["--output", "json"]);
-  assert.equal(result.items.length, 1);
-  assert.equal(result.items[0]?.url, "https://openai.com/news/");
+  it("uses an existing default category when no keyword matches", () => {
+    const category = categorizeNews(
+      "Unrelated announcement",
+      "A short neutral update.",
+    );
+
+    expect(category.area).toBe("World & Local");
+    expect(category.topic).toBe("International News");
+  });
+
+  it("returns a safe error instead of a NewsItem for missing required source data", () => {
+    const result = normalizeRawResearchItem({
+      ...rawItem,
+      title: "",
+      url: "not-a-url",
+    });
+
+    expect(result).toEqual({
+      ok: false,
+      errors: [
+        "title is required",
+        "url must be an absolute http(s) URL",
+      ],
+    });
+  });
+
+  it("requests JSON output from mcporter before parsing Exa results", async () => {
+    let receivedArgs: string[] = [];
+
+    const result = await searchExa(
+      "OpenAI official news",
+      async (_command, args) => {
+        receivedArgs = args;
+
+        return {
+          stdout: JSON.stringify({
+            content: [
+              {
+                type: "text",
+                text: "Title: OpenAI News\nURL: https://openai.com/news/\nPublished: N/A\nAuthor: N/A\nHighlights:\nOpenAI News | OpenAI",
+              },
+            ],
+          }),
+          stderr: "",
+        };
+      },
+    );
+
+    expect(receivedArgs.slice(-2)).toEqual(["--output", "json"]);
+    expect(result.items).toHaveLength(1);
+    expect(result.items[0]?.url).toBe("https://openai.com/news/");
+  });
 });

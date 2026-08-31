@@ -21,3 +21,7 @@ export const factChecks: FactCheck[] = [
     checkedAt: "2026-08-30",
   },
 ];
+
+export function findFactCheckById(id: string): FactCheck | undefined {
+  return factChecks.find((factCheck) => factCheck.id === id);
+}
