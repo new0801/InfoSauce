@@ -9,7 +9,7 @@ async function test() {
     try {
 
         const results = await verifyClaim(
-            "OpenAI is giving out 1000 free tokens for Codex"
+            "Elon Musk is gay"
         );
 
         console.log("Individual model results:");

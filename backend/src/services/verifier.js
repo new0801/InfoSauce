@@ -24,7 +24,7 @@ async function verifyClaim(text) {
             //console.log(`\n===== ${model} GONKA RESPONSE =====`);
             //console.dir(result, { depth: null });
             //console.log(`===== END ${model} RESPONSE =====\n`);
-            
+
             // 3. Validate Gonka response
             if (
                 !result ||
