@@ -39,3 +39,20 @@ export const sources: Source[] = [
 export function findSourceById(id: string): Source | undefined {
   return sources.find((source) => source.id === id);
 }
+
+export function getSourceCredibility(source: Source): number {
+  if (source.credibility !== undefined) {
+    return source.credibility;
+  }
+
+  switch (source.sourceType) {
+    case "official":
+      return 95;
+    case "news":
+      return 85;
+    case "social_media":
+      return 70;
+    default:
+      return 50;
+  }
+}

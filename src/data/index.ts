@@ -10,3 +10,4 @@ export * from "./research/index";
 export * from "./normalizeNews";
 export * from "./categorizeNews";
 export * from "./prepareAiInput";
+export * from "./researchAll";
