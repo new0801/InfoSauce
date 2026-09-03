@@ -88,7 +88,21 @@ The source code is not included in this workspace, so the implementation stack c
 
 ## 🚀 Getting Started (edit)
 
-Source files and package scripts are not included in this workspace. Once the project is available locally, use its documented setup commands.
+First, run the development server:
+
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying app/page.tsx. The page auto-updates as you edit the file.
+
+This project uses [next/font](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## 📂 Project Structure (edit)
 
