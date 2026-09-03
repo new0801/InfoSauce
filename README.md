@@ -3,6 +3,7 @@
 ### Your Personal AI Information Radar
 
 🔗 **Live Demo:** [ADD DEMO LINK]
+🔗 **Website Link:** [ADD DEMO LINK]
 
 ## 🎯 Problem
 
