@@ -1,36 +1,122 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# InfoSauce
 
-## Getting Started
+### Your Personal AI Information Radar
 
-First, run the development server:
+🔗 **Live Demo:** [ADD DEMO LINK]
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🎯 Problem
+
+Information is fragmented across news websites, social media platforms and other online sources. Users need to switch between platforms, repeat searches, and compare conflicting claims to understand what is happening.
+This fragmentation creates several challenges:
+1. Information overload: Too much content competes for attention.
+2. Information gaps: Important developments may reach some people earlier than others.
+3. Missed updates: Relevant information can disappear inside fast-moving feeds.
+4. Misinformation: It is difficult to distinguish verified facts from rumors, opinions, or manipulated content.
+5. Fear of missing out (FOMO): Users feel pressure to monitor multiple platforms continuously.
+6. Time-consuming verification: Checking sources, dates, context, and competing claims requires significant effort.
+7. Algorithmic filter bubbles: Platform feeds may prioritize engagement rather than relevance, accuracy, or completeness.
+
+## 💡 Solution
+
+InfoSauce is an AI-powered personal information radar that brings discovery, monitoring, summarization, analysis, and verification into one intelligent hub. It can gather relevant information from multiple sources, remove duplicates, highlight meaningful updates, and present the results in a clear and organized format.
+Instead of searching across numerous platforms, users can use InfoSauce to:
+1. Discover the latest information in one place.
+2. Track topics continuously and receive relevant updates.
+3. Generate concise summaries of lengthy content.
+4. Compare how different sources report the same event.
+5. Trace important claims back to their original sources.
+6. Identify conflicting information and missing context.
+7. Reduce noise while avoiding important missed updates.
+
+## ✨ Main Features
+
+### 📰 Daily Sauce (Digital News Generator)
+
+Users select topics they are interested in, such as:
+
+- AI & Technology
+- K-pop & Entertainment
+- World & Local
+- Business & Lifestyle
+- Sports & Gaming
+
+InfoSauce generates a personalized daily information briefing with:
+
+- Daily Information 
+- Trending Topics
+- AI-generated summaries
+- Supporting sources and evidence
+
+### 📸 Fact Check
+
+Users can upload a screenshot, file or a URL for information they are unsure about. 
+InfoSauce:
+1. Analyzes the information
+2. Extracts the main claim
+3. Checks available evidence
+4. Uses AI to analyze the claim
+5. Provides a fact-check result
+6. Provides a confidence percentage
+7. Shows supporting sources and related information
+
+## 📸 Gonka (edit)
+
+
+## 🏗️ How It Works 
+
+```text
+User
+  ↓
+Frontend
+  ↓
+Backend / API
+  ↓
+Data Sources
+  ↓
+Gonka AI
+  ↓
+AI Analysis
+  ↓
+Frontend
+  ↓
+Result
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tech Stack (edit)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The source code is not included in this workspace, so the implementation stack cannot be verified yet. Add the confirmed technologies here before submission.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Getting Started (edit)
 
-## Learn More
+Source files and package scripts are not included in this workspace. Once the project is available locally, use its documented setup commands.
 
-To learn more about Next.js, take a look at the following resources:
+## 📂 Project Structure (edit)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The current workspace contains only:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```text
+.
+├── outputs/
+├── work/
+└── README.md
+```
 
-## Deploy on Vercel
+## 👥 Team
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Frontend — UI/UX and user interaction
+- Backend — API and Gonka integration
+- Data — Information sources, evidence and data processing
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🔮 Future Improvements
+
+- More social media integrations
+- More advanced misinformation detection
+- Personalized notifications
+- Multilingual analysis
+- More comprehensive source verification
+
+## 📌 Project Vision
+
+InfoSauce aims to reduce information overload and information gaps by helping people discover what matters, understand what happened, and verify what they see.
+
+> **InfoSauce — Know what you shouldn't miss.**
