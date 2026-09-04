@@ -243,7 +243,7 @@ URL: ${item.url || "Not provided"}
     }
 }
 
-async function askGonkaPrompt(prompt, model, maxTokens = 2048) {
+async function askGonkaPrompt(prompt, model, maxTokens = 1024) {
     const MAX_RETRIES = 1;
 
     for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
@@ -261,7 +261,7 @@ async function askGonkaPrompt(prompt, model, maxTokens = 2048) {
 
                     body: JSON.stringify({
                         model: model,
-                        max_tokens: 512,
+                        max_tokens: maxTokens,
                         messages: [
                             {
                                 role: "user",

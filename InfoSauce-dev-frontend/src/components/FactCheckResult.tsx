@@ -5,13 +5,20 @@ type FactCheckResultProps = {
   verdict: string;
   explanation: string;
   sources: string[];
+  verificationTrace?: {
+  model: string;
+  requestId: string;
+}[];
 };
+
+
 
 export default function FactCheckResult({
   accuracy,
   verdict,
   explanation,
   sources,
+  verificationTrace = [],
 }: FactCheckResultProps) {
   return (
     <section className="glassmorphism mt-12 rounded-3xl p-6 sm:p-8">
@@ -24,7 +31,12 @@ export default function FactCheckResult({
         <div className="flex">
           <strong className="relative flex w-32 shrink-0 text-muted-foreground">
             Truth Score
-            <span tabIndex={0} title="Truth Score shows how strongly the available evidence supports the claim." aria-label="Truth Score explanation" className="absolute left-[5.8rem] -top-1 cursor-help text-[10px] text-foreground/80">
+            <span
+              tabIndex={0}
+              title="Truth Score shows how strongly the available evidence supports the claim."
+              aria-label="Truth Score explanation"
+              className="absolute left-[5.8rem] -top-1 cursor-help text-[10px] text-foreground/80"
+            >
               ⓘ
             </span>
           </strong>
@@ -50,6 +62,34 @@ export default function FactCheckResult({
           <span>
             {verdict}
           </span>
+        </div>
+
+        <div className="border-t border-white/10 pt-4">
+          <strong className="mb-3 block text-muted-foreground">
+            Gonka Request IDs
+          </strong>
+
+          <div className="space-y-2">
+            {verificationTrace.length > 0 ? (
+              verificationTrace.map((trace) => (
+                <div
+                  key={`${trace.model}-${trace.requestId}`}
+                  className="rounded-xl bg-white/5 p-3 text-sm"
+                >
+                  <p className="break-all text-muted-foreground">
+                    <span className="font-medium text-foreground">
+                      {trace.model}:
+                    </span>{" "}
+                    {trace.requestId}
+                  </p>
+                </div>
+              ))
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                No Gonka verification request ID available.
+              </p>
+            )}
+          </div>
         </div>
       </div>
 

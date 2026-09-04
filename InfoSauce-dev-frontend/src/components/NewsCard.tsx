@@ -7,6 +7,7 @@ type NewsCardProps = {
   sources: number;
   href?: string;
   onReadMore?: () => void;
+
 };
 
 export default function NewsCard({

@@ -8,10 +8,9 @@ import NewsCard from "../../components/NewsCard";
 
 const categories = [
   "AI & Technology",
-  "K-Pop & Entertainment",
+  "Entertainment & K-Pop",
   "World & Local",
-  "Business & Lifestyle",
-  "Sports & Gaming",
+  "Business & Money",
 ];
 
 const news = [

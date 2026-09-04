@@ -17,6 +17,7 @@ export async function GET(request: Request) {
   const factCheck = searchParams.get("factCheck");
   const query = searchParams.get("query");
 
+  // Get a specific news item
   if (id) {
     const result = getNewsById(id);
 
@@ -30,6 +31,7 @@ export async function GET(request: Request) {
     return NextResponse.json(result);
   }
 
+  // Get fact-check details
   if (factCheck) {
     const result = getFactCheckDetails(factCheck);
 
@@ -43,16 +45,29 @@ export async function GET(request: Request) {
     return NextResponse.json(result);
   }
 
+  // Search real research sources
   if (query) {
     const result = await researchAll(query);
 
     return NextResponse.json(result);
   }
 
+  // Search real research sources by area
   if (area) {
-    return NextResponse.json(getNewsByArea(area));
+    const result = await researchAll(area);
+
+    const areaResults = result.news.filter(
+      (item) => item.area === area
+    );
+
+    return NextResponse.json({
+      area,
+      news: areaResults,
+      unavailablePlatforms: result.unavailablePlatforms,
+    });
   }
 
+  // Get news by topic from static data
   if (topic) {
     return NextResponse.json(getNewsByTopic(topic));
   }

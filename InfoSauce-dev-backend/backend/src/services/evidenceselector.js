@@ -60,7 +60,8 @@ function prepareCandidates(evidence) {
 
 function parseSelectionResponse(
     responseText,
-    candidateCount
+    candidateCount,
+    stopReason = null
 ) {
     if (
         typeof responseText !== "string" ||
@@ -71,8 +72,7 @@ function parseSelectionResponse(
         );
     }
 
-    let cleaned =
-        responseText.trim();
+    let cleaned = responseText.trim();
 
     // Remove model reasoning.
     cleaned = cleaned
@@ -81,16 +81,6 @@ function parseSelectionResponse(
             ""
         )
         .trim();
-
-    console.log(
-        ">>> CLEANED SELECTION RESPONSE:"
-    );
-
-    console.log(cleaned);
-
-    console.log(
-        ">>> END CLEANED RESPONSE"
-    );
 
     // Remove Markdown code fences.
     cleaned = cleaned
@@ -108,81 +98,229 @@ function parseSelectionResponse(
         )
         .trim();
 
+    console.log(
+        ">>> CLEANED SELECTION RESPONSE:"
+    );
+
+    console.log(cleaned);
+
+    console.log(
+        ">>> END CLEANED RESPONSE"
+    );
+
     // Find JSON object.
-    const start =
-        cleaned.indexOf("{");
+    const start = cleaned.indexOf("{");
+    const end = cleaned.lastIndexOf("}");
 
-    const end =
-        cleaned.lastIndexOf("}");
-
+    /*
+     * Normal case:
+     *
+     * {
+     *   "selectedEvidence": [5, 9]
+     * }
+     */
     if (
-        start === -1 ||
-        end === -1 ||
-        end <= start
+        start !== -1 &&
+        end !== -1 &&
+        end > start
     ) {
-        throw new Error(
-            "evidenceSelector.js: No valid JSON object found"
-        );
-    }
-
-    const jsonText =
-        cleaned.slice(
+        const jsonText = cleaned.slice(
             start,
             end + 1
         );
 
-    let parsed;
+        try {
+            const parsed = JSON.parse(jsonText);
 
-    try {
-        parsed =
-            JSON.parse(jsonText);
-    } catch (error) {
-        throw new Error(
-            "evidenceSelector.js: Model returned malformed JSON"
-        );
-    }
+            if (
+                !parsed ||
+                typeof parsed !== "object" ||
+                Array.isArray(parsed)
+            ) {
+                throw new Error(
+                    "evidenceSelector.js: Invalid selection object"
+                );
+            }
 
-    if (
-        !parsed ||
-        typeof parsed !== "object" ||
-        Array.isArray(parsed)
-    ) {
-        throw new Error(
-            "evidenceSelector.js: Invalid selection object"
-        );
-    }
+            if (
+                !Array.isArray(
+                    parsed.selectedEvidence
+                )
+            ) {
+                throw new Error(
+                    "evidenceSelector.js: selectedEvidence must be an array"
+                );
+            }
 
-    if (
-        !Array.isArray(
-            parsed.selectedEvidence
-        )
-    ) {
-        throw new Error(
-            "evidenceSelector.js: selectedEvidence must be an array"
-        );
+            const selectedEvidence =
+                parsed.selectedEvidence.filter(
+                    index =>
+                        Number.isInteger(index) &&
+                        index >= 0 &&
+                        index < candidateCount
+                );
+
+            return {
+                selectedEvidence: [
+                    ...new Set(
+                        selectedEvidence
+                    )
+                ]
+            };
+
+        } catch (error) {
+
+            /*
+             * JSON exists, but it is malformed.
+             *
+             * If the model was stopped because it hit
+             * max_tokens, try conservative recovery.
+             */
+            if (
+                stopReason === "max_tokens"
+            ) {
+                const recovered =
+                    recoverTruncatedSelection(
+                        cleaned,
+                        candidateCount
+                    );
+
+                if (recovered) {
+                    return recovered;
+                }
+            }
+
+            throw new Error(
+                "evidenceSelector.js: Model returned malformed JSON"
+            );
+        }
     }
 
     /*
-     * Keep only valid integer indexes that
-     * actually exist in the candidate set.
+     * No complete JSON object was found.
+     *
+     * Only attempt recovery when Gonka explicitly
+     * says the model hit max_tokens.
      */
-    const selectedEvidence =
-        parsed.selectedEvidence.filter(
-            index =>
-                Number.isInteger(index) &&
-                index >= 0 &&
-                index < candidateCount
-        );
+    if (
+        stopReason === "max_tokens"
+    ) {
+        const recovered =
+            recoverTruncatedSelection(
+                cleaned,
+                candidateCount
+            );
+
+        if (recovered) {
+            return recovered;
+        }
+    }
+
+    throw new Error(
+        "evidenceSelector.js: Model response did not contain a complete JSON object"
+    );
+}
+
+function recoverTruncatedSelection(
+    text,
+    candidateCount
+) {
+    if (
+        typeof text !== "string" ||
+        text.trim() === ""
+    ) {
+        return null;
+    }
 
     /*
-     * Remove duplicate indexes while
-     * preserving their original order.
+     * We ONLY recover the exact indexes that are
+     * completely present in the model's response.
+     *
+     * Example:
+     *
+     * {"selectedEvidence":[5,9
+     *
+     * becomes:
+     *
+     * {"selectedEvidence":[5,9]}
+     *
+     * because 5 and 9 are both complete integers.
      */
+
+    const match =
+        text.match(
+            /"selectedEvidence"\s*:\s*\[([^\]]*)/
+        );
+
+    if (!match) {
+        return null;
+    }
+
+    const contents = match[1].trim();
+
+    /*
+     * Empty array:
+     *
+     * {"selectedEvidence":[
+     *
+     * We can safely interpret this as an empty
+     * selection only if the model had actually
+     * started the selectedEvidence array.
+     */
+    if (contents === "") {
+        return {
+            selectedEvidence: []
+        };
+    }
+
+    if (contents.endsWith(",")) {
+        return null;
+    }
+
+    /*
+     * Split on commas.
+     */
+    const parts = contents
+        .split(",")
+        .map(part => part.trim());
+
+    const indexes = [];
+
+    for (const part of parts) {
+
+        /*
+         * Only accept a complete integer.
+         *
+         * Safe:
+         * 5
+         * 9
+         *
+         * Unsafe:
+         * 5.
+         * 5e
+         * -
+         * 1abc
+         */
+        if (!/^-?\d+$/.test(part)) {
+            return null;
+        }
+
+        const index = Number(part);
+
+        if (
+            !Number.isInteger(index) ||
+            index < 0 ||
+            index >= candidateCount
+        ) {
+            return null;
+        }
+
+        indexes.push(index);
+    }
+
     return {
         selectedEvidence: [
-            ...new Set(
-                selectedEvidence
-            )
+            ...new Set(indexes)
         ]
     };
 }
@@ -193,19 +331,16 @@ async function selectEvidenceForModel(
     model
 ) {
     const formattedCandidates =
-        candidates
-            .map(candidate => {
-                return `
+    candidates
+        .map(candidate => {
+            return `
 Evidence ${candidate.index}:
 Title: ${candidate.title || "Not provided"}
 Source: ${candidate.source || "Not provided"}
-Published: ${candidate.publishedAt || "Not provided"}
-Platform: ${candidate.platform || "Not provided"}
-URL: ${candidate.url || "Not provided"}
 Content: ${candidate.content || "Not provided"}
 `;
-            })
-            .join("\n");
+        })
+        .join("\n");
 
     const prompt = `
 You are a neutral evidence selection system for a factual claim verification system.
@@ -299,7 +434,8 @@ ${formattedCandidates}
     const selection =
         parseSelectionResponse(
             responseText,
-            candidates.length
+            candidates.length,
+            response.stop_reason
         );
 
     return {

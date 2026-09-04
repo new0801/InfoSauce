@@ -78,6 +78,11 @@ type TrendingItem = {
       error?: string;
     }>;
   };
+
+  verificationTrace?: Array<{
+    model?: string;
+    requestId?: string;
+  }>;
 };
 
 type NewsCardItem = {
@@ -85,20 +90,20 @@ type NewsCardItem = {
   title: string;
   summary: string;
   content: string;
-
   status:
     | "Supported"
     | "Partially Supported"
     | "False"
     | "Unverified";
-
   sources: number;
-
   href?: string;
   truthScore?: number | null;
-
   consensus?: TrendingItem["consensus"];
   verification?: TrendingItem["verification"];
+  verificationTrace?: {
+    model: string;
+    requestId: string;
+  }[];
   evidence?: TrendingItem["evidence"];
   news?: TrendingItem["news"];
   claim?: string;
@@ -173,6 +178,19 @@ export default function Home() {
 
         verification:
           item.verification,
+
+        verificationTrace:
+          item.verificationTrace
+            ?.filter(
+              (trace): trace is { model: string; requestId: string } =>
+                Boolean(trace.model && trace.requestId)
+            ) ??
+          item.verification?.results
+            ?.filter(
+              (result): result is { model: string; requestId: string } =>
+                Boolean(result.model && result.requestId)
+            ) ??
+          [],
 
         evidence:
           item.evidence || [],
@@ -310,10 +328,10 @@ export default function Home() {
     categoryFetched.current = true;
 
     fetchCategoryResults([
-      "World",
-      "Business",
-      "Science",
-      "Culture"
+      "AI & Technology",
+      "Entertainment & K-Pop",
+      "World & Local",
+      "Business & Money",
     ]);
   }, []);
   /*
@@ -604,6 +622,8 @@ export default function Home() {
                     ?.verdict ??
                   "UNCERTAIN"
                 }
+
+                verificationTrace={expandedNews.verificationTrace ?? []}
 
                 explanation={
                   expandedNews.verification

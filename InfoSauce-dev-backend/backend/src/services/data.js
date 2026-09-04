@@ -4,7 +4,9 @@ async function getNewsByTopic(topic) {
         typeof topic !== "string" ||
         topic.trim() === ""
     ) {
-        throw new Error("data.js: Topic must be a non-empty string");
+        throw new Error(
+            "data.js: Topic must be a non-empty string"
+        );
     }
 
     const url =
@@ -21,7 +23,16 @@ async function getNewsByTopic(topic) {
 
     const data = await response.json();
 
-    return data;
+    if (
+        !data ||
+        !Array.isArray(data.news)
+    ) {
+        throw new Error(
+            "data.js: Topic response does not contain a news array"
+        );
+    }
+
+    return data.news;
 }
 
 
@@ -31,7 +42,9 @@ async function getNewsByArea(area) {
         typeof area !== "string" ||
         area.trim() === ""
     ) {
-        throw new Error("data.js: Area must be a non-empty string");
+        throw new Error(
+            "data.js: Area must be a non-empty string"
+        );
     }
 
     const url =
@@ -48,8 +61,18 @@ async function getNewsByArea(area) {
 
     const data = await response.json();
 
-    return data;
+    if (
+        !data ||
+        !Array.isArray(data.news)
+    ) {
+        throw new Error(
+            "data.js: Area response does not contain a news array"
+        );
+    }
+
+    return data.news;
 }
+
 
 async function searchNews(query) {
     if (
@@ -57,7 +80,9 @@ async function searchNews(query) {
         typeof query !== "string" ||
         query.trim() === ""
     ) {
-        throw new Error("data.js: Query must be a non-empty string");
+        throw new Error(
+            "data.js: Query must be a non-empty string"
+        );
     }
 
     const url =
@@ -74,7 +99,10 @@ async function searchNews(query) {
 
     const data = await response.json();
 
-    if (!data || !Array.isArray(data.news)) {
+    if (
+        !data ||
+        !Array.isArray(data.news)
+    ) {
         throw new Error(
             "data.js: Research response does not contain a news array"
         );
@@ -82,6 +110,7 @@ async function searchNews(query) {
 
     return data.news;
 }
+
 
 module.exports = {
     getNewsByTopic,

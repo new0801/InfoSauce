@@ -1,9 +1,11 @@
 const { configuredModelCount } = require("./models");
 
+
 function calculateTruthScore(
     results,
     consensus
 ) {
+
     if (
         !Array.isArray(results) ||
         results.length === 0
@@ -12,6 +14,7 @@ function calculateTruthScore(
             "truthscore.js: No verification results provided"
         );
     }
+
 
     if (
         !consensus ||
@@ -22,6 +25,7 @@ function calculateTruthScore(
         );
     }
 
+
     if (
         !consensus.voteCounts ||
         typeof consensus.voteCounts !== "object"
@@ -30,6 +34,7 @@ function calculateTruthScore(
             "truthscore.js: Consensus vote counts are required"
         );
     }
+
 
     if (
         !Number.isInteger(
@@ -41,6 +46,7 @@ function calculateTruthScore(
             "truthscore.js: Invalid configured model count"
         );
     }
+
 
     // --------------------------------------------------
     // STEP 1: Convert each model verdict into a score
@@ -56,6 +62,7 @@ function calculateTruthScore(
 
     let totalScore = 0;
     let validScoreCount = 0;
+
 
     for (const item of results) {
 
@@ -73,11 +80,13 @@ function calculateTruthScore(
             continue;
         }
 
+
         const verdict =
             item.result.verdict;
 
         const confidence =
             item.result.confidence;
+
 
         if (verdict === "TRUE") {
 
@@ -95,9 +104,11 @@ function calculateTruthScore(
 
             // UNCERTAIN contributes zero,
             // but it is still a valid model vote.
+
             validScoreCount++;
         }
     }
+
 
     if (validScoreCount === 0) {
         throw new Error(
@@ -105,21 +116,21 @@ function calculateTruthScore(
         );
     }
 
+
     // --------------------------------------------------
     // STEP 2: Calculate average model score
     // --------------------------------------------------
     //
-    // IMPORTANT:
-    // Divide by successful verification results,
-    // not by configured models.
+    // Divide by the number of verification results.
     //
-    // This means a failed model does not secretly
-    // become an UNCERTAIN vote.
+    // A failed model does not produce a result and therefore
+    // is not treated as an UNCERTAIN vote.
     //
 
     const averageModelScore =
         totalScore /
         results.length;
+
 
     // --------------------------------------------------
     // STEP 3: Convert -1...+1 into 0...100
@@ -135,6 +146,7 @@ function calculateTruthScore(
             (averageModelScore + 1) /
             2
         ) * 100;
+
 
     // --------------------------------------------------
     // STEP 4: Calculate model coverage
@@ -154,6 +166,7 @@ function calculateTruthScore(
                 configuredModelCount,
             1
         );
+
 
     // --------------------------------------------------
     // STEP 5: Calculate reliability
@@ -176,11 +189,13 @@ function calculateTruthScore(
         0.5 +
         (0.5 * coverage);
 
+
     // --------------------------------------------------
     // STEP 6: Determine consensus adjustment
     // --------------------------------------------------
 
     let consensusFactor = 1;
+
 
     if (
         !consensus.consensusReached
@@ -194,30 +209,41 @@ function calculateTruthScore(
             consensus.voteCounts.FALSE >
             0;
 
+
         /*
          * Explicit TRUE/FALSE disagreement
          * receives the strongest penalty.
          */
+
         if (
             hasTrue &&
             hasFalse
         ) {
+
             consensusFactor = 0.25;
         }
+
 
         /*
          * Other forms of no-consensus,
          * such as TRUE + UNCERTAIN,
          * receive a less severe penalty.
          */
+
         else {
+
             consensusFactor = 0.5;
         }
     }
 
+
     // --------------------------------------------------
-    // STEP 7: Shrink score toward 50
+    // STEP 7: Calculate preliminary Truth Score
     // --------------------------------------------------
+    //
+    // The score is normally shrunk toward 50 based
+    // on reliability and consensus.
+    //
 
     let truthScore =
         50 +
@@ -227,30 +253,78 @@ function calculateTruthScore(
         reliability *
         consensusFactor;
 
-    // --------------------------------------------------
-    // STEP 8: Clamp score between 0 and 100
-    // --------------------------------------------------
 
-    truthScore =
-        Math.max(
-            0,
-            Math.min(
-                100,
-                truthScore
-            )
-        );
+    // --------------------------------------------------
+    // STEP 8: Enforce Truth Score verdict boundaries
+    // --------------------------------------------------
+    //
+    // IMPORTANT INVARIANT:
+    //
+    // TRUE      = 51–100
+    // UNCERTAIN = exactly 50
+    // FALSE     = 0–49
+    //
+    // Therefore UNCERTAIN must NEVER produce a score
+    // such as 39, 41, 59, etc.
+    //
+
+    if (
+        consensus.verdict === "UNCERTAIN"
+    ) {
+
+        truthScore = 50;
+    }
+
+    else if (
+        consensus.verdict === "TRUE"
+    ) {
+
+        // TRUE must remain in the 51–100 range.
+
+        truthScore =
+            Math.max(
+                51,
+                Math.min(
+                    100,
+                    truthScore
+                )
+            );
+    }
+
+    else if (
+        consensus.verdict === "FALSE"
+    ) {
+
+        // FALSE must remain in the 0–49 range.
+
+        truthScore =
+            Math.max(
+                0,
+                Math.min(
+                    49,
+                    truthScore
+                )
+            );
+    }
+
+
+    // --------------------------------------------------
+    // STEP 9: Round final Truth Score
+    // --------------------------------------------------
 
     truthScore =
         Number(
             truthScore.toFixed(2)
         );
 
+
     // --------------------------------------------------
-    // STEP 9: Calculate average confidence
+    // STEP 10: Calculate average confidence
     // --------------------------------------------------
 
     let totalConfidence = 0;
     let confidenceCount = 0;
+
 
     for (const item of results) {
 
@@ -263,12 +337,14 @@ function calculateTruthScore(
                 item.result.confidence
             )
         ) {
+
             totalConfidence +=
                 item.result.confidence;
 
             confidenceCount++;
         }
     }
+
 
     const averageConfidence =
         confidenceCount > 0
@@ -280,11 +356,13 @@ function calculateTruthScore(
             )
             : 0;
 
+
     // --------------------------------------------------
     // Return scoring information
     // --------------------------------------------------
 
     return {
+
         truthScore,
 
         averageConfidence,
@@ -308,7 +386,7 @@ function calculateTruthScore(
     };
 }
 
+
 module.exports = {
     calculateTruthScore
 };
-
