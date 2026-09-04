@@ -188,7 +188,7 @@ export default function Home() {
   /*
    * Fetch category results from the backend.
    */
-  const fetchCategoryResults = async (areas) => {
+  const fetchCategoryResults = async (areas: string[]) => {
     try {
       const response = await fetch(
         `${BACKEND_URL}/api/category`,
