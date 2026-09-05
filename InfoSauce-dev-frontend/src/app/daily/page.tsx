@@ -211,7 +211,7 @@ export default function DailyPage() {
       );
 
       const response = await fetch(
-        "http://localhost:3000/api/search",
+        "/api/search",
         {
           method: "POST",
           headers: {

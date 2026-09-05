@@ -1,28 +1,38 @@
 {
     "services": {
         "frontend": {
-            "root": ".",
+            "root": "InfoSauce-dev-frontend",
             "framework": "nextjs"
         },
         "backend": {
-            "root": "backend",
+            "root": "InfoSauce-dev-backend/backend",
             "framework": "express",
             "runtime": "node",
-            "entrypoint": "src/server.js"
+            "entrypoint": "src/app.js",
+            "bindings": [
+                {
+                    "type": "service",
+                    "service": "data",
+                    "format": "url",
+                    "env": "DATA_API_URL"
+                }
+            ]
+        },
+        "data": {
+            "root": "InfoSauce-dev-data",
+            "framework": "nextjs"
         }
     },
     "rewrites": [
         {
-            "source": "/api/backend(/.*)?",
+            "source": "/api/(.*)",
             "destination": {
-                "type": "service",
                 "service": "backend"
             }
         },
         {
             "source": "/(.*)",
             "destination": {
-                "type": "service",
                 "service": "frontend"
             }
         }

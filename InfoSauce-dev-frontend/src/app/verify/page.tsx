@@ -8,7 +8,7 @@ import UploadBox from "../../components/UploadBox";
 import ScreenshotPreview from "../../components/ScreenshotPreview";
 import FactCheckResult from "../../components/FactCheckResult";
 
-const BACKEND_URL = "http://localhost:3000";
+const BACKEND_URL = "";
 const SOCIAL_MEDIA_HOSTS = [
   "reddit.com", "x.com", "twitter.com", "instagram.com", "facebook.com",
   "tiktok.com", "youtube.com", "youtu.be", "bilibili.com", "xiaohongshu.com", "xhslink.com",

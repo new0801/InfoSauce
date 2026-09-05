@@ -6,7 +6,7 @@ import FactCheckResult from "../components/FactCheckResult";
 import Navbar from "../components/Navbar";
 import NewsCard from "../components/NewsCard";
 
-const BACKEND_URL = "http://localhost:3000";
+const BACKEND_URL = "";
 const CARD_SUMMARY_MAX_LENGTH = 240;
 const EVIDENCE_PREVIEW_MAX_LENGTH = 400;
 
