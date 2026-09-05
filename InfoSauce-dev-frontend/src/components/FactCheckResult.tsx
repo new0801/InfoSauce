@@ -1,8 +1,8 @@
 import SourceList from "./SourceList";
+import { getVerdictFromTruthScore } from "../lib/articleData";
 
 type FactCheckResultProps = {
   accuracy: number;
-  verdict: string;
   explanation: string;
   sources: string[];
   verificationTrace?: {
@@ -15,7 +15,6 @@ type FactCheckResultProps = {
 
 export default function FactCheckResult({
   accuracy,
-  verdict,
   explanation,
   sources,
   verificationTrace = [],
@@ -60,7 +59,7 @@ export default function FactCheckResult({
           </span>
 
           <span>
-            {verdict}
+            {getVerdictFromTruthScore(accuracy)}
           </span>
         </div>
 

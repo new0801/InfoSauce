@@ -7,6 +7,7 @@ import Navbar from "../../components/Navbar";
 import UploadBox from "../../components/UploadBox";
 import ScreenshotPreview from "../../components/ScreenshotPreview";
 import FactCheckResult from "../../components/FactCheckResult";
+import { getVerdictFromTruthScore } from "../../lib/articleData";
 
 const BACKEND_URL = "https://infosauce-backend.onrender.com";
 const SOCIAL_MEDIA_HOSTS = [
@@ -33,12 +34,6 @@ type VerifyResult = {
   };
   evidence: string[];
 };
-
-function getVerdictFromTruthScore(score: number) {
-  if (score <= 49) return "FALSE";
-  if (score === 50) return "UNCERTAIN";
-  return "TRUE";
-}
 
 export default function VerifyPage() {
   const [image, setImage] = useState<File | null>(null);
@@ -290,7 +285,6 @@ body = { caseId: "VERIFY001" };
           <>
             <FactCheckResult
               accuracy={roundedTruthScore}
-              verdict={getVerdictFromTruthScore(roundedTruthScore)}
               verificationTrace={result.verification.results.map((item) => ({
                 model: item.model,
                 requestId: item.requestId,

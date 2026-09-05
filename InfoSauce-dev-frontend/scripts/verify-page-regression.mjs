@@ -10,10 +10,7 @@ assert.match(source, /sources\?: string\[\]/);
 assert.match(source, /verificationTrace=\{result\.verification\.results\.map/);
 assert.match(source, /sources=\{result\.sources \?\? \[\]\}/);
 assert.match(source, /accuracy=\{roundedTruthScore\}/);
-assert.match(
-  source,
-  /verdict=\{getVerdictFromTruthScore\(roundedTruthScore\)\}/
-);
+assert.match(source, /getVerdictFromTruthScore.*articleData/);
 assert.doesNotMatch(source, /verificationTrace=\{result\.verificationTrace/);
 assert.doesNotMatch(source, /verdict=\{result\.consensus\.verdict\}/);
 

@@ -1,10 +1,12 @@
+import type { Verdict } from "../lib/articleData";
+
 type NewsCardProps = {
   category: string;
   source?: string;
   title: string;
   summary: string;
   content: string;
-  status: "Supported" | "Partially Supported" | "False" | "Unverified";
+  status: Verdict;
   sources: number;
   href?: string;
   onReadMore?: () => void;
@@ -48,9 +50,9 @@ export default function NewsCard({
       {/* Verification + Sources */}
       <div className="flex items-center justify-between text-sm text-muted-foreground">
         <span>
-          {status === "Supported" && "🟢"}
-          {status === "Partially Supported" && "🟡"}
-          {status === "Unverified" && "🔴"}{" "}
+          {status === "TRUE" && "🟢"}
+          {status === "UNCERTAIN" && "🟡"}
+          {status === "FALSE" && "🔴"}{" "}
           {status}
         </span>
 

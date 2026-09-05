@@ -1,8 +1,17 @@
 import assert from "node:assert/strict";
 import {
+  getVerdictFromTruthScore,
   normalizeDailyResult,
   normalizeTrendingItem,
 } from "../src/lib/articleData.ts";
+
+assert.equal(getVerdictFromTruthScore(0), "FALSE");
+assert.equal(getVerdictFromTruthScore(32), "FALSE");
+assert.equal(getVerdictFromTruthScore(49), "FALSE");
+assert.equal(getVerdictFromTruthScore(50), "UNCERTAIN");
+assert.equal(getVerdictFromTruthScore(51), "TRUE");
+assert.equal(getVerdictFromTruthScore(90), "TRUE");
+assert.equal(getVerdictFromTruthScore(100), "TRUE");
 
 const requestIds = [
   {

@@ -7,6 +7,7 @@ import Navbar from "../../components/Navbar";
 import NewsCard from "../../components/NewsCard";
 import {
   type DailyResult,
+  getVerdictFromTruthScore,
   normalizeDailyResult,
 } from "../../lib/articleData";
 
@@ -16,20 +17,6 @@ const categories = [
   "World & Local",
   "Business & Money",
 ];
-
-function convertVerdictToStatus(
-  verdict: DailyResult["verdict"]
-): "Supported" | "Partially Supported" | "False" | "Unverified" {
-  if (verdict === "TRUE") {
-    return "Supported";
-  }
-
-  if (verdict === "FALSE") {
-    return "False";
-  }
-
-  return "Unverified";
-}
 
 function getSummary(result: DailyResult) {
   if (result.content) {
@@ -64,20 +51,6 @@ function getExplanation(result: DailyResult) {
   }
 
   return result.reasoning.join(" ");
-}
-
-function getVerdictLabel(
-  verdict: DailyResult["verdict"]
-) {
-  if (verdict === "TRUE") {
-    return "Mostly Accurate";
-  }
-
-  if (verdict === "FALSE") {
-    return "False";
-  }
-
-  return "Unverified";
 }
 
 export default function DailyPage() {
@@ -456,10 +429,7 @@ export default function DailyPage() {
           results.length > 0 && (
             <div className="space-y-6">
               {results.map((item, index) => {
-                const status =
-                  convertVerdictToStatus(
-                    item.verdict
-                  );
+                const status = getVerdictFromTruthScore(item.truthScore);
 
                 return (
                   <article
@@ -588,13 +558,12 @@ export default function DailyPage() {
               )}
 
               <div className="mt-10 flex flex-col gap-3 border-t border-white/15 pt-5 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-                <span>{convertVerdictToStatus(expandedResult.verdict)}</span>
+                <span>{getVerdictFromTruthScore(expandedResult.truthScore)}</span>
                 <span>Evidence sources: {expandedResult.evidence.length}</span>
               </div>
 
               <FactCheckResult
                 accuracy={Math.round(expandedResult.truthScore)}
-                verdict={getVerdictLabel(expandedResult.verdict)}
                 verificationTrace={expandedResult.requestIds}
                 explanation={getExplanation(expandedResult)}
                 sources={expandedResult.evidence.map(

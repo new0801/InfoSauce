@@ -5,7 +5,11 @@ import GlowCursor from "../components/GlowCursor";
 import FactCheckResult from "../components/FactCheckResult";
 import Navbar from "../components/Navbar";
 import NewsCard from "../components/NewsCard";
-import { normalizeTrendingItem } from "../lib/articleData";
+import {
+  getVerdictFromTruthScore,
+  normalizeTrendingItem,
+  type Verdict,
+} from "../lib/articleData";
 
 const BACKEND_URL = "https://infosauce-backend.onrender.com";
 const CARD_SUMMARY_MAX_LENGTH = 240;
@@ -126,11 +130,7 @@ type NewsCardItem = {
   title: string;
   summary: string;
   content: string;
-  status:
-    | "Supported"
-    | "Partially Supported"
-    | "False"
-    | "Unverified";
+  status: Verdict;
   sources: number;
   href?: string;
   truthScore?: number | null;
@@ -164,17 +164,7 @@ export default function Home() {
   const trendingResults: NewsCardItem[] =
     categoryResults.map((item) => {
       const normalized = normalizeTrendingItem(item);
-      const verdict = normalized.verdict;
-
-      let status: NewsCardItem["status"];
-
-      if (verdict === "TRUE") {
-        status = "Supported";
-      } else if (verdict === "FALSE") {
-        status = "False";
-      } else {
-        status = "Unverified";
-      }
+      const status = getVerdictFromTruthScore(normalized.truthScore);
 
       return {
         category:
@@ -645,12 +635,6 @@ export default function Home() {
                         expandedNews.truthScore
                       )
                     : 0
-                }
-
-                verdict={
-                  expandedNews.consensus
-                    ?.verdict ??
-                  "UNCERTAIN"
                 }
 
                 verificationTrace={expandedNews.verificationTrace ?? []}

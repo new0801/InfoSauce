@@ -1,5 +1,13 @@
 export type Verdict = "TRUE" | "FALSE" | "UNCERTAIN";
 
+export function getVerdictFromTruthScore(score: number): Verdict {
+  const roundedScore = Math.round(score);
+
+  if (roundedScore <= 49) return "FALSE";
+  if (roundedScore === 50) return "UNCERTAIN";
+  return "TRUE";
+}
+
 export type EvidenceItem = {
   evidenceIndex?: number;
   title?: string | null;
