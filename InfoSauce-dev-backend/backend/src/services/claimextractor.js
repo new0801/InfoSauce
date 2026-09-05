@@ -1,4 +1,4 @@
-const { askGonkaPrompt } = require("./gonka");
+const { askGonkaPrompt, askGonkaMessageContent } = require("./gonka");
 const { parseClaimResponse } = require("./claimparser");
 const { models } = require("./models")
 require("dotenv").config();;
@@ -86,6 +86,29 @@ ${text.trim()}
     return parseClaimResponse(textContent);
 }
 
+async function extractClaimFromImage(image) {
+    if (!image || typeof image !== "object" || typeof image.data !== "string") {
+        throw new Error("claimExtractor.js: Image data is required");
+    }
+
+    const prompt = `Analyze this screenshot of a social-media post or news item. Extract the clearest factual claim that can be verified. Ignore opinions, questions, jokes, and calls to action. Return ONLY valid JSON in this exact format: {"hasClaim":true,"claim":"..."}. If there is no factual claim, return {"hasClaim":false,"claim":null}.`;
+    const response = await askGonkaMessageContent([
+        { type: "image", source: { type: "base64", media_type: image.mediaType, data: image.data } },
+        { type: "text", text: prompt }
+    ], models[0]);
+    const textContent = response?.content
+        ?.filter(item => item && item.type === "text" && typeof item.text === "string")
+        .map(item => item.text)
+        .join("");
+
+    if (!textContent) {
+        throw new Error("claimExtractor.js: Gonka returned no text for image extraction");
+    }
+
+    return parseClaimResponse(textContent);
+}
+
 module.exports = {
-    extractClaim
+    extractClaim,
+    extractClaimFromImage
 };

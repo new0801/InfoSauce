@@ -6,8 +6,12 @@ const {
     getNewsByArea,
     searchNews
 } = require("../services/data");const { prepareAiInput } = require("../services/prepareAIInput");
-const { extractClaim } = require("../services/claimextractor");
+const { extractClaim, extractClaimFromImage } = require("../services/claimextractor");
 const { retrieveEvidence } = require("../services/evidence");
+const {
+    extractUrlContent,
+    detectPlatform
+} = require("../services/urlextractor");
 
 const router = express.Router();
 
@@ -31,6 +35,38 @@ const MAX_NEWS_CANDIDATES_PER_AREA = Math.min(
 );
 
 const MAX_SELECTED_EVIDENCE = 5;
+const SAUCE_VERIFY_MAX_VERIFICATION_ATTEMPTS = 3;
+
+async function verifySauceClaimWithRetry(aiInput) {
+    let lastError;
+
+    for (
+        let attempt = 0;
+        attempt < SAUCE_VERIFY_MAX_VERIFICATION_ATTEMPTS;
+        attempt++
+    ) {
+        try {
+            return await verifyClaim(aiInput);
+        } catch (error) {
+            lastError = error;
+
+            if (
+                error.code !== "ALL_MODELS_FAILED" ||
+                attempt === SAUCE_VERIFY_MAX_VERIFICATION_ATTEMPTS - 1
+            ) {
+                throw error;
+            }
+
+            const delayMs = 2000 * (attempt + 1);
+            console.warn(
+                `Sauce Verify models unavailable; retrying in ${delayMs}ms.`
+            );
+            await new Promise(resolve => setTimeout(resolve, delayMs));
+        }
+    }
+
+    throw lastError;
+}
 
 
 // ======================================================
@@ -2052,23 +2088,22 @@ function rankDailySauceEvidence(
 router.post(
     "/verify",
     async (req, res) => {
+
         try {
+
+            /*
+             * ==========================================
+             * 1. VALIDATE REQUEST
+             * ==========================================
+             */
+
             const input =
                 req.body;
 
 
             if (
                 !input ||
-                typeof input !== "object" ||
-                !input.claim ||
-                typeof input.claim !== "string" ||
-                input.claim.trim() === "" ||
-                !Array.isArray(
-                    input.sources
-                ) ||
-                !Array.isArray(
-                    input.evidence
-                )
+                typeof input !== "object"
             ) {
                 return res
                     .status(400)
@@ -2078,23 +2113,347 @@ router.post(
                             code:
                                 "INVALID_INPUT",
                             message:
-                                "A valid claim, sources array, and evidence array are required"
+                                "Request body is required"
                         }
                     });
             }
 
 
-            const verification =
-                await verifyClaim(
-                    input
+            const type =
+                input.type;
+
+
+            const content =
+                input.content;
+
+
+            /*
+             * Supported input types.
+             */
+
+            if (
+                type !== "text" &&
+                type !== "url" &&
+                type !== "image"
+            ) {
+                return res
+                    .status(400)
+                    .json({
+                        success: false,
+                        error: {
+                            code:
+                                "UNSUPPORTED_INPUT_TYPE",
+                            message:
+                                "Supported input types are text, url, and image"
+                        }
+                    });
+            }
+
+
+            if (
+                type !== "image" &&
+                typeof content !== "string" ||
+                type !== "image" &&
+                content.trim() === ""
+            ) {
+                return res
+                    .status(400)
+                    .json({
+                        success: false,
+                        error: {
+                            code:
+                                "INVALID_CONTENT",
+                            message:
+                                "Content must be a non-empty string"
+                        }
+                    });
+            }
+
+
+            const submittedContent =
+                type === "image"
+                    ? ""
+                    : content.trim();
+
+            if (type === "url") {
+                let submittedUrl;
+
+                try {
+                    submittedUrl = new URL(submittedContent);
+                } catch {
+                    return res.status(400).json({
+                        success: false,
+                        error: { code: "INVALID_URL", message: "Enter a valid social media post URL." }
+                    });
+                }
+
+                if (!detectPlatform(submittedUrl)) {
+                    return res.status(400).json({
+                        success: false,
+                        error: { code: "UNSUPPORTED_URL", message: "Sauce Verify accepts social media post URLs only." }
+                    });
+                }
+            }
+
+
+            /*
+             * ==========================================
+             * 2. CONVERT INPUT INTO ANALYZABLE TEXT
+             * ==========================================
+             *
+             * TEXT:
+             *     Use the submitted text directly.
+             *
+             * URL:
+             *     Fetch webpage and extract readable text.
+             */
+
+            let analyzableText;
+
+            let sourceTitle =
+                "User Submitted Content";
+
+            let sourceUrl =
+                null;
+
+            let publishedAt =
+                null;
+
+            let extractedClaim;
+            const suppliedClaim =
+                type === "text" &&
+                input.skipClaimExtraction === true &&
+                typeof input.claim === "string" &&
+                input.claim.trim() !== ""
+                    ? {
+                        hasClaim: true,
+                        claim: input.claim.trim()
+                    }
+                    : null;
+
+
+            if (type === "image") {
+                const image = input.image;
+                const allowedMediaTypes = new Set([
+                    "image/jpeg",
+                    "image/png",
+                    "image/webp",
+                    "image/gif"
+                ]);
+
+                if (
+                    !image ||
+                    !allowedMediaTypes.has(image.mediaType) ||
+                    typeof image.data !== "string" ||
+                    !/^[A-Za-z0-9+/]+={0,2}$/.test(image.data) ||
+                    Buffer.byteLength(image.data, "base64") > 5 * 1024 * 1024
+                ) {
+                    return res.status(400).json({
+                        success: false,
+                        error: {
+                            code: "INVALID_IMAGE",
+                            message: "Upload a PNG, JPEG, WebP, or GIF screenshot smaller than 5 MB."
+                        }
+                    });
+                }
+
+                sourceTitle = "Uploaded social-media screenshot";
+                extractedClaim = await extractClaimFromImage(image);
+                analyzableText = extractedClaim?.claim || "Screenshot submitted for claim extraction";
+            } else if (
+                type === "text"
+            ) {
+
+                analyzableText =
+                    submittedContent;
+
+            } else {
+
+                const extracted =
+                    await extractUrlContent(
+                        submittedContent
+                    );
+
+
+                analyzableText =
+                    extracted.content;
+
+
+                sourceTitle =
+                    extracted.title ||
+                    "User Submitted Webpage";
+
+
+                sourceUrl =
+                    extracted.url;
+
+
+                publishedAt =
+                    extracted.publishedTime ||
+                    null;
+            }
+
+
+            /*
+             * ==========================================
+             * 3. EXTRACT FACTUAL CLAIM
+             * ==========================================
+             */
+
+            const claim =
+                extractedClaim ||
+                suppliedClaim ||
+                await extractClaim(analyzableText);
+
+
+            if (
+                !claim ||
+                !claim.hasClaim ||
+                typeof claim.claim !== "string" ||
+                claim.claim.trim() === ""
+            ) {
+                return res
+                    .status(422)
+                    .json({
+                        success: false,
+                        error: {
+                            code:
+                                "CLAIM_EXTRACTION_FAILED",
+                            message:
+                                "Could not extract a factual claim from the submitted content"
+                        }
+                    });
+            }
+
+
+            const cleanClaim =
+                claim.claim.trim();
+
+
+            /*
+             * ==========================================
+             * 4. RETRIEVE EVIDENCE
+             * ==========================================
+             */
+
+            const evidenceResult =
+                await retrieveEvidence(
+                    cleanClaim
                 );
 
+
+            /*
+             * ==========================================
+             * 5. RANK EVIDENCE
+             * ==========================================
+             */
+
+            const rankedEvidence =
+                rankDailySauceEvidence(
+                    cleanClaim,
+                    evidenceResult.evidence
+                );
+
+
+            /*
+             * ==========================================
+             * 6. SELECT TOP EVIDENCE
+             * ==========================================
+             */
+
+            const selectedEvidence =
+                rankedEvidence
+                    .slice(
+                        0,
+                        MAX_SELECTED_EVIDENCE
+                    )
+                    .map(
+                        item =>
+                            item.item ||
+                            item
+                    );
+
+
+            /*
+             * ==========================================
+             * 7. CREATE NEWS ITEM
+             * ==========================================
+             *
+             * prepareAiInput() expects a newsItem.
+             *
+             * Sauce Verify does not naturally have one,
+             * so we construct one from the submitted
+             * content.
+             */
+
+            const newsItem = {
+
+                id: null,
+
+                title:
+                    sourceTitle,
+
+                content:
+                    analyzableText,
+
+                url:
+                    sourceUrl,
+
+                publishedAt:
+                    publishedAt
+            };
+
+
+            /*
+             * ==========================================
+             * 8. PREPARE AI INPUT
+             * ==========================================
+             */
+
+            const aiInput =
+                prepareAiInput(
+                    newsItem,
+                    selectedEvidence
+                );
+
+
+            /*
+             * Use the actual extracted claim.
+             */
+
+            aiInput.claim =
+                cleanClaim;
+
+
+            /*
+             * ==========================================
+             * 9. GONKA VERIFICATION
+             * ==========================================
+             */
+
+            const verification =
+                await verifySauceClaimWithRetry(
+                    aiInput
+                );
+
+
+            /*
+             * ==========================================
+             * 10. CONSENSUS
+             * ==========================================
+             */
 
             const consensus =
                 calculateConsensus(
                     verification
                 );
 
+
+            /*
+             * ==========================================
+             * 11. TRUTH SCORE
+             * ==========================================
+             */
 
             const truthScore =
                 calculateTruthScore(
@@ -2103,24 +2462,63 @@ router.post(
                 );
 
 
+            /*
+             * ==========================================
+             * 12. RETURN RESULT
+             * ==========================================
+             */
+
             return res
                 .status(200)
                 .json({
+
                     success: true,
+
+                    input: {
+                        type,
+                        content:
+                            type === "image" ? "[screenshot]" : submittedContent
+                    },
+
+                    title:
+                        sourceTitle,
+
+                    sourceUrl,
+
+                    publishedAt,
+
                     claim:
-                        input.claim.trim(),
+                        cleanClaim,
+
                     verification,
+
+                    verificationTrace: verification.results.map(item => ({
+                        model: item.model,
+                        requestId: item.requestId
+                    })),
+
                     consensus,
-                    truthScore
+
+                    truthScore,
+
+                    evidence:
+                        selectedEvidence
                 });
+
 
         } catch (error) {
 
             console.error(
-                "Verification failed:",
+                "Sauce Verify failed:",
                 error
             );
 
+
+            /*
+             * ==========================================
+             * ALL MODELS FAILED
+             * ==========================================
+             */
 
             if (
                 error.code ===
@@ -2139,6 +2537,65 @@ router.post(
                     });
             }
 
+
+            /*
+             * ==========================================
+             * URL EXTRACTION FAILURE
+             * ==========================================
+             */
+
+            if (
+                typeof error.message ===
+                    "string" &&
+                error.message.startsWith(
+                    "urlExtractor.js:"
+                )
+            ) {
+                return res
+                    .status(422)
+                    .json({
+                        success: false,
+                        error: {
+                            code:
+                                "URL_EXTRACTION_FAILED",
+                            message:
+                                "Could not extract readable content from the submitted URL"
+                        }
+                    });
+            }
+
+
+            /*
+             * ==========================================
+             * CLAIM EXTRACTION FAILURE
+             * ==========================================
+             */
+
+            if (
+                typeof error.message ===
+                    "string" &&
+                error.message.toLowerCase()
+                    .includes("claim")
+            ) {
+                return res
+                    .status(422)
+                    .json({
+                        success: false,
+                        error: {
+                            code:
+                                "CLAIM_EXTRACTION_FAILED",
+                            message:
+                                "Could not extract a factual claim from the submitted content"
+                        }
+                    });
+            }
+
+
+            /*
+             * ==========================================
+             * GENERAL ERROR
+             * ==========================================
+             */
 
             return res
                 .status(500)

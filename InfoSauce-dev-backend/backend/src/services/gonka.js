@@ -244,6 +244,10 @@ URL: ${item.url || "Not provided"}
 }
 
 async function askGonkaPrompt(prompt, model, maxTokens = 1024) {
+    return askGonkaMessageContent(prompt, model, maxTokens);
+}
+
+async function askGonkaMessageContent(content, model, maxTokens = 1024) {
     const MAX_RETRIES = 1;
 
     for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
@@ -265,7 +269,7 @@ async function askGonkaPrompt(prompt, model, maxTokens = 1024) {
                         messages: [
                             {
                                 role: "user",
-                                content: prompt
+                                content
                             }
                         ]
                     })
@@ -308,5 +312,6 @@ async function askGonkaPrompt(prompt, model, maxTokens = 1024) {
 
 module.exports = {
     askGonka,
-    askGonkaPrompt
+    askGonkaPrompt,
+    askGonkaMessageContent
 };
