@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 
 const app = express();
 
@@ -25,8 +26,12 @@ app.use(
     })
 );
 
-const verifyRouter = require("./routes/verify");
-const { createDemoRouter } = require("./routes/demo");
+const verifyRouter = require(
+    path.join(__dirname, "routes", "verify.js")
+);
+const { createDemoRouter } = require(
+    path.join(__dirname, "routes", "demo.js")
+);
 
 app.use("/api", verifyRouter);
 app.use("/api/demo", createDemoRouter());

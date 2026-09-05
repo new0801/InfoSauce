@@ -31,6 +31,13 @@ export default function Navbar() {
         </a>
 
         <a
+          href="/trending"
+          className={linkClass("/trending")}
+        >
+          Trending
+        </a>
+
+        <a
           href="/verify"
           className={linkClass("/verify")}
         >

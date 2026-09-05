@@ -1,0 +1,32 @@
+{
+  "services": {
+    "frontend": {
+      "root": "InfoSauce-dev-frontend",
+      "framework": "nextjs"
+    },
+    "backend": {
+      "root": "InfoSauce-dev-backend/backend",
+      "framework": "express",
+      "entrypoint": "src/app.js",
+      "functions": {
+        "src/app.js": {
+          "includeFiles": "src/{routes,services,data}/**/*.js"
+        }
+      }
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": {
+        "service": "backend"
+      }
+    },
+    {
+      "source": "/(.*)",
+      "destination": {
+        "service": "frontend"
+      }
+    }
+  ]
+}
