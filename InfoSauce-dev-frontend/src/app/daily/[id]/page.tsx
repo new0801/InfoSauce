@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import Link from "next/link";
 import DemoModeNotice from "../../../components/DemoModeNotice";
 import FactCheckResult from "../../../components/FactCheckResult";
 import GlowCursor from "../../../components/GlowCursor";
@@ -45,7 +46,7 @@ export default function DailyDetailPage() {
     <GlowCursor className="relative min-h-screen bg-background text-foreground" color="#67E8F9" secondaryColor="#A78BFA">
       <Navbar />
       <main className="relative z-10 mx-auto max-w-4xl px-6 py-16">
-        <a href="/daily" className="text-sm underline underline-offset-4">← Daily Sauce</a>
+        <Link href="/daily" className="text-sm underline underline-offset-4">← Daily Sauce</Link>
         {error && !article ? <p className="mt-8 text-rose-200">{error}</p> : null}
         {article && (
           <>

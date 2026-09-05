@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import DemoModeNotice from "../../components/DemoModeNotice";
 import GlowCursor from "../../components/GlowCursor";
 import Navbar from "../../components/Navbar";
@@ -31,9 +32,9 @@ export default function TrendingPage() {
               <h2 className="mt-3 text-2xl">{topic.title}</h2>
               <p className="mt-4 leading-7 text-muted-foreground">{topic.summary}</p>
               {topic.relatedArticleId && (
-                <a className="mt-5 inline-block text-sm underline underline-offset-4" href={`/daily/${topic.relatedArticleId}`}>
+                <Link className="mt-5 inline-block text-sm underline underline-offset-4" href={`/daily/${topic.relatedArticleId}`}>
                   Explore prepared article →
-                </a>
+                </Link>
               )}
             </article>
           ))}

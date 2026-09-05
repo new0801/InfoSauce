@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import DemoModeNotice from "../components/DemoModeNotice";
 import GlowCursor from "../components/GlowCursor";
 import Navbar from "../components/Navbar";
@@ -28,9 +29,9 @@ export default function Home() {
           </p>
           <DemoModeNotice />
           <div className="mt-8 flex flex-wrap gap-3">
-            <a className="glassmorphism rounded-full px-6 py-3 text-sm hover:scale-[1.03]" href="/trending">Trending</a>
-            <a className="glassmorphism rounded-full px-6 py-3 text-sm hover:scale-[1.03]" href="/daily">Daily Sauce</a>
-            <a className="glassmorphism rounded-full px-6 py-3 text-sm hover:scale-[1.03]" href="/verify">Sauce Verify</a>
+            <Link className="glassmorphism rounded-full px-6 py-3 text-sm hover:scale-[1.03]" href="/trending">Trending</Link>
+            <Link className="glassmorphism rounded-full px-6 py-3 text-sm hover:scale-[1.03]" href="/daily">Daily Sauce</Link>
+            <Link className="glassmorphism rounded-full px-6 py-3 text-sm hover:scale-[1.03]" href="/verify">Sauce Verify</Link>
           </div>
         </section>
 
@@ -40,7 +41,7 @@ export default function Home() {
               <h2 className="text-3xl">Trending</h2>
               <p className="mt-2 text-muted-foreground">Prepared topics from clearly labelled reference sources.</p>
             </div>
-            <a className="text-sm underline underline-offset-4" href="/trending">View all topics</a>
+            <Link className="text-sm underline underline-offset-4" href="/trending">View all topics</Link>
           </div>
           {error && <p className="mt-6 text-sm text-rose-200">{error}</p>}
           <div className="mt-6 grid gap-4 md:grid-cols-3">

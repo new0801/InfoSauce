@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import DemoModeNotice from "../../components/DemoModeNotice";
 import GlowCursor from "../../components/GlowCursor";
 import Navbar from "../../components/Navbar";
@@ -39,9 +40,9 @@ export default function DailyPage() {
               <h2 className="mt-4 text-3xl">{article.title}</h2>
               <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">{article.summary}</p>
               {article.claim && <p className="mt-5 rounded-2xl bg-white/5 p-4 text-sm">Claim: {article.claim}</p>}
-              <a className="mt-6 inline-block rounded-full border border-white/15 px-5 py-2 text-sm hover:scale-[1.03]" href={`/daily/${article.id}`}>
+              <Link className="mt-6 inline-block rounded-full border border-white/15 px-5 py-2 text-sm hover:scale-[1.03]" href={`/daily/${article.id}`}>
                 View prepared evidence →
-              </a>
+              </Link>
             </article>
           ))}
         </div>
