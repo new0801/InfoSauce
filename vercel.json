@@ -7,7 +7,6 @@
         "backend": {
             "root": "InfoSauce-dev-backend/backend",
             "framework": "express",
-            "runtime": "node",
             "entrypoint": "src/app.js",
             "bindings": [
                 {
