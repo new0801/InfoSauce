@@ -2,9 +2,11 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node src/server.js",
+    "start": "node src/server.js",
+    "test": "node --check src/app.js && node --check src/server.js"
   },
   "keywords": [],
   "author": "",
