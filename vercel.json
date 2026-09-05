@@ -18,10 +18,7 @@
             ],
             "functions": {
                 "src/app.js": {
-                    "includeFiles": [
-                        "src/routes/**/*.js",
-                        "src/services/**/*.js"
-                    ]
+                    "includeFiles": "src/{routes,services}/**/*.js"
                 }
             }
         },
