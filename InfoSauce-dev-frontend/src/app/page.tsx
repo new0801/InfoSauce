@@ -5,6 +5,7 @@ import GlowCursor from "../components/GlowCursor";
 import FactCheckResult from "../components/FactCheckResult";
 import Navbar from "../components/Navbar";
 import NewsCard from "../components/NewsCard";
+import { normalizeTrendingItem } from "../lib/articleData";
 
 const BACKEND_URL = "https://infosauce-backend.onrender.com";
 const CARD_SUMMARY_MAX_LENGTH = 240;
@@ -121,6 +122,7 @@ type TrendingItem = {
 
 type NewsCardItem = {
   category: string;
+  source: string;
   title: string;
   summary: string;
   content: string;
@@ -161,7 +163,8 @@ export default function Home() {
    */
   const trendingResults: NewsCardItem[] =
     categoryResults.map((item) => {
-      const verdict = item.consensus?.verdict;
+      const normalized = normalizeTrendingItem(item);
+      const verdict = normalized.verdict;
 
       let status: NewsCardItem["status"];
 
@@ -175,38 +178,34 @@ export default function Home() {
 
       return {
         category:
-          item.category ||
-          item.news?.area ||
-          item.news?.source ||
-          "Trending",
+          normalized.category,
+
+        source:
+          normalized.source,
 
         title:
-          item.news?.title ||
-          item.claim ||
-          "Untitled Story",
+          normalized.title,
 
         summary:
           getCardSummary(
-            item.news?.content,
-            item.claim
+            normalized.content,
+            normalized.claim
           ),
 
         content:
-          item.news?.content ||
+          normalized.content ||
           "No additional information available.",
 
         status,
 
         sources:
-          item.evidence?.length ?? 0,
+          normalized.evidence.length,
 
         href:
-          item.news?.url ||
-          undefined,
+          normalized.url,
 
         truthScore:
-          item.truthScore?.truthScore ??
-          null,
+          normalized.truthScore,
 
         consensus:
           item.consensus,
@@ -215,26 +214,16 @@ export default function Home() {
           item.verification,
 
         verificationTrace:
-          item.verificationTrace
-            ?.filter(
-              (trace): trace is { model: string; requestId: string } =>
-                Boolean(trace.model && trace.requestId)
-            ) ??
-          item.verification?.results
-            ?.filter(
-              (result): result is { model: string; requestId: string } =>
-                Boolean(result.model && result.requestId)
-            ) ??
-          [],
+          normalized.requestIds,
 
         evidence:
-          item.evidence || [],
+          normalized.evidence,
 
         news:
           item.news,
 
         claim:
-          item.claim,
+          normalized.claim,
       };
     });
 
@@ -627,6 +616,12 @@ export default function Home() {
               <p className="mt-6 max-w-3xl leading-8 text-muted-foreground">
                 {expandedNews.content}
               </p>
+
+              {expandedNews.source && (
+                <p className="mt-4 text-sm text-muted-foreground">
+                  Source: {expandedNews.source}
+                </p>
+              )}
 
               {/* Basic metadata */}
 

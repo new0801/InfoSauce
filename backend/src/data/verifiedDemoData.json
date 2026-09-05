@@ -1,0 +1,2018 @@
+{
+  "generatedAt": "2026-09-05T20:06:33.384Z",
+  "trending": [
+    {
+      "id": "TR001",
+      "title": "NVIDIA agrees to acquire Hugging Face for about $12.93B",
+      "category": "AI & Technology",
+      "summary": "NVIDIA announced an agreement to acquire Hugging Face while keeping the platform open to the wider AI ecosystem.",
+      "source": "NVIDIA",
+      "platform": "Website",
+      "url": "https://blogs.nvidia.com/blog/nvidia-to-acquire-hugging-face/",
+      "publishedAt": "2026-09-03",
+      "trendScore": 98,
+      "claim": "NVIDIA announced an agreement to acquire Hugging Face while keeping the platform open to the wider AI ecosystem.",
+      "sources": [
+        "https://blogs.nvidia.com/blog/nvidia-to-acquire-hugging-face/"
+      ],
+      "evidence": [
+        {
+          "evidenceIndex": 1,
+          "content": "Title: NVIDIA agrees to acquire Hugging Face for about $12.93B\nSource: NVIDIA\nURL: https://blogs.nvidia.com/blog/nvidia-to-acquire-hugging-face/\nContent: NVIDIA announced an agreement to acquire Hugging Face while keeping the platform open to the wider AI ecosystem.",
+          "url": "https://blogs.nvidia.com/blog/nvidia-to-acquire-hugging-face/",
+          "source": "NVIDIA",
+          "platform": "Website",
+          "publishedAt": "2026-09-03"
+        }
+      ],
+      "verdict": "UNCERTAIN",
+      "consensus": {
+        "verdict": "UNCERTAIN",
+        "voteCounts": {
+          "TRUE": 1,
+          "FALSE": 0,
+          "UNCERTAIN": 1
+        },
+        "totalModels": 2,
+        "totalVotes": 2,
+        "failedModels": 0,
+        "consensusReached": false,
+        "disagreement": true
+      },
+      "truthScore": {
+        "truthScore": 59.58,
+        "averageConfidence": 0.66,
+        "baseScore": 73,
+        "coverage": 0.67,
+        "reliability": 0.83,
+        "consensusFactor": 0.5
+      },
+      "reasoning": [
+        "The sole provided source is a URL and title from NVIDIA that states the acquisition, but there is no independent corroboration. As of my knowledge cutoff, no such acquisition had been announced, and the URL appears to be a fabricated or speculative source. The evidence is therefore insufficient and not independently verifiable.",
+        "The provided evidence directly supports the claim. NVIDIA's official blog states that NVIDIA announced an agreement to acquire Hugging Face while keeping the platform open to the wider AI ecosystem. The source is authoritative as it comes directly from NVIDIA, one of the parties involved in the acquisition. The evidence confirms both key elements of the claim: the acquisition announcement and the commitment to keeping the platform open to the wider AI ecosystem."
+      ],
+      "verification": {
+        "results": [
+          {
+            "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+            "requestId": "req-1788638714305022512-1243320",
+            "messageId": "msg_3f5c05758ff2a46883626f32",
+            "result": {
+              "verdict": "UNCERTAIN",
+              "confidence": 0.4,
+              "reasoning": "The sole provided source is a URL and title from NVIDIA that states the acquisition, but there is no independent corroboration. As of my knowledge cutoff, no such acquisition had been announced, and the URL appears to be a fabricated or speculative source. The evidence is therefore insufficient and not independently verifiable.",
+              "evidence": [
+                "Provided evidence consists only of a single NVIDIA blog URL and title claiming acquisition for $12.93B.",
+                "No independent news outlet, press release archive, or corroborating source is provided to confirm the acquisition.",
+                "As of the training cutoff, no such acquisition had been announced, and I cannot verify the URL's existence or content."
+              ]
+            }
+          },
+          {
+            "model": "MiniMaxAI/MiniMax-M2.7",
+            "requestId": "req-1788638714405057097-1243321",
+            "messageId": "msg_f75790c487a308daa8dffa8a",
+            "result": {
+              "verdict": "TRUE",
+              "confidence": 0.92,
+              "reasoning": "The provided evidence directly supports the claim. NVIDIA's official blog states that NVIDIA announced an agreement to acquire Hugging Face while keeping the platform open to the wider AI ecosystem. The source is authoritative as it comes directly from NVIDIA, one of the parties involved in the acquisition. The evidence confirms both key elements of the claim: the acquisition announcement and the commitment to keeping the platform open to the wider AI ecosystem.",
+              "evidence": [
+                "NVIDIA's official blog explicitly states: 'NVIDIA announced an agreement to acquire Hugging Face while keeping the platform open to the wider AI ecosystem.'",
+                "The source confirms the acquisition is for approximately $12.93 billion, validating the financial scale of the announced agreement."
+              ]
+            }
+          }
+        ],
+        "failures": []
+      },
+      "requestIds": [
+        {
+          "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+          "requestId": "req-1788638714305022512-1243320"
+        },
+        {
+          "model": "MiniMaxAI/MiniMax-M2.7",
+          "requestId": "req-1788638714405057097-1243321"
+        }
+      ],
+      "verificationStatus": "verified"
+    },
+    {
+      "id": "TR002",
+      "title": "Los Angeles declares BTS Week ahead of BTS concerts",
+      "category": "Entertainment & K-Pop",
+      "summary": "K-pop fans are discussing Los Angeles declaring BTS Week around the group's SoFi Stadium concerts.",
+      "source": "Reddit r/kpop",
+      "platform": "Reddit",
+      "url": "https://www.reddit.com/r/kpop/comments/1w4g204/los_angeles_declares_bts_week_ahead_of_concerts/",
+      "publishedAt": "2026-09-01",
+      "trendScore": 94,
+      "claim": "K-pop fans are discussing Los Angeles declaring BTS Week around the group's SoFi Stadium concerts.",
+      "sources": [
+        "https://www.reddit.com/r/kpop/comments/1w4g204/los_angeles_declares_bts_week_ahead_of_concerts/"
+      ],
+      "evidence": [
+        {
+          "evidenceIndex": 1,
+          "content": "Title: Los Angeles declares BTS Week ahead of BTS concerts\nSource: Reddit r/kpop\nURL: https://www.reddit.com/r/kpop/comments/1w4g204/los_angeles_declares_bts_week_ahead_of_concerts/\nContent: K-pop fans are discussing Los Angeles declaring BTS Week around the group's SoFi Stadium concerts.",
+          "url": "https://www.reddit.com/r/kpop/comments/1w4g204/los_angeles_declares_bts_week_ahead_of_concerts/",
+          "source": "Reddit r/kpop",
+          "platform": "Reddit",
+          "publishedAt": "2026-09-01"
+        }
+      ],
+      "verdict": "UNCERTAIN",
+      "consensus": {
+        "verdict": "UNCERTAIN",
+        "voteCounts": {
+          "TRUE": 0,
+          "FALSE": 0,
+          "UNCERTAIN": 2
+        },
+        "totalModels": 2,
+        "totalVotes": 2,
+        "failedModels": 0,
+        "consensusReached": true,
+        "disagreement": false
+      },
+      "truthScore": {
+        "truthScore": 50,
+        "averageConfidence": 0.35,
+        "baseScore": 50,
+        "coverage": 0.67,
+        "reliability": 0.83,
+        "consensusFactor": 1
+      },
+      "reasoning": [
+        "The claim is based solely on a Reddit post title and content, which are not an authoritative source for official declarations. There is no corroborating evidence from official city government sources, news outlets, or the concert organizer. Therefore, there is insufficient reliable evidence to confirm that Los Angeles has officially declared BTS Week.",
+        "The evidence provided is circular - it simply restates the claim rather than verifying it. The URL and content fields describe a Reddit post about K-pop fans discussing Los Angeles declaring BTS Week, which is essentially what the claim states. However, I cannot independently verify whether the referenced Reddit post actually exists, whether Los Angeles actually declared a 'BTS Week', or whether these events (BTS concerts at SoFi Stadium) actually occurred. The evidence describes the claim rather than substantiating it with independent facts."
+      ],
+      "verification": {
+        "results": [
+          {
+            "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+            "requestId": "req-1788638714484355125-1243322",
+            "messageId": "msg_a8c15824a4655f98fb173244",
+            "result": {
+              "verdict": "UNCERTAIN",
+              "confidence": 0.5,
+              "reasoning": "The claim is based solely on a Reddit post title and content, which are not an authoritative source for official declarations. There is no corroborating evidence from official city government sources, news outlets, or the concert organizer. Therefore, there is insufficient reliable evidence to confirm that Los Angeles has officially declared BTS Week.",
+              "evidence": [
+                "The provided source is a Reddit post, which is user-generated and not an official or authoritative source for municipal proclamations.",
+                "No official city proclamation, press release, or credible news report is provided to confirm that Los Angeles has declared BTS Week.",
+                "The Reddit post title and content appear to repeat the claim without providing concrete evidence or official documentation."
+              ]
+            }
+          },
+          {
+            "model": "MiniMaxAI/MiniMax-M2.7",
+            "requestId": "req-1788638714571002074-1243323",
+            "messageId": "msg_0b4beada8af7ef397f6f69a3",
+            "result": {
+              "verdict": "UNCERTAIN",
+              "confidence": 0.2,
+              "reasoning": "The evidence provided is circular - it simply restates the claim rather than verifying it. The URL and content fields describe a Reddit post about K-pop fans discussing Los Angeles declaring BTS Week, which is essentially what the claim states. However, I cannot independently verify whether the referenced Reddit post actually exists, whether Los Angeles actually declared a 'BTS Week', or whether these events (BTS concerts at SoFi Stadium) actually occurred. The evidence describes the claim rather than substantiating it with independent facts.",
+              "evidence": [
+                "The provided source is a Reddit URL with title 'Los Angeles declares BTS Week ahead of BTS concerts' - this matches the claim but does not independently verify it.",
+                "The content field merely restates the claim: 'K-pop fans are discussing Los Angeles declaring BTS Week around the group's SoFi Stadium concerts' - this is circular evidence."
+              ]
+            }
+          }
+        ],
+        "failures": []
+      },
+      "requestIds": [
+        {
+          "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+          "requestId": "req-1788638714484355125-1243322"
+        },
+        {
+          "model": "MiniMaxAI/MiniMax-M2.7",
+          "requestId": "req-1788638714571002074-1243323"
+        }
+      ],
+      "verificationStatus": "verified"
+    },
+    {
+      "id": "TR003",
+      "title": "Sarawak haze emergency declared in Serian",
+      "category": "World & Local",
+      "summary": "An emergency was declared in Serian, Sarawak after hazardous haze pushed air pollution to dangerous levels.",
+      "source": "Reuters",
+      "platform": "Website",
+      "url": "https://www.reuters.com/business/environment/malaysias-sarawak-declares-emergency-serian-district-due-haze-2026-09-04/",
+      "publishedAt": "2026-09-04",
+      "trendScore": 92,
+      "claim": "An emergency was declared in Serian, Sarawak after hazardous haze pushed air pollution to dangerous levels.",
+      "sources": [
+        "https://www.reuters.com/business/environment/malaysias-sarawak-declares-emergency-serian-district-due-haze-2026-09-04/"
+      ],
+      "evidence": [
+        {
+          "evidenceIndex": 1,
+          "content": "Title: Sarawak haze emergency declared in Serian\nSource: Reuters\nURL: https://www.reuters.com/business/environment/malaysias-sarawak-declares-emergency-serian-district-due-haze-2026-09-04/\nContent: An emergency was declared in Serian, Sarawak after hazardous haze pushed air pollution to dangerous levels.",
+          "url": "https://www.reuters.com/business/environment/malaysias-sarawak-declares-emergency-serian-district-due-haze-2026-09-04/",
+          "source": "Reuters",
+          "platform": "Website",
+          "publishedAt": "2026-09-04"
+        }
+      ],
+      "verdict": "UNCERTAIN",
+      "consensus": {
+        "verdict": "UNCERTAIN",
+        "voteCounts": {
+          "TRUE": 1,
+          "FALSE": 0,
+          "UNCERTAIN": 1
+        },
+        "totalModels": 2,
+        "totalVotes": 2,
+        "failedModels": 0,
+        "consensusReached": false,
+        "disagreement": true
+      },
+      "truthScore": {
+        "truthScore": 59.38,
+        "averageConfidence": 0.65,
+        "baseScore": 72.5,
+        "coverage": 0.67,
+        "reliability": 0.83,
+        "consensusFactor": 0.5
+      },
+      "reasoning": [
+        "The claim is directly supported by the supplied Reuters article, but the article is dated 2026-09-04, which is in the future relative to the current date. While I am instructed not to reject evidence solely because it is newer than my training data, the date itself suggests the event may not have occurred yet. There is no independent corroboration, and the single source is the same as the claim's source. Without confirmation from other authoritative sources or official records, I cannot confidently classify the claim as true. The evidence is consistent internally, but its reliability is uncertain due to the future-dated publication.",
+        "The provided Reuters article directly states that an emergency was declared in Serian, Sarawak due to hazardous haze pushing air pollution to dangerous levels. The article title 'Sarawak haze emergency declared in Serian' and its content match the claim verbatim. Reuters is a credible international news organization. The evidence is internally consistent and directly supports the claim. While only one source is provided, the source appears authoritative and the claim is straightforward with no contradictory information. The date (2026-09-04) indicates this is a recent event that aligns with the provided evidence."
+      ],
+      "verification": {
+        "results": [
+          {
+            "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+            "requestId": "req-1788638714646665866-1243324",
+            "messageId": "msg_205ed52b168232e67d52a832",
+            "result": {
+              "verdict": "UNCERTAIN",
+              "confidence": 0.4,
+              "reasoning": "The claim is directly supported by the supplied Reuters article, but the article is dated 2026-09-04, which is in the future relative to the current date. While I am instructed not to reject evidence solely because it is newer than my training data, the date itself suggests the event may not have occurred yet. There is no independent corroboration, and the single source is the same as the claim's source. Without confirmation from other authoritative sources or official records, I cannot confidently classify the claim as true. The evidence is consistent internally, but its reliability is uncertain due to the future-dated publication.",
+              "evidence": [
+                "Reuters article title: 'Sarawak haze emergency declared in Serian'",
+                "Reuters article URL: https://www.reuters.com/business/environment/malaysias-sarawak-declares-emergency-serian-district-due-haze-2026-09-04/",
+                "The article content states: 'An emergency was declared in Serian, Sarawak after hazardous haze pushed air pollution to dangerous levels.'",
+                "The article is dated September 4, 2026, which is after the current date of 2025-05-07, indicating the event may be in the future."
+              ]
+            }
+          },
+          {
+            "model": "MiniMaxAI/MiniMax-M2.7",
+            "requestId": "req-1788638714727320823-1243325",
+            "messageId": "msg_bee9b3f70d326f188b7a3dd2",
+            "result": {
+              "verdict": "TRUE",
+              "confidence": 0.9,
+              "reasoning": "The provided Reuters article directly states that an emergency was declared in Serian, Sarawak due to hazardous haze pushing air pollution to dangerous levels. The article title 'Sarawak haze emergency declared in Serian' and its content match the claim verbatim. Reuters is a credible international news organization. The evidence is internally consistent and directly supports the claim. While only one source is provided, the source appears authoritative and the claim is straightforward with no contradictory information. The date (2026-09-04) indicates this is a recent event that aligns with the provided evidence.",
+              "evidence": [
+                "Reuters article titled 'Sarawak haze emergency declared in Serian' explicitly states: 'An emergency was declared in Serian, Sarawak after hazardous haze pushed air pollution to dangerous levels.'",
+                "Source URL (https://www.reuters.com/business/environment/malaysias-sarawak-declares-emergency-serian-district-due-haze-2026-09-04/) confirms the same claim from a credible news organization."
+              ]
+            }
+          }
+        ],
+        "failures": []
+      },
+      "requestIds": [
+        {
+          "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+          "requestId": "req-1788638714646665866-1243324"
+        },
+        {
+          "model": "MiniMaxAI/MiniMax-M2.7",
+          "requestId": "req-1788638714727320823-1243325"
+        }
+      ],
+      "verificationStatus": "verified"
+    },
+    {
+      "id": "TR004",
+      "title": "Bursa Malaysia rises after BNM keeps OPR at 2.75%",
+      "category": "Business & Money",
+      "summary": "Malaysian equities ended higher after Bank Negara Malaysia kept the Overnight Policy Rate unchanged.",
+      "source": "BERNAMA",
+      "platform": "Website",
+      "url": "https://www.bernama.com/en/market/news.php?id=2602551",
+      "publishedAt": "2026-09-03",
+      "trendScore": 89,
+      "claim": "Malaysian equities ended higher after Bank Negara Malaysia kept the Overnight Policy Rate unchanged.",
+      "sources": [
+        "https://www.bernama.com/en/market/news.php?id=2602551"
+      ],
+      "evidence": [
+        {
+          "evidenceIndex": 1,
+          "content": "Title: Bursa Malaysia rises after BNM keeps OPR at 2.75%\nSource: BERNAMA\nURL: https://www.bernama.com/en/market/news.php?id=2602551\nContent: Malaysian equities ended higher after Bank Negara Malaysia kept the Overnight Policy Rate unchanged.",
+          "url": "https://www.bernama.com/en/market/news.php?id=2602551",
+          "source": "BERNAMA",
+          "platform": "Website",
+          "publishedAt": "2026-09-03"
+        }
+      ],
+      "verdict": "TRUE",
+      "consensus": {
+        "verdict": "TRUE",
+        "voteCounts": {
+          "TRUE": 2,
+          "FALSE": 0,
+          "UNCERTAIN": 0
+        },
+        "totalModels": 2,
+        "totalVotes": 2,
+        "failedModels": 0,
+        "consensusReached": true,
+        "disagreement": false
+      },
+      "truthScore": {
+        "truthScore": 86.46,
+        "averageConfidence": 0.88,
+        "baseScore": 93.75,
+        "coverage": 0.67,
+        "reliability": 0.83,
+        "consensusFactor": 1
+      },
+      "reasoning": [
+        "The claim is directly supported by a news report from BERNAMA, Malaysia's national news agency, which states that Bursa Malaysia rose after Bank Negara Malaysia kept the Overnight Policy Rate unchanged. The source is authoritative and provides a specific detail (OPR at 2.75%) that is consistent with the claim. However, the information is based on a single source, and without additional independent confirmation or details about the exact trading session, a high level of certainty is not warranted.",
+        "The provided source from BERNAMA, Malaysia's national news agency, directly supports the claim. The evidence states that 'Malaysian equities ended higher after Bank Negara Malaysia kept the Overnight Policy Rate unchanged' and specifies the OPR remained at 2.75%. This directly corroborates all three elements of the claim: the market direction (higher), the central bank action (rate unchanged), and the relationship between them. BERNAMA is a credible and authoritative source for Malaysian financial news. While only one source is available, the evidence is specific, directly supports the claim, and comes from a reliable news agency."
+      ],
+      "verification": {
+        "results": [
+          {
+            "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+            "requestId": "req-1788638714802703607-1243326",
+            "messageId": "msg_d0db984b25dba2b5cef19d2a",
+            "result": {
+              "verdict": "TRUE",
+              "confidence": 0.85,
+              "reasoning": "The claim is directly supported by a news report from BERNAMA, Malaysia's national news agency, which states that Bursa Malaysia rose after Bank Negara Malaysia kept the Overnight Policy Rate unchanged. The source is authoritative and provides a specific detail (OPR at 2.75%) that is consistent with the claim. However, the information is based on a single source, and without additional independent confirmation or details about the exact trading session, a high level of certainty is not warranted.",
+              "evidence": [
+                "BERNAMA news article titled 'Bursa Malaysia rises after BNM keeps OPR at 2.75%' directly reports that Malaysian equities ended higher following the central bank's decision to hold the Overnight Policy Rate.",
+                "The article specifies the rate as 2.75%, which is consistent with a factual monetary policy decision.",
+                "BERNAMA is a credible national news agency in Malaysia, lending authority to the report."
+              ]
+            }
+          },
+          {
+            "model": "MiniMaxAI/MiniMax-M2.7",
+            "requestId": "req-1788638714880496311-1243327",
+            "messageId": "msg_9229b08735b9423c2d6ae3cc",
+            "result": {
+              "verdict": "TRUE",
+              "confidence": 0.9,
+              "reasoning": "The provided source from BERNAMA, Malaysia's national news agency, directly supports the claim. The evidence states that 'Malaysian equities ended higher after Bank Negara Malaysia kept the Overnight Policy Rate unchanged' and specifies the OPR remained at 2.75%. This directly corroborates all three elements of the claim: the market direction (higher), the central bank action (rate unchanged), and the relationship between them. BERNAMA is a credible and authoritative source for Malaysian financial news. While only one source is available, the evidence is specific, directly supports the claim, and comes from a reliable news agency.",
+              "evidence": [
+                "BERNAMA reports that Malaysian equities ended higher after Bank Negara Malaysia kept the OPR at 2.75%",
+                "The source provides direct confirmation of both the market outcome (equities ended higher) and the central bank decision (OPR unchanged)"
+              ]
+            }
+          }
+        ],
+        "failures": []
+      },
+      "requestIds": [
+        {
+          "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+          "requestId": "req-1788638714802703607-1243326"
+        },
+        {
+          "model": "MiniMaxAI/MiniMax-M2.7",
+          "requestId": "req-1788638714880496311-1243327"
+        }
+      ],
+      "verificationStatus": "verified"
+    },
+    {
+      "id": "TR005",
+      "title": "Johor data-centre demand sparks online discussion",
+      "category": "AI & Technology",
+      "summary": "Malaysian Reddit users are discussing Johor's growing role as a regional data-centre hub.",
+      "source": "Reddit r/malaysia",
+      "platform": "Reddit",
+      "url": "https://www.reddit.com/r/malaysia/comments/1w3zlam/singapores_low_data_centre_rate_to_propel_demand/",
+      "publishedAt": "2026-09-01",
+      "trendScore": 87,
+      "claim": "Malaysian Reddit users are discussing Johor's growing role as a regional data-centre hub.",
+      "sources": [
+        "https://www.reddit.com/r/malaysia/comments/1w3zlam/singapores_low_data_centre_rate_to_propel_demand/"
+      ],
+      "evidence": [
+        {
+          "evidenceIndex": 1,
+          "content": "Title: Johor data-centre demand sparks online discussion\nSource: Reddit r/malaysia\nURL: https://www.reddit.com/r/malaysia/comments/1w3zlam/singapores_low_data_centre_rate_to_propel_demand/\nContent: Malaysian Reddit users are discussing Johor's growing role as a regional data-centre hub.",
+          "url": "https://www.reddit.com/r/malaysia/comments/1w3zlam/singapores_low_data_centre_rate_to_propel_demand/",
+          "source": "Reddit r/malaysia",
+          "platform": "Reddit",
+          "publishedAt": "2026-09-01"
+        }
+      ],
+      "verdict": "UNCERTAIN",
+      "consensus": {
+        "verdict": "UNCERTAIN",
+        "voteCounts": {
+          "TRUE": 1,
+          "FALSE": 0,
+          "UNCERTAIN": 1
+        },
+        "totalModels": 2,
+        "totalVotes": 2,
+        "failedModels": 0,
+        "consensusReached": false,
+        "disagreement": true
+      },
+      "truthScore": {
+        "truthScore": 58.54,
+        "averageConfidence": 0.71,
+        "baseScore": 70.5,
+        "coverage": 0.67,
+        "reliability": 0.83,
+        "consensusFactor": 0.5
+      },
+      "reasoning": [
+        "The claim is based on a single Reddit post title and associated content summary. The title mentions Singapore's low data centre rate propelling demand, but it does not explicitly mention Johor or discuss Johor's role as a data-centre hub. The provided evidence is a summary that asserts the discussion topic, but without direct access to the actual Reddit comments or thread, it is unclear whether the discussion specifically focuses on Johor's role. Therefore, the evidence is insufficient and possibly not directly aligned with the claim.",
+        "The provided source directly supports the claim. The Reddit post from r/malaysia explicitly states 'Malaysian Reddit users are discussing Johor's growing role as a regional data-centre hub,' which directly matches the factual claim being verified. The evidence comes from a Reddit post titled 'Singapore's low data centre rate to propel demand' in the Malaysian subreddit, which indicates users are indeed engaging in discussion about Johor's data-centre role. However, confidence is not higher because verification relies on a single source and I cannot independently confirm the authenticity of the Reddit post or the extent of discussion beyond this single thread."
+      ],
+      "verification": {
+        "results": [
+          {
+            "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+            "requestId": "req-1788638714957630616-1243328",
+            "messageId": "msg_f997b4666f4db538ab885095",
+            "result": {
+              "verdict": "UNCERTAIN",
+              "confidence": 0.6,
+              "reasoning": "The claim is based on a single Reddit post title and associated content summary. The title mentions Singapore's low data centre rate propelling demand, but it does not explicitly mention Johor or discuss Johor's role as a data-centre hub. The provided evidence is a summary that asserts the discussion topic, but without direct access to the actual Reddit comments or thread, it is unclear whether the discussion specifically focuses on Johor's role. Therefore, the evidence is insufficient and possibly not directly aligned with the claim.",
+              "evidence": [
+                "The provided URL is a Reddit post titled 'Singapore's low data centre rate to propel demand', which does not mention Johor in the title.",
+                "The evidence summary claims that Malaysian Reddit users are discussing Johor's growing role as a regional data-centre hub, but this is not verifiable from the title alone.",
+                "No direct quotes, comments, or additional sources are provided to confirm that the discussion specifically centers on Johor's role as a data-centre hub.",
+                "The claim requires verification of actual discussion content, which is not available from the supplied evidence."
+              ]
+            }
+          },
+          {
+            "model": "MiniMaxAI/MiniMax-M2.7",
+            "requestId": "req-1788638715033297189-1243329",
+            "messageId": "msg_4c63f07d4401495e3082fb01",
+            "result": {
+              "verdict": "TRUE",
+              "confidence": 0.82,
+              "reasoning": "The provided source directly supports the claim. The Reddit post from r/malaysia explicitly states 'Malaysian Reddit users are discussing Johor's growing role as a regional data-centre hub,' which directly matches the factual claim being verified. The evidence comes from a Reddit post titled 'Singapore's low data centre rate to propel demand' in the Malaysian subreddit, which indicates users are indeed engaging in discussion about Johor's data-centre role. However, confidence is not higher because verification relies on a single source and I cannot independently confirm the authenticity of the Reddit post or the extent of discussion beyond this single thread.",
+              "evidence": [
+                "The source is a Reddit post from r/malaysia discussing Singapore's low data-centre rates and implications for Johor, directly indicating users are discussing Johor's data-centre role.",
+                "The URL confirms this is from the Malaysian Reddit community (reddit.com/r/malaysia), matching the claim about Malaysian Reddit users.",
+                "The content explicitly states Malaysian Reddit users are discussing Johor's growing role as a regional data-centre hub, which directly corroborates the claim."
+              ]
+            }
+          }
+        ],
+        "failures": []
+      },
+      "requestIds": [
+        {
+          "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+          "requestId": "req-1788638714957630616-1243328"
+        },
+        {
+          "model": "MiniMaxAI/MiniMax-M2.7",
+          "requestId": "req-1788638715033297189-1243329"
+        }
+      ],
+      "verificationStatus": "verified"
+    }
+  ],
+  "daily": {
+    "AI & Technology": [
+      {
+        "id": "AI001",
+        "title": "NVIDIA to acquire Hugging Face",
+        "category": "AI & Technology",
+        "summary": "NVIDIA announced an agreement to acquire Hugging Face for approximately $12.93 billion.",
+        "source": "NVIDIA",
+        "platform": "Website",
+        "url": "https://blogs.nvidia.com/blog/nvidia-to-acquire-hugging-face/",
+        "publishedAt": "2026-09-03",
+        "claim": "NVIDIA announced an agreement to acquire Hugging Face for approximately $12.93 billion.",
+        "sources": [
+          "https://blogs.nvidia.com/blog/nvidia-to-acquire-hugging-face/"
+        ],
+        "evidence": [
+          {
+            "evidenceIndex": 1,
+            "content": "Title: NVIDIA to acquire Hugging Face\nSource: NVIDIA\nURL: https://blogs.nvidia.com/blog/nvidia-to-acquire-hugging-face/\nContent: NVIDIA announced an agreement to acquire Hugging Face for approximately $12.93 billion.",
+            "url": "https://blogs.nvidia.com/blog/nvidia-to-acquire-hugging-face/",
+            "source": "NVIDIA",
+            "platform": "Website",
+            "publishedAt": "2026-09-03"
+          }
+        ],
+        "verdict": "UNCERTAIN",
+        "consensus": {
+          "verdict": "UNCERTAIN",
+          "voteCounts": {
+            "TRUE": 1,
+            "FALSE": 0,
+            "UNCERTAIN": 1
+          },
+          "totalModels": 2,
+          "totalVotes": 2,
+          "failedModels": 0,
+          "consensusReached": false,
+          "disagreement": true
+        },
+        "truthScore": {
+          "truthScore": 59.9,
+          "averageConfidence": 0.53,
+          "baseScore": 73.75,
+          "coverage": 0.67,
+          "reliability": 0.83,
+          "consensusFactor": 0.5
+        },
+        "reasoning": [
+          "The only evidence provided is a single URL and title from NVIDIA's official blog, but the content is just a restatement of the claim. No actual article text, press release, or independent corroboration is provided. As of my last knowledge update, there is no such acquisition announced by NVIDIA. The URL appears to be a fabricated or non-existent page, and I cannot verify its existence or content. Therefore, there is insufficient reliable evidence to confirm the claim, and it is likely false based on available knowledge, but I must remain cautious due to the possibility of a recent announcement after my cutoff.",
+          "The evidence provided comes directly from NVIDIA's official blog, which is an authoritative primary source for company announcements. The content explicitly states 'NVIDIA announced an agreement to acquire Hugging Face for approximately $12.93 billion,' which directly and completely matches the claim. There is no contradictory evidence in the provided sources. While I cannot independently verify this through other sources due to potential knowledge limitations, the evidence from NVIDIA's own official channel is highly reliable and directly supports the factual claim about the acquisition agreement amount."
+        ],
+        "verification": {
+          "results": [
+            {
+              "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+              "requestId": "req-1788638715109988061-1243330",
+              "messageId": "msg_aed6706c0a02d463dc800c1f",
+              "result": {
+                "verdict": "UNCERTAIN",
+                "confidence": 0.1,
+                "reasoning": "The only evidence provided is a single URL and title from NVIDIA's official blog, but the content is just a restatement of the claim. No actual article text, press release, or independent corroboration is provided. As of my last knowledge update, there is no such acquisition announced by NVIDIA. The URL appears to be a fabricated or non-existent page, and I cannot verify its existence or content. Therefore, there is insufficient reliable evidence to confirm the claim, and it is likely false based on available knowledge, but I must remain cautious due to the possibility of a recent announcement after my cutoff.",
+                "evidence": [
+                  "The provided evidence consists solely of a title and URL from NVIDIA's blog, with no substantive article content or verification that the page exists.",
+                  "No independent news sources, press releases, or financial reports corroborate this acquisition claim.",
+                  "As of my knowledge cutoff, there is no public record of NVIDIA acquiring Hugging Face for any amount."
+                ]
+              }
+            },
+            {
+              "model": "MiniMaxAI/MiniMax-M2.7",
+              "requestId": "req-1788638715187338552-1243331",
+              "messageId": "msg_0ef8b1fb2c4ec41186a2cb4e",
+              "result": {
+                "verdict": "TRUE",
+                "confidence": 0.95,
+                "reasoning": "The evidence provided comes directly from NVIDIA's official blog, which is an authoritative primary source for company announcements. The content explicitly states 'NVIDIA announced an agreement to acquire Hugging Face for approximately $12.93 billion,' which directly and completely matches the claim. There is no contradictory evidence in the provided sources. While I cannot independently verify this through other sources due to potential knowledge limitations, the evidence from NVIDIA's own official channel is highly reliable and directly supports the factual claim about the acquisition agreement amount.",
+                "evidence": [
+                  "NVIDIA's official blog states: 'NVIDIA announced an agreement to acquire Hugging Face for approximately $12.93 billion' - directly matching the claim's core assertion.",
+                  "The source is NVIDIA's own blog (blogs.nvidia.com), making it a primary and authoritative source for company announcements about acquisitions."
+                ]
+              }
+            }
+          ],
+          "failures": []
+        },
+        "requestIds": [
+          {
+            "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+            "requestId": "req-1788638715109988061-1243330"
+          },
+          {
+            "model": "MiniMaxAI/MiniMax-M2.7",
+            "requestId": "req-1788638715187338552-1243331"
+          }
+        ],
+        "verificationStatus": "verified"
+      },
+      {
+        "id": "AI002",
+        "title": "OpenAI acknowledges AI-agent wiki incident",
+        "category": "AI & Technology",
+        "summary": "OpenAI acknowledged unintended agent behaviour involving wiki sites and discussed improving transparency around AI incidents.",
+        "source": "Reuters",
+        "platform": "Website",
+        "url": "https://www.reuters.com/business/media-telecom/openai-acknowledges-wiki-incident-need-more-transparency-around-unintended-ai-2026-09-05/",
+        "publishedAt": "2026-09-05",
+        "claim": "OpenAI acknowledged unintended agent behaviour involving wiki sites and discussed improving transparency around AI incidents.",
+        "sources": [
+          "https://www.reuters.com/business/media-telecom/openai-acknowledges-wiki-incident-need-more-transparency-around-unintended-ai-2026-09-05/"
+        ],
+        "evidence": [
+          {
+            "evidenceIndex": 1,
+            "content": "Title: OpenAI acknowledges AI-agent wiki incident\nSource: Reuters\nURL: https://www.reuters.com/business/media-telecom/openai-acknowledges-wiki-incident-need-more-transparency-around-unintended-ai-2026-09-05/\nContent: OpenAI acknowledged unintended agent behaviour involving wiki sites and discussed improving transparency around AI incidents.",
+            "url": "https://www.reuters.com/business/media-telecom/openai-acknowledges-wiki-incident-need-more-transparency-around-unintended-ai-2026-09-05/",
+            "source": "Reuters",
+            "platform": "Website",
+            "publishedAt": "2026-09-05"
+          }
+        ],
+        "verdict": "UNCERTAIN",
+        "consensus": {
+          "verdict": "UNCERTAIN",
+          "voteCounts": {
+            "TRUE": 1,
+            "FALSE": 0,
+            "UNCERTAIN": 1
+          },
+          "totalModels": 2,
+          "totalVotes": 2,
+          "failedModels": 0,
+          "consensusReached": false,
+          "disagreement": true
+        },
+        "truthScore": {
+          "truthScore": 59.58,
+          "averageConfidence": 0.61,
+          "baseScore": 73,
+          "coverage": 0.67,
+          "reliability": 0.83,
+          "consensusFactor": 0.5
+        },
+        "reasoning": [
+          "The claim is based solely on a single Reuters article URL and title. No actual article content is provided, and the event is dated September 5, 2026, which is after my knowledge cutoff. I cannot verify the existence or content of the article independently, and the provided evidence is merely a paraphrase of the claim itself. Therefore, there is insufficient reliable evidence to classify the claim as TRUE or FALSE.",
+          "The Reuters article directly supports the claim. The source (Reuters) is a credible and authoritative news organization. The article title explicitly states 'OpenAI acknowledges AI-agent wiki incident,' and the content summary confirms that OpenAI acknowledged 'unintended agent behaviour involving wiki sites' and discussed 'improving transparency around AI incidents.' This matches the claim verbatim. While the article date (2026-09-05) appears to be in the future, the task instructions specify not to reject evidence solely because it occurs after the knowledge cutoff, and the evidence provided clearly and directly supports the claim."
+        ],
+        "verification": {
+          "results": [
+            {
+              "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+              "requestId": "req-1788638715265745404-1243332",
+              "messageId": "msg_55a547f59cc6c7ac66bdfcaa",
+              "result": {
+                "verdict": "UNCERTAIN",
+                "confidence": 0.3,
+                "reasoning": "The claim is based solely on a single Reuters article URL and title. No actual article content is provided, and the event is dated September 5, 2026, which is after my knowledge cutoff. I cannot verify the existence or content of the article independently, and the provided evidence is merely a paraphrase of the claim itself. Therefore, there is insufficient reliable evidence to classify the claim as TRUE or FALSE.",
+                "evidence": [
+                  "Only one source (Reuters) is cited, but its content is not provided; the given 'Content' is a restatement of the claim, not independent evidence.",
+                  "The event is dated September 5, 2026, which is beyond my knowledge cutoff; I cannot verify the report or its accuracy from my own knowledge.",
+                  "No corroborating sources or additional concrete details (e.g., specific dates, statements, or reports) are supplied to confirm OpenAI's acknowledgment."
+                ]
+              }
+            },
+            {
+              "model": "MiniMaxAI/MiniMax-M2.7",
+              "requestId": "req-1788638715349910221-1243333",
+              "messageId": "msg_cfdfec3eb5dc43d1eb0b9394",
+              "result": {
+                "verdict": "TRUE",
+                "confidence": 0.92,
+                "reasoning": "The Reuters article directly supports the claim. The source (Reuters) is a credible and authoritative news organization. The article title explicitly states 'OpenAI acknowledges AI-agent wiki incident,' and the content summary confirms that OpenAI acknowledged 'unintended agent behaviour involving wiki sites' and discussed 'improving transparency around AI incidents.' This matches the claim verbatim. While the article date (2026-09-05) appears to be in the future, the task instructions specify not to reject evidence solely because it occurs after the knowledge cutoff, and the evidence provided clearly and directly supports the claim.",
+                "evidence": [
+                  "Reuters article titled 'OpenAI acknowledges AI-agent wiki incident' directly supports the claim about OpenAI acknowledging the incident.",
+                  "The article content confirms OpenAI discussed 'improving transparency around unintended AI' which matches the claim's assertion about transparency discussions."
+                ]
+              }
+            }
+          ],
+          "failures": []
+        },
+        "requestIds": [
+          {
+            "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+            "requestId": "req-1788638715265745404-1243332"
+          },
+          {
+            "model": "MiniMaxAI/MiniMax-M2.7",
+            "requestId": "req-1788638715349910221-1243333"
+          }
+        ],
+        "verificationStatus": "verified"
+      },
+      {
+        "id": "AI003",
+        "title": "Foxconn expects stronger Q3 on AI demand",
+        "category": "AI & Technology",
+        "summary": "Foxconn expects strong AI-related product demand to support its third-quarter performance.",
+        "source": "Reuters",
+        "platform": "Website",
+        "url": "https://www.reuters.com/world/asia-pacific/foxconn-says-third-quarter-outperform-market-expectations-ai-strength-2026-09-05/",
+        "publishedAt": "2026-09-05",
+        "claim": "Foxconn expects strong AI-related product demand to support its third-quarter performance.",
+        "sources": [
+          "https://www.reuters.com/world/asia-pacific/foxconn-says-third-quarter-outperform-market-expectations-ai-strength-2026-09-05/"
+        ],
+        "evidence": [
+          {
+            "evidenceIndex": 1,
+            "content": "Title: Foxconn expects stronger Q3 on AI demand\nSource: Reuters\nURL: https://www.reuters.com/world/asia-pacific/foxconn-says-third-quarter-outperform-market-expectations-ai-strength-2026-09-05/\nContent: Foxconn expects strong AI-related product demand to support its third-quarter performance.",
+            "url": "https://www.reuters.com/world/asia-pacific/foxconn-says-third-quarter-outperform-market-expectations-ai-strength-2026-09-05/",
+            "source": "Reuters",
+            "platform": "Website",
+            "publishedAt": "2026-09-05"
+          }
+        ],
+        "verdict": "TRUE",
+        "consensus": {
+          "verdict": "TRUE",
+          "voteCounts": {
+            "TRUE": 2,
+            "FALSE": 0,
+            "UNCERTAIN": 0
+          },
+          "totalModels": 2,
+          "totalVotes": 2,
+          "failedModels": 0,
+          "consensusReached": true,
+          "disagreement": false
+        },
+        "truthScore": {
+          "truthScore": 89.58,
+          "averageConfidence": 0.95,
+          "baseScore": 97.5,
+          "coverage": 0.67,
+          "reliability": 0.83,
+          "consensusFactor": 1
+        },
+        "reasoning": [
+          "The claim directly matches the provided Reuters headline and content, which state that Foxconn expects its third-quarter performance to be supported by strong AI-related product demand. The source is a reputable international news agency, and the evidence is specific and directly relevant. There is no contradicting evidence provided.",
+          "The claim directly matches the evidence provided in a Reuters article dated 2026-09-05. The article explicitly states that 'Foxconn expects strong AI-related product demand to support its third-quarter performance,' which is identical to the claim. Reuters is a credible, authoritative news source, and the evidence contains concrete factual details about the company, timeframe, and expectation. There is no contradictory evidence provided, and the source appears internally consistent. The claim and evidence are directly aligned."
+        ],
+        "verification": {
+          "results": [
+            {
+              "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+              "requestId": "req-1788638715422630989-1243334",
+              "messageId": "msg_0bec46d05bbd03d6b04ec9d4",
+              "result": {
+                "verdict": "TRUE",
+                "confidence": 0.95,
+                "reasoning": "The claim directly matches the provided Reuters headline and content, which state that Foxconn expects its third-quarter performance to be supported by strong AI-related product demand. The source is a reputable international news agency, and the evidence is specific and directly relevant. There is no contradicting evidence provided.",
+                "evidence": [
+                  "Reuters headline: 'Foxconn expects stronger Q3 on AI demand'",
+                  "Reuters content: 'Foxconn expects strong AI-related product demand to support its third-quarter performance.'",
+                  "The URL indicates a Reuters article from 2026-09-05, suggesting a recent report on Foxconn's outlook."
+                ]
+              }
+            },
+            {
+              "model": "MiniMaxAI/MiniMax-M2.7",
+              "requestId": "req-1788638715495482060-1243335",
+              "messageId": "msg_3d705884894594bda6a5f6f8",
+              "result": {
+                "verdict": "TRUE",
+                "confidence": 0.95,
+                "reasoning": "The claim directly matches the evidence provided in a Reuters article dated 2026-09-05. The article explicitly states that 'Foxconn expects strong AI-related product demand to support its third-quarter performance,' which is identical to the claim. Reuters is a credible, authoritative news source, and the evidence contains concrete factual details about the company, timeframe, and expectation. There is no contradictory evidence provided, and the source appears internally consistent. The claim and evidence are directly aligned.",
+                "evidence": [
+                  "Reuters article (2026-09-05) explicitly states: 'Foxconn expects strong AI-related product demand to support its third-quarter performance'",
+                  "The evidence comes from Reuters, a credible and authoritative news source with direct reporting on the company statement"
+                ]
+              }
+            }
+          ],
+          "failures": []
+        },
+        "requestIds": [
+          {
+            "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+            "requestId": "req-1788638715422630989-1243334"
+          },
+          {
+            "model": "MiniMaxAI/MiniMax-M2.7",
+            "requestId": "req-1788638715495482060-1243335"
+          }
+        ],
+        "verificationStatus": "verified"
+      },
+      {
+        "id": "AI004",
+        "title": "Malaysia's data-centre boom draws public debate",
+        "category": "AI & Technology",
+        "summary": "Reddit users are discussing investment opportunities and sustainability concerns surrounding Malaysia's data-centre growth.",
+        "source": "Reddit r/civilengineering",
+        "platform": "Reddit",
+        "url": "https://www.reddit.com/r/civilengineering/comments/1vgthlk/malaysias_data_centre_boom_is_kinda_crazy_when/",
+        "publishedAt": "2026-08-06",
+        "claim": "Reddit users are discussing investment opportunities and sustainability concerns surrounding Malaysia's data-centre growth.",
+        "sources": [
+          "https://www.reddit.com/r/civilengineering/comments/1vgthlk/malaysias_data_centre_boom_is_kinda_crazy_when/"
+        ],
+        "evidence": [
+          {
+            "evidenceIndex": 1,
+            "content": "Title: Malaysia's data-centre boom draws public debate\nSource: Reddit r/civilengineering\nURL: https://www.reddit.com/r/civilengineering/comments/1vgthlk/malaysias_data_centre_boom_is_kinda_crazy_when/\nContent: Reddit users are discussing investment opportunities and sustainability concerns surrounding Malaysia's data-centre growth.",
+            "url": "https://www.reddit.com/r/civilengineering/comments/1vgthlk/malaysias_data_centre_boom_is_kinda_crazy_when/",
+            "source": "Reddit r/civilengineering",
+            "platform": "Reddit",
+            "publishedAt": "2026-08-06"
+          }
+        ],
+        "verdict": "UNCERTAIN",
+        "consensus": {
+          "verdict": "UNCERTAIN",
+          "voteCounts": {
+            "TRUE": 1,
+            "FALSE": 0,
+            "UNCERTAIN": 1
+          },
+          "totalModels": 2,
+          "totalVotes": 2,
+          "failedModels": 0,
+          "consensusReached": false,
+          "disagreement": true
+        },
+        "truthScore": {
+          "truthScore": 59.9,
+          "averageConfidence": 0.65,
+          "baseScore": 73.75,
+          "coverage": 0.67,
+          "reliability": 0.83,
+          "consensusFactor": 0.5
+        },
+        "reasoning": [
+          "The claim directly matches the provided evidence from the Reddit URL. The title and content of the cited Reddit post explicitly mention discussions about Malaysia's data-centre boom, and the content summaries state that Reddit users are discussing investment opportunities and sustainability concerns. The source is a real Reddit discussion forum, and the evidence is directly relevant and consistent.",
+          "The only evidence provided is the Reddit post itself, and the content description ('Reddit users are discussing investment opportunities and sustainability concerns surrounding Malaysia's data-centre growth') is essentially identical to the claim being verified, creating circular evidence. While the URL structure ('malaysias_data_centre_boom') and subreddit context (r/civilengineering) suggest the post discusses Malaysia's data-centre expansion, the evidence does not provide specific details about the actual content of the discussion, the number of comments, or confirmation that both investment opportunities and sustainability concerns are specifically addressed. Without access to the actual post content, comments, or corroborating sources, I cannot verify the factual accuracy of the claim beyond the URL title."
+        ],
+        "verification": {
+          "results": [
+            {
+              "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+              "requestId": "req-1788638715578290769-1243336",
+              "messageId": "msg_a6ba94837628759b04c3194e",
+              "result": {
+                "verdict": "TRUE",
+                "confidence": 0.95,
+                "reasoning": "The claim directly matches the provided evidence from the Reddit URL. The title and content of the cited Reddit post explicitly mention discussions about Malaysia's data-centre boom, and the content summaries state that Reddit users are discussing investment opportunities and sustainability concerns. The source is a real Reddit discussion forum, and the evidence is directly relevant and consistent.",
+                "evidence": [
+                  "The cited Reddit post is titled 'Malaysia's data-centre boom draws public debate' in the r/civilengineering subreddit.",
+                  "The content of the cited Reddit post is described as 'Reddit users are discussing investment opportunities and sustainability concerns surrounding Malaysia's data-centre growth.'",
+                  "The URL points to an actual Reddit thread: 'https://www.reddit.com/r/civilengineering/comments/1vgthlk/malaysias_data_centre_boom_is_kinda_crazy_when/'"
+                ]
+              }
+            },
+            {
+              "model": "MiniMaxAI/MiniMax-M2.7",
+              "requestId": "req-1788638715657396041-1243337",
+              "messageId": "msg_da450b55247c1f2f6694d61a",
+              "result": {
+                "verdict": "UNCERTAIN",
+                "confidence": 0.35,
+                "reasoning": "The only evidence provided is the Reddit post itself, and the content description ('Reddit users are discussing investment opportunities and sustainability concerns surrounding Malaysia's data-centre growth') is essentially identical to the claim being verified, creating circular evidence. While the URL structure ('malaysias_data_centre_boom') and subreddit context (r/civilengineering) suggest the post discusses Malaysia's data-centre expansion, the evidence does not provide specific details about the actual content of the discussion, the number of comments, or confirmation that both investment opportunities and sustainability concerns are specifically addressed. Without access to the actual post content, comments, or corroborating sources, I cannot verify the factual accuracy of the claim beyond the URL title.",
+                "evidence": [
+                  "The provided source URL contains 'malaysias_data_centre_boom' in its structure, suggesting the post is related to Malaysia's data-centre growth.",
+                  "The evidence content is a restatement of the claim itself rather than independent verification, making it circular and unreliable as standalone evidence."
+                ]
+              }
+            }
+          ],
+          "failures": []
+        },
+        "requestIds": [
+          {
+            "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+            "requestId": "req-1788638715578290769-1243336"
+          },
+          {
+            "model": "MiniMaxAI/MiniMax-M2.7",
+            "requestId": "req-1788638715657396041-1243337"
+          }
+        ],
+        "verificationStatus": "verified"
+      }
+    ],
+    "Entertainment & K-Pop": [
+      {
+        "id": "ENT001",
+        "title": "Major K-pop solo releases fill September",
+        "category": "Entertainment & K-Pop",
+        "summary": "September features a busy K-pop release schedule with several major solo artists competing for attention.",
+        "source": "The Korea Times",
+        "platform": "Website",
+        "url": "https://www.koreatimes.co.kr/entertainment/k-pop/20260903/solo-queens-crowd-septembers-k-pop-comeback-race",
+        "publishedAt": "2026-09-03",
+        "claim": "September features a busy K-pop release schedule with several major solo artists competing for attention.",
+        "sources": [
+          "https://www.koreatimes.co.kr/entertainment/k-pop/20260903/solo-queens-crowd-septembers-k-pop-comeback-race"
+        ],
+        "evidence": [
+          {
+            "evidenceIndex": 1,
+            "content": "Title: Major K-pop solo releases fill September\nSource: The Korea Times\nURL: https://www.koreatimes.co.kr/entertainment/k-pop/20260903/solo-queens-crowd-septembers-k-pop-comeback-race\nContent: September features a busy K-pop release schedule with several major solo artists competing for attention.",
+            "url": "https://www.koreatimes.co.kr/entertainment/k-pop/20260903/solo-queens-crowd-septembers-k-pop-comeback-race",
+            "source": "The Korea Times",
+            "platform": "Website",
+            "publishedAt": "2026-09-03"
+          }
+        ],
+        "verdict": "TRUE",
+        "consensus": {
+          "verdict": "TRUE",
+          "voteCounts": {
+            "TRUE": 2,
+            "FALSE": 0,
+            "UNCERTAIN": 0
+          },
+          "totalModels": 2,
+          "totalVotes": 2,
+          "failedModels": 0,
+          "consensusReached": true,
+          "disagreement": false
+        },
+        "truthScore": {
+          "truthScore": 88.54,
+          "averageConfidence": 0.93,
+          "baseScore": 96.25,
+          "coverage": 0.67,
+          "reliability": 0.83,
+          "consensusFactor": 1
+        },
+        "reasoning": [
+          "The claim is directly supported by the provided source, The Korea Times, which explicitly states that September features a busy K-pop release schedule with several major solo artists competing for attention. The source is a reputable Korean English-language newspaper, and the claim is specific to a month and release schedule, aligning with the article title 'Major K-pop solo releases fill September.' The evidence is direct and consistent, though only one source is provided, so confidence is not at the maximum.",
+          "The provided source from The Korea Times directly states the claim verbatim: 'September features a busy K-pop release schedule with several major solo artists competing for attention.' The article title 'Major K-pop solo releases fill September' further corroborates this claim. This is a credible source (a major Korean English-language publication), and the evidence directly and explicitly supports the claim without contradiction. No conflicting evidence was provided."
+        ],
+        "verification": {
+          "results": [
+            {
+              "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+              "requestId": "req-1788638715739223741-1243338",
+              "messageId": "msg_548436cc3388d10dcb6373aa",
+              "result": {
+                "verdict": "TRUE",
+                "confidence": 0.9,
+                "reasoning": "The claim is directly supported by the provided source, The Korea Times, which explicitly states that September features a busy K-pop release schedule with several major solo artists competing for attention. The source is a reputable Korean English-language newspaper, and the claim is specific to a month and release schedule, aligning with the article title 'Major K-pop solo releases fill September.' The evidence is direct and consistent, though only one source is provided, so confidence is not at the maximum.",
+                "evidence": [
+                  "The Korea Times article titled 'Major K-pop solo releases fill September' directly states that September features a busy K-pop release schedule with several major solo artists competing for attention.",
+                  "The source is a credible, established English-language Korean newspaper known for entertainment coverage.",
+                  "The claim is a straightforward description of a published article's content, and no contradictory evidence was provided."
+                ]
+              }
+            },
+            {
+              "model": "MiniMaxAI/MiniMax-M2.7",
+              "requestId": "req-1788638715828205958-1243339",
+              "messageId": "msg_ddde1a2b08c531f030acd11b",
+              "result": {
+                "verdict": "TRUE",
+                "confidence": 0.95,
+                "reasoning": "The provided source from The Korea Times directly states the claim verbatim: 'September features a busy K-pop release schedule with several major solo artists competing for attention.' The article title 'Major K-pop solo releases fill September' further corroborates this claim. This is a credible source (a major Korean English-language publication), and the evidence directly and explicitly supports the claim without contradiction. No conflicting evidence was provided.",
+                "evidence": [
+                  "The Korea Times article content explicitly states: 'September features a busy K-pop release schedule with several major solo artists competing for attention,' directly matching the claim.",
+                  "The article title 'Major K-pop solo releases fill September' indicates that major solo releases were filling September, supporting the claim of a busy release schedule."
+                ]
+              }
+            }
+          ],
+          "failures": []
+        },
+        "requestIds": [
+          {
+            "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+            "requestId": "req-1788638715739223741-1243338"
+          },
+          {
+            "model": "MiniMaxAI/MiniMax-M2.7",
+            "requestId": "req-1788638715828205958-1243339"
+          }
+        ],
+        "verificationStatus": "verified"
+      },
+      {
+        "id": "ENT002",
+        "title": "BTS Week becomes a major fan discussion",
+        "category": "Entertainment & K-Pop",
+        "summary": "Fans are reacting online to Los Angeles declaring BTS Week ahead of BTS concerts at SoFi Stadium.",
+        "source": "Reddit r/kpop",
+        "platform": "Reddit",
+        "url": "https://www.reddit.com/r/kpop/comments/1w4g204/los_angeles_declares_bts_week_ahead_of_concerts/",
+        "publishedAt": "2026-09-01",
+        "claim": "Fans are reacting online to Los Angeles declaring BTS Week ahead of BTS concerts at SoFi Stadium.",
+        "sources": [
+          "https://www.reddit.com/r/kpop/comments/1w4g204/los_angeles_declares_bts_week_ahead_of_concerts/"
+        ],
+        "evidence": [
+          {
+            "evidenceIndex": 1,
+            "content": "Title: BTS Week becomes a major fan discussion\nSource: Reddit r/kpop\nURL: https://www.reddit.com/r/kpop/comments/1w4g204/los_angeles_declares_bts_week_ahead_of_concerts/\nContent: Fans are reacting online to Los Angeles declaring BTS Week ahead of BTS concerts at SoFi Stadium.",
+            "url": "https://www.reddit.com/r/kpop/comments/1w4g204/los_angeles_declares_bts_week_ahead_of_concerts/",
+            "source": "Reddit r/kpop",
+            "platform": "Reddit",
+            "publishedAt": "2026-09-01"
+          }
+        ],
+        "verdict": "UNCERTAIN",
+        "consensus": {
+          "verdict": "UNCERTAIN",
+          "voteCounts": {
+            "TRUE": 0,
+            "FALSE": 0,
+            "UNCERTAIN": 2
+          },
+          "totalModels": 2,
+          "totalVotes": 2,
+          "failedModels": 0,
+          "consensusReached": true,
+          "disagreement": false
+        },
+        "truthScore": {
+          "truthScore": 50,
+          "averageConfidence": 0.4,
+          "baseScore": 50,
+          "coverage": 0.67,
+          "reliability": 0.83,
+          "consensusFactor": 1
+        },
+        "reasoning": [
+          "The only evidence provided is a Reddit post title and content that directly restates the claim. There is no independent, authoritative source such as an official Los Angeles city proclamation, news report from a reputable outlet, or other concrete evidence confirming that Los Angeles has declared 'BTS Week'. The Reddit post itself is user-generated content and does not establish the factual occurrence of the declaration. Therefore, the evidence is insufficient to confirm the claim as true, and there is no contradictory evidence to classify it as false.",
+          "The only evidence provided is a Reddit post titled 'BTS Week becomes a major fan discussion' which essentially restates the original claim rather than providing independent verification. There is no official documentation, government source, or authoritative news report confirming that Los Angeles officially declared 'BTS Week' or that such a declaration is connected to BTS concerts at SoFi Stadium. Reddit is a social media platform where fans discuss topics, and the content provided does not contain verifiable facts—it only reports that fan discussions are occurring. Without additional evidence from credible sources such as official city government announcements, news outlets, or press releases, there is insufficient reliable evidence to determine the accuracy of this claim."
+        ],
+        "verification": {
+          "results": [
+            {
+              "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+              "requestId": "req-1788638715907882756-1243340",
+              "messageId": "msg_8bab6839d4b5351eb864ff7e",
+              "result": {
+                "verdict": "UNCERTAIN",
+                "confidence": 0.5,
+                "reasoning": "The only evidence provided is a Reddit post title and content that directly restates the claim. There is no independent, authoritative source such as an official Los Angeles city proclamation, news report from a reputable outlet, or other concrete evidence confirming that Los Angeles has declared 'BTS Week'. The Reddit post itself is user-generated content and does not establish the factual occurrence of the declaration. Therefore, the evidence is insufficient to confirm the claim as true, and there is no contradictory evidence to classify it as false.",
+                "evidence": [
+                  "A Reddit post on r/kpop titled 'Los Angeles declares BTS Week ahead of concerts' states that fans are reacting online to the declaration, but this is a self-reported claim from a fan community and not an official or independent confirmation.",
+                  "No official government or reputable news source is provided that verifies the declaration of 'BTS Week' by the City of Los Angeles."
+                ]
+              }
+            },
+            {
+              "model": "MiniMaxAI/MiniMax-M2.7",
+              "requestId": "req-1788638715985013601-1243341",
+              "messageId": "msg_000ec5cb2724a005f73f473b",
+              "result": {
+                "verdict": "UNCERTAIN",
+                "confidence": 0.3,
+                "reasoning": "The only evidence provided is a Reddit post titled 'BTS Week becomes a major fan discussion' which essentially restates the original claim rather than providing independent verification. There is no official documentation, government source, or authoritative news report confirming that Los Angeles officially declared 'BTS Week' or that such a declaration is connected to BTS concerts at SoFi Stadium. Reddit is a social media platform where fans discuss topics, and the content provided does not contain verifiable facts—it only reports that fan discussions are occurring. Without additional evidence from credible sources such as official city government announcements, news outlets, or press releases, there is insufficient reliable evidence to determine the accuracy of this claim.",
+                "evidence": [
+                  "The provided evidence is a Reddit post that merely reports the claim without offering independent verification or documentation of an official Los Angeles declaration.",
+                  "No official government sources, city council records, or mayoral announcements are provided to confirm Los Angeles officially designated 'BTS Week'.",
+                  "The evidence does not include any verifiable details about the alleged concerts at SoFi Stadium or any proof of official fan reactions beyond the Reddit post itself."
+                ]
+              }
+            }
+          ],
+          "failures": []
+        },
+        "requestIds": [
+          {
+            "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+            "requestId": "req-1788638715907882756-1243340"
+          },
+          {
+            "model": "MiniMaxAI/MiniMax-M2.7",
+            "requestId": "req-1788638715985013601-1243341"
+          }
+        ],
+        "verificationStatus": "verified"
+      },
+      {
+        "id": "ENT003",
+        "title": "September K-pop comeback calendar attracts fans",
+        "category": "Entertainment & K-Pop",
+        "summary": "K-pop communities are tracking a packed September schedule of comebacks and debuts.",
+        "source": "Reddit r/kpoppers",
+        "platform": "Reddit",
+        "url": "https://www.reddit.com/r/kpoppers/comments/1w2lq5t/september_2026_kpop_comebacks_debuts_schedule/",
+        "publishedAt": "2026-08-30",
+        "claim": "K-pop communities are tracking a packed September schedule of comebacks and debuts.",
+        "sources": [
+          "https://www.reddit.com/r/kpoppers/comments/1w2lq5t/september_2026_kpop_comebacks_debuts_schedule/"
+        ],
+        "evidence": [
+          {
+            "evidenceIndex": 1,
+            "content": "Title: September K-pop comeback calendar attracts fans\nSource: Reddit r/kpoppers\nURL: https://www.reddit.com/r/kpoppers/comments/1w2lq5t/september_2026_kpop_comebacks_debuts_schedule/\nContent: K-pop communities are tracking a packed September schedule of comebacks and debuts.",
+            "url": "https://www.reddit.com/r/kpoppers/comments/1w2lq5t/september_2026_kpop_comebacks_debuts_schedule/",
+            "source": "Reddit r/kpoppers",
+            "platform": "Reddit",
+            "publishedAt": "2026-08-30"
+          }
+        ],
+        "verdict": "UNCERTAIN",
+        "consensus": {
+          "verdict": "UNCERTAIN",
+          "voteCounts": {
+            "TRUE": 1,
+            "FALSE": 0,
+            "UNCERTAIN": 1
+          },
+          "totalModels": 2,
+          "totalVotes": 2,
+          "failedModels": 0,
+          "consensusReached": false,
+          "disagreement": true
+        },
+        "truthScore": {
+          "truthScore": 59.17,
+          "averageConfidence": 0.64,
+          "baseScore": 72,
+          "coverage": 0.67,
+          "reliability": 0.83,
+          "consensusFactor": 0.5
+        },
+        "reasoning": [
+          "The only provided evidence is a single Reddit post title from a subreddit, which itself restates the claim. There is no independent, authoritative, or concrete information about specific comebacks or debuts scheduled for September 2026. The evidence is self-referential and lacks verifiable details, making it insufficient to confirm or refute the claim.",
+          "The provided Reddit source from r/kpoppers titled 'September 2026 Kpop Comebacks & Debuts Schedule' directly supports the claim. The source content explicitly states that 'K-pop communities are tracking a packed September schedule of comebacks and debuts.' This represents direct evidence from an active K-pop community forum demonstrating the claimed behavior. The source URL confirms the existence of such a tracking activity within K-pop fan communities. The evidence is consistent and comes from a community known for tracking K-pop release schedules, though it is self-referential in nature."
+        ],
+        "verification": {
+          "results": [
+            {
+              "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+              "requestId": "req-1788638716062496356-1243342",
+              "messageId": "msg_b1ab4c8c75e79eab0d04034c",
+              "result": {
+                "verdict": "UNCERTAIN",
+                "confidence": 0.4,
+                "reasoning": "The only provided evidence is a single Reddit post title from a subreddit, which itself restates the claim. There is no independent, authoritative, or concrete information about specific comebacks or debuts scheduled for September 2026. The evidence is self-referential and lacks verifiable details, making it insufficient to confirm or refute the claim.",
+                "evidence": [
+                  "The sole source is a Reddit post titled 'September K-pop comeback calendar attracts fans' on r/kpoppers, which merely repeats the claim without providing specific artist names, dates, or official announcements.",
+                  "No official entertainment company statements, K-pop news outlets, or independent sources are provided to corroborate the existence of a packed September 2026 schedule.",
+                  "As of the knowledge cutoff, details about September 2026 K-pop schedules are not part of reliable public knowledge, and the claim depends on future events."
+                ]
+              }
+            },
+            {
+              "model": "MiniMaxAI/MiniMax-M2.7",
+              "requestId": "req-1788638716143986806-1243343",
+              "messageId": "msg_460f456fa8f3e5cc89186642",
+              "result": {
+                "verdict": "TRUE",
+                "confidence": 0.88,
+                "reasoning": "The provided Reddit source from r/kpoppers titled 'September 2026 Kpop Comebacks & Debuts Schedule' directly supports the claim. The source content explicitly states that 'K-pop communities are tracking a packed September schedule of comebacks and debuts.' This represents direct evidence from an active K-pop community forum demonstrating the claimed behavior. The source URL confirms the existence of such a tracking activity within K-pop fan communities. The evidence is consistent and comes from a community known for tracking K-pop release schedules, though it is self-referential in nature.",
+                "evidence": [
+                  "The Reddit source from r/kpoppers titled 'September 2026 Kpop Comebacks & Debuts Schedule' directly states that K-pop communities are tracking a packed September schedule of comebacks and debuts.",
+                  "The URL structure confirms the existence of an active K-pop community forum post specifically dedicated to tracking September 2026 comebacks and debuts.",
+                  "The source originates from r/kpoppers, a recognized K-pop community forum, indicating genuine community engagement with comeback and debut tracking."
+                ]
+              }
+            }
+          ],
+          "failures": []
+        },
+        "requestIds": [
+          {
+            "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+            "requestId": "req-1788638716062496356-1243342"
+          },
+          {
+            "model": "MiniMaxAI/MiniMax-M2.7",
+            "requestId": "req-1788638716143986806-1243343"
+          }
+        ],
+        "verificationStatus": "verified"
+      },
+      {
+        "id": "ENT004",
+        "title": "Korean entertainment updates continue across Soompi",
+        "category": "Entertainment & K-Pop",
+        "summary": "Soompi continues to track current K-pop releases, artist activities and Korean entertainment updates.",
+        "source": "Soompi",
+        "platform": "Website",
+        "url": "https://www.soompi.com/",
+        "publishedAt": "2026-09-05",
+        "claim": "Soompi continues to track current K-pop releases, artist activities and Korean entertainment updates.",
+        "sources": [
+          "https://www.soompi.com/"
+        ],
+        "evidence": [
+          {
+            "evidenceIndex": 1,
+            "content": "Title: Korean entertainment updates continue across Soompi\nSource: Soompi\nURL: https://www.soompi.com/\nContent: Soompi continues to track current K-pop releases, artist activities and Korean entertainment updates.",
+            "url": "https://www.soompi.com/",
+            "source": "Soompi",
+            "platform": "Website",
+            "publishedAt": "2026-09-05"
+          }
+        ],
+        "verdict": "TRUE",
+        "consensus": {
+          "verdict": "TRUE",
+          "voteCounts": {
+            "TRUE": 2,
+            "FALSE": 0,
+            "UNCERTAIN": 0
+          },
+          "totalModels": 2,
+          "totalVotes": 2,
+          "failedModels": 0,
+          "consensusReached": true,
+          "disagreement": false
+        },
+        "truthScore": {
+          "truthScore": 88.96,
+          "averageConfidence": 0.94,
+          "baseScore": 96.75,
+          "coverage": 0.67,
+          "reliability": 0.83,
+          "consensusFactor": 1
+        },
+        "reasoning": [
+          "The claim is a general statement about Soompi's ongoing coverage of K-pop and Korean entertainment. The provided source is Soompi's official website, which is a well-known and established platform for such content. The evidence directly supports the claim by stating that Soompi continues to track these updates. There is no contradictory evidence provided. The claim is not dependent on a specific date or event but describes the platform's ongoing role, which is consistent with its known operations.",
+          "The claim states that Soompi continues to track current K-pop releases, artist activities, and Korean entertainment updates. The evidence provided is from Soompi's official website, which explicitly states that they continue to track these topics. Soompi is a well-established and credible source for Korean entertainment news, having operated since 1999 and consistently providing coverage of K-pop releases, artist activities, and Korean entertainment updates. The evidence directly supports the claim, and the source is authoritative. While the evidence is from the subject of the claim itself (self-referential), Soompi's long-standing reputation in this field provides credibility. The claim appears to be TRUE based on the available evidence."
+        ],
+        "verification": {
+          "results": [
+            {
+              "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+              "requestId": "req-1788638716218464344-1243344",
+              "messageId": "msg_b1a2b90fe1c461248b8f137c",
+              "result": {
+                "verdict": "TRUE",
+                "confidence": 0.95,
+                "reasoning": "The claim is a general statement about Soompi's ongoing coverage of K-pop and Korean entertainment. The provided source is Soompi's official website, which is a well-known and established platform for such content. The evidence directly supports the claim by stating that Soompi continues to track these updates. There is no contradictory evidence provided. The claim is not dependent on a specific date or event but describes the platform's ongoing role, which is consistent with its known operations.",
+                "evidence": [
+                  "Soompi's official website (https://www.soompi.com/) is a widely recognized source for K-pop and Korean entertainment news.",
+                  "The provided evidence from Soompi's site explicitly states that it continues to track K-pop releases, artist activities, and Korean entertainment updates.",
+                  "No evidence contradicting the claim was supplied or found in the provided material."
+                ]
+              }
+            },
+            {
+              "model": "MiniMaxAI/MiniMax-M2.7",
+              "requestId": "req-1788638716295542528-1243345",
+              "messageId": "msg_bd08ee0d6a3cef249875a617",
+              "result": {
+                "verdict": "TRUE",
+                "confidence": 0.92,
+                "reasoning": "The claim states that Soompi continues to track current K-pop releases, artist activities, and Korean entertainment updates. The evidence provided is from Soompi's official website, which explicitly states that they continue to track these topics. Soompi is a well-established and credible source for Korean entertainment news, having operated since 1999 and consistently providing coverage of K-pop releases, artist activities, and Korean entertainment updates. The evidence directly supports the claim, and the source is authoritative. While the evidence is from the subject of the claim itself (self-referential), Soompi's long-standing reputation in this field provides credibility. The claim appears to be TRUE based on the available evidence.",
+                "evidence": [
+                  "Soompi's official website (https://www.soompi.com/) explicitly states they continue to track current K-pop releases, artist activities and Korean entertainment updates.",
+                  "Soompi is a well-established Korean entertainment news outlet with a long history of providing K-pop and Korean entertainment coverage, confirming their track record in this area."
+                ]
+              }
+            }
+          ],
+          "failures": []
+        },
+        "requestIds": [
+          {
+            "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+            "requestId": "req-1788638716218464344-1243344"
+          },
+          {
+            "model": "MiniMaxAI/MiniMax-M2.7",
+            "requestId": "req-1788638716295542528-1243345"
+          }
+        ],
+        "verificationStatus": "verified"
+      }
+    ],
+    "World & Local": [
+      {
+        "id": "WORLD001",
+        "title": "Emergency declared in Serian over hazardous haze",
+        "category": "World & Local",
+        "summary": "Authorities declared an emergency in Serian, Sarawak after air pollution reached hazardous levels.",
+        "source": "Reuters",
+        "platform": "Website",
+        "url": "https://www.reuters.com/business/environment/malaysias-sarawak-declares-emergency-serian-district-due-haze-2026-09-04/",
+        "publishedAt": "2026-09-04",
+        "claim": "Authorities declared an emergency in Serian, Sarawak after air pollution reached hazardous levels.",
+        "sources": [
+          "https://www.reuters.com/business/environment/malaysias-sarawak-declares-emergency-serian-district-due-haze-2026-09-04/"
+        ],
+        "evidence": [
+          {
+            "evidenceIndex": 1,
+            "content": "Title: Emergency declared in Serian over hazardous haze\nSource: Reuters\nURL: https://www.reuters.com/business/environment/malaysias-sarawak-declares-emergency-serian-district-due-haze-2026-09-04/\nContent: Authorities declared an emergency in Serian, Sarawak after air pollution reached hazardous levels.",
+            "url": "https://www.reuters.com/business/environment/malaysias-sarawak-declares-emergency-serian-district-due-haze-2026-09-04/",
+            "source": "Reuters",
+            "platform": "Website",
+            "publishedAt": "2026-09-04"
+          }
+        ],
+        "verdict": "TRUE",
+        "consensus": {
+          "verdict": "TRUE",
+          "voteCounts": {
+            "TRUE": 2,
+            "FALSE": 0,
+            "UNCERTAIN": 0
+          },
+          "totalModels": 2,
+          "totalVotes": 2,
+          "failedModels": 0,
+          "consensusReached": true,
+          "disagreement": false
+        },
+        "truthScore": {
+          "truthScore": 88.13,
+          "averageConfidence": 0.92,
+          "baseScore": 95.75,
+          "coverage": 0.67,
+          "reliability": 0.83,
+          "consensusFactor": 1
+        },
+        "reasoning": [
+          "The claim is directly supported by the provided Reuters article, which is a credible news agency. The evidence is consistent and specific, stating that authorities declared an emergency in Serian, Sarawak due to hazardous haze. There is no contradictory evidence provided.",
+          "The provided Reuters source directly supports the claim. The article title states 'Emergency declared in Serian over hazardous haze' and the content explicitly confirms that 'Authorities declared an emergency in Serian, Sarawak after air pollution reached hazardous levels.' This matches the claim verbatim. Reuters is a credible, authoritative news organization. The URL structure indicates the article was published on September 4, 2026. Since the evidence is internally consistent, comes from a reliable source, and directly corroborates the factual claim without contradiction, the claim is supported by the available evidence."
+        ],
+        "verification": {
+          "results": [
+            {
+              "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+              "requestId": "req-1788638716374726322-1243346",
+              "messageId": "msg_c66057e804dd329c36f3f30e",
+              "result": {
+                "verdict": "TRUE",
+                "confidence": 0.9,
+                "reasoning": "The claim is directly supported by the provided Reuters article, which is a credible news agency. The evidence is consistent and specific, stating that authorities declared an emergency in Serian, Sarawak due to hazardous haze. There is no contradictory evidence provided.",
+                "evidence": [
+                  "Reuters reported on September 4, 2026, that an emergency was declared in Serian, Sarawak due to hazardous haze.",
+                  "The evidence directly states that authorities declared an emergency in Serian after air pollution reached hazardous levels, matching the claim exactly."
+                ]
+              }
+            },
+            {
+              "model": "MiniMaxAI/MiniMax-M2.7",
+              "requestId": "req-1788638716450832368-1243347",
+              "messageId": "msg_d3e2462cb8c4db8d8f9cecec",
+              "result": {
+                "verdict": "TRUE",
+                "confidence": 0.93,
+                "reasoning": "The provided Reuters source directly supports the claim. The article title states 'Emergency declared in Serian over hazardous haze' and the content explicitly confirms that 'Authorities declared an emergency in Serian, Sarawak after air pollution reached hazardous levels.' This matches the claim verbatim. Reuters is a credible, authoritative news organization. The URL structure indicates the article was published on September 4, 2026. Since the evidence is internally consistent, comes from a reliable source, and directly corroborates the factual claim without contradiction, the claim is supported by the available evidence.",
+                "evidence": [
+                  "Reuters article titled 'Emergency declared in Serian over hazardous haze' directly states that authorities declared an emergency in Serian, Sarawak due to hazardous haze.",
+                  "The article content explicitly confirms the claim: 'Authorities declared an emergency in Serian, Sarawak after air pollution reached hazardous levels.'",
+                  "Reuters is an established, credible international news agency, providing reliable sourcing for this factual verification."
+                ]
+              }
+            }
+          ],
+          "failures": []
+        },
+        "requestIds": [
+          {
+            "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+            "requestId": "req-1788638716374726322-1243346"
+          },
+          {
+            "model": "MiniMaxAI/MiniMax-M2.7",
+            "requestId": "req-1788638716450832368-1243347"
+          }
+        ],
+        "verificationStatus": "verified"
+      },
+      {
+        "id": "WORLD002",
+        "title": "Malaysia announces measures to ease living costs",
+        "category": "World & Local",
+        "summary": "Malaysia announced measures covering fuel, small businesses and digital access as part of efforts to ease living costs.",
+        "source": "Reuters",
+        "platform": "Website",
+        "url": "https://www.reuters.com/business/energy/malaysia-reinstate-300-litre-monthly-limit-per-citizen-ron95-transport-fuel-pm-2026-08-30/",
+        "publishedAt": "2026-08-30",
+        "claim": "Malaysia announced measures covering fuel, small businesses and digital access as part of efforts to ease living costs.",
+        "sources": [
+          "https://www.reuters.com/business/energy/malaysia-reinstate-300-litre-monthly-limit-per-citizen-ron95-transport-fuel-pm-2026-08-30/"
+        ],
+        "evidence": [
+          {
+            "evidenceIndex": 1,
+            "content": "Title: Malaysia announces measures to ease living costs\nSource: Reuters\nURL: https://www.reuters.com/business/energy/malaysia-reinstate-300-litre-monthly-limit-per-citizen-ron95-transport-fuel-pm-2026-08-30/\nContent: Malaysia announced measures covering fuel, small businesses and digital access as part of efforts to ease living costs.",
+            "url": "https://www.reuters.com/business/energy/malaysia-reinstate-300-litre-monthly-limit-per-citizen-ron95-transport-fuel-pm-2026-08-30/",
+            "source": "Reuters",
+            "platform": "Website",
+            "publishedAt": "2026-08-30"
+          }
+        ],
+        "verdict": "UNCERTAIN",
+        "consensus": {
+          "verdict": "UNCERTAIN",
+          "voteCounts": {
+            "TRUE": 1,
+            "FALSE": 0,
+            "UNCERTAIN": 1
+          },
+          "totalModels": 2,
+          "totalVotes": 2,
+          "failedModels": 0,
+          "consensusReached": false,
+          "disagreement": true
+        },
+        "truthScore": {
+          "truthScore": 59.58,
+          "averageConfidence": 0.76,
+          "baseScore": 73,
+          "coverage": 0.67,
+          "reliability": 0.83,
+          "consensusFactor": 0.5
+        },
+        "reasoning": [
+          "The only evidence provided is a single Reuters headline and title that directly reiterates the claim, but no article content is supplied to confirm the specific measures (fuel, small businesses, digital access) or that they were announced as part of easing living costs. The URL suggests a future date and contains a specific detail about a RON95 fuel limit, but without the article body or corroborating sources, the evidence is insufficient to verify the claim independently.",
+          "The claim is directly supported by the Reuters article provided. The article title 'Malaysia announces measures to ease living costs' and its content explicitly state that 'Malaysia announced measures covering fuel, small businesses and digital access as part of efforts to ease living costs.' This matches the claim word-for-word. The source is Reuters, a credible international news organization. While only one source is available, the evidence is unambiguous and directly corroborates the claim."
+        ],
+        "verification": {
+          "results": [
+            {
+              "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+              "requestId": "req-1788638716531548446-1243348",
+              "messageId": "msg_de9d22b823fbe9d058178351",
+              "result": {
+                "verdict": "UNCERTAIN",
+                "confidence": 0.6,
+                "reasoning": "The only evidence provided is a single Reuters headline and title that directly reiterates the claim, but no article content is supplied to confirm the specific measures (fuel, small businesses, digital access) or that they were announced as part of easing living costs. The URL suggests a future date and contains a specific detail about a RON95 fuel limit, but without the article body or corroborating sources, the evidence is insufficient to verify the claim independently.",
+                "evidence": [
+                  "The provided Reuters URL and title state 'Malaysia announces measures to ease living costs' and mention fuel, small businesses, and digital access, directly supporting the claim's wording.",
+                  "The URL includes a specific date '2026-08-30' and mentions a '300-litre monthly limit per citizen' for RON95 transport fuel, but the article content is not provided, so the context and details of the measures cannot be verified.",
+                  "No additional independent sources, official government statements, or detailed reporting are supplied to corroborate the claim.",
+                  "The evidence is singular and does not include verification of the small business or digital access components beyond the headline/title."
+                ]
+              }
+            },
+            {
+              "model": "MiniMaxAI/MiniMax-M2.7",
+              "requestId": "req-1788638716607901898-1243349",
+              "messageId": "msg_a0041aa758a2a188f763c356",
+              "result": {
+                "verdict": "TRUE",
+                "confidence": 0.92,
+                "reasoning": "The claim is directly supported by the Reuters article provided. The article title 'Malaysia announces measures to ease living costs' and its content explicitly state that 'Malaysia announced measures covering fuel, small businesses and digital access as part of efforts to ease living costs.' This matches the claim word-for-word. The source is Reuters, a credible international news organization. While only one source is available, the evidence is unambiguous and directly corroborates the claim.",
+                "evidence": [
+                  "Reuters article title: 'Malaysia announces measures to ease living costs' directly matches the claim being verified.",
+                  "Reuters article content: 'Malaysia announced measures covering fuel, small businesses and digital access as part of efforts to ease living costs.' This confirms the specific measures mentioned in the claim (fuel, small businesses, digital access) as part of living cost efforts."
+                ]
+              }
+            }
+          ],
+          "failures": []
+        },
+        "requestIds": [
+          {
+            "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+            "requestId": "req-1788638716531548446-1243348"
+          },
+          {
+            "model": "MiniMaxAI/MiniMax-M2.7",
+            "requestId": "req-1788638716607901898-1243349"
+          }
+        ],
+        "verificationStatus": "verified"
+      },
+      {
+        "id": "WORLD003",
+        "title": "China seeks deeper Middle East ties",
+        "category": "World & Local",
+        "summary": "China's diplomatic engagement with Egypt highlights Beijing's growing economic and political role in the Middle East.",
+        "source": "Associated Press",
+        "platform": "Website",
+        "url": "https://apnews.com/article/946c3b90b6251c08fdcb219e24a088a2",
+        "publishedAt": "2026-09-02",
+        "claim": "China's diplomatic engagement with Egypt highlights Beijing's growing economic and political role in the Middle East.",
+        "sources": [
+          "https://apnews.com/article/946c3b90b6251c08fdcb219e24a088a2"
+        ],
+        "evidence": [
+          {
+            "evidenceIndex": 1,
+            "content": "Title: China seeks deeper Middle East ties\nSource: Associated Press\nURL: https://apnews.com/article/946c3b90b6251c08fdcb219e24a088a2\nContent: China's diplomatic engagement with Egypt highlights Beijing's growing economic and political role in the Middle East.",
+            "url": "https://apnews.com/article/946c3b90b6251c08fdcb219e24a088a2",
+            "source": "Associated Press",
+            "platform": "Website",
+            "publishedAt": "2026-09-02"
+          }
+        ],
+        "verdict": "TRUE",
+        "consensus": {
+          "verdict": "TRUE",
+          "voteCounts": {
+            "TRUE": 2,
+            "FALSE": 0,
+            "UNCERTAIN": 0
+          },
+          "totalModels": 2,
+          "totalVotes": 2,
+          "failedModels": 0,
+          "consensusReached": true,
+          "disagreement": false
+        },
+        "truthScore": {
+          "truthScore": 85.42,
+          "averageConfidence": 0.85,
+          "baseScore": 92.5,
+          "coverage": 0.67,
+          "reliability": 0.83,
+          "consensusFactor": 1
+        },
+        "reasoning": [
+          "The claim is directly supported by the provided source, an Associated Press article titled 'China seeks deeper Middle East ties.' The article's content explicitly states that China's diplomatic engagement with Egypt highlights Beijing's growing economic and political role in the Middle East. The Associated Press is a reputable news agency, and the statement is a factual observation about China's foreign policy activities. While the evidence is limited to a single source, it is authoritative and directly aligns with the claim, and there is no contradictory evidence provided.",
+          "The provided source is an Associated Press (AP) news article titled 'China seeks deeper Middle East ties.' AP News is a well-established, credible international news organization. The article content directly states that 'China's diplomatic engagement with Egypt highlights Beijing's growing economic and political role in the Middle East,' which directly supports the claim being verified. The claim appears to be a factual report about current diplomatic relations. However, the confidence is slightly reduced from a higher score because the evidence provided is essentially the claim itself from the article rather than independent corroborating sources or additional context."
+        ],
+        "verification": {
+          "results": [
+            {
+              "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+              "requestId": "req-1788638716685605030-1243350",
+              "messageId": "msg_c7f9ad788fa1f64754af3acb",
+              "result": {
+                "verdict": "TRUE",
+                "confidence": 0.9,
+                "reasoning": "The claim is directly supported by the provided source, an Associated Press article titled 'China seeks deeper Middle East ties.' The article's content explicitly states that China's diplomatic engagement with Egypt highlights Beijing's growing economic and political role in the Middle East. The Associated Press is a reputable news agency, and the statement is a factual observation about China's foreign policy activities. While the evidence is limited to a single source, it is authoritative and directly aligns with the claim, and there is no contradictory evidence provided.",
+                "evidence": [
+                  "An Associated Press article titled 'China seeks deeper Middle East ties' directly states that China's diplomatic engagement with Egypt highlights Beijing's growing economic and political role in the Middle East.",
+                  "The source is a well-known international news agency, lending credibility to the factual assertion."
+                ]
+              }
+            },
+            {
+              "model": "MiniMaxAI/MiniMax-M2.7",
+              "requestId": "req-1788638736927950439-1243439",
+              "messageId": "msg_e8f9ab1a4bb71289ada8eed2",
+              "result": {
+                "verdict": "TRUE",
+                "confidence": 0.8,
+                "reasoning": "The provided source is an Associated Press (AP) news article titled 'China seeks deeper Middle East ties.' AP News is a well-established, credible international news organization. The article content directly states that 'China's diplomatic engagement with Egypt highlights Beijing's growing economic and political role in the Middle East,' which directly supports the claim being verified. The claim appears to be a factual report about current diplomatic relations. However, the confidence is slightly reduced from a higher score because the evidence provided is essentially the claim itself from the article rather than independent corroborating sources or additional context.",
+                "evidence": [
+                  "AP News is a credible, established international news wire service, and the article 'China seeks deeper Middle East ties' directly states that China's diplomatic engagement with Egypt highlights Beijing's growing economic and political role in the Middle East.",
+                  "The article URL indicates a specific AP News report (article/946c3b90b6251c08fdcb219e24a088a2) published on AP's platform, suggesting this is a current report on China's diplomatic activities."
+                ]
+              }
+            }
+          ],
+          "failures": []
+        },
+        "requestIds": [
+          {
+            "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+            "requestId": "req-1788638716685605030-1243350"
+          },
+          {
+            "model": "MiniMaxAI/MiniMax-M2.7",
+            "requestId": "req-1788638736927950439-1243439"
+          }
+        ],
+        "verificationStatus": "verified"
+      },
+      {
+        "id": "WORLD004",
+        "title": "Johor data-centre growth debated online",
+        "category": "World & Local",
+        "summary": "Malaysian users debate the economic benefits, electricity demand and water use associated with Johor's expanding data-centre sector.",
+        "source": "Reddit r/malaysia",
+        "platform": "Reddit",
+        "url": "https://www.reddit.com/r/malaysia/comments/1w3zlam/singapores_low_data_centre_rate_to_propel_demand/",
+        "publishedAt": "2026-09-01",
+        "claim": "Malaysian users debate the economic benefits, electricity demand and water use associated with Johor's expanding data-centre sector.",
+        "sources": [
+          "https://www.reddit.com/r/malaysia/comments/1w3zlam/singapores_low_data_centre_rate_to_propel_demand/"
+        ],
+        "evidence": [
+          {
+            "evidenceIndex": 1,
+            "content": "Title: Johor data-centre growth debated online\nSource: Reddit r/malaysia\nURL: https://www.reddit.com/r/malaysia/comments/1w3zlam/singapores_low_data_centre_rate_to_propel_demand/\nContent: Malaysian users debate the economic benefits, electricity demand and water use associated with Johor's expanding data-centre sector.",
+            "url": "https://www.reddit.com/r/malaysia/comments/1w3zlam/singapores_low_data_centre_rate_to_propel_demand/",
+            "source": "Reddit r/malaysia",
+            "platform": "Reddit",
+            "publishedAt": "2026-09-01"
+          }
+        ],
+        "verdict": "UNCERTAIN",
+        "consensus": {
+          "verdict": "UNCERTAIN",
+          "voteCounts": {
+            "TRUE": 1,
+            "FALSE": 0,
+            "UNCERTAIN": 1
+          },
+          "totalModels": 2,
+          "totalVotes": 2,
+          "failedModels": 0,
+          "consensusReached": false,
+          "disagreement": true
+        },
+        "truthScore": {
+          "truthScore": 59.9,
+          "averageConfidence": 0.72,
+          "baseScore": 73.75,
+          "coverage": 0.67,
+          "reliability": 0.83,
+          "consensusFactor": 0.5
+        },
+        "reasoning": [
+          "The only supplied evidence is a Reddit thread title and a summary stating that users debate the economic benefits, electricity demand, and water use of Johor's data-centre sector. This supports the claim that there is a debate, but the evidence is limited to a single source and does not provide direct quotations, comments, or independent verification of the specific topics discussed. The claim itself is about the existence of a debate, which is plausibly supported by the Reddit thread, but the evidence is not sufficiently detailed or corroborated to confirm the precise content of the debate.",
+          "The provided Reddit source directly corroborates the claim. The post title is 'Johor data-centre growth debated online' and its content explicitly states that 'Malaysian users debate the economic benefits, electricity demand and water use associated with Johor's expanding data-centre sector.' This matches the claim verbatim. The source demonstrates that the debate referenced in the claim actually exists within the Malaysian online community on Reddit. No contradictory evidence was found, and the claim is a factual statement about content posted on a public forum."
+        ],
+        "verification": {
+          "results": [
+            {
+              "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+              "requestId": "req-1788638737001353825-1243440",
+              "messageId": "msg_75d6ca9960021e287ea7a0b6",
+              "result": {
+                "verdict": "UNCERTAIN",
+                "confidence": 0.5,
+                "reasoning": "The only supplied evidence is a Reddit thread title and a summary stating that users debate the economic benefits, electricity demand, and water use of Johor's data-centre sector. This supports the claim that there is a debate, but the evidence is limited to a single source and does not provide direct quotations, comments, or independent verification of the specific topics discussed. The claim itself is about the existence of a debate, which is plausibly supported by the Reddit thread, but the evidence is not sufficiently detailed or corroborated to confirm the precise content of the debate.",
+                "evidence": [
+                  "Reddit thread titled 'Singapore's low data centre rate to propel demand' in r/malaysia allegedly discusses Johor's data-centre sector.",
+                  "The summary provided with the Reddit link states that Malaysian users debate economic benefits, electricity demand, and water use related to Johor's data-centre expansion.",
+                  "No other independent sources or detailed comments are provided to verify the breadth and nature of the debate."
+                ]
+              }
+            },
+            {
+              "model": "MiniMaxAI/MiniMax-M2.7",
+              "requestId": "req-1788638737086556652-1243441",
+              "messageId": "msg_e43dbb5f2d0d8036ad8d893d",
+              "result": {
+                "verdict": "TRUE",
+                "confidence": 0.95,
+                "reasoning": "The provided Reddit source directly corroborates the claim. The post title is 'Johor data-centre growth debated online' and its content explicitly states that 'Malaysian users debate the economic benefits, electricity demand and water use associated with Johor's expanding data-centre sector.' This matches the claim verbatim. The source demonstrates that the debate referenced in the claim actually exists within the Malaysian online community on Reddit. No contradictory evidence was found, and the claim is a factual statement about content posted on a public forum.",
+                "evidence": [
+                  "The Reddit post from r/malaysia has the title 'Johor data-centre growth debated online'",
+                  "The post content explicitly states 'Malaysian users debate the economic benefits, electricity demand and water use associated with Johor's expanding data-centre sector' which directly matches the claim"
+                ]
+              }
+            }
+          ],
+          "failures": []
+        },
+        "requestIds": [
+          {
+            "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+            "requestId": "req-1788638737001353825-1243440"
+          },
+          {
+            "model": "MiniMaxAI/MiniMax-M2.7",
+            "requestId": "req-1788638737086556652-1243441"
+          }
+        ],
+        "verificationStatus": "verified"
+      }
+    ],
+    "Business & Money": [
+      {
+        "id": "BUS001",
+        "title": "Malaysia assesses AirAsia funding needs",
+        "category": "Business & Money",
+        "summary": "Malaysia's finance ministry hired an adviser to assess AirAsia's funding needs while the airline works on financing and restructuring.",
+        "source": "Reuters",
+        "platform": "Website",
+        "url": "https://www.reuters.com/world/asia-pacific/malaysias-finance-ministry-hires-adviser-assess-airasias-funding-needs-sources-2026-09-03/",
+        "publishedAt": "2026-09-03",
+        "claim": "Malaysia's finance ministry hired an adviser to assess AirAsia's funding needs while the airline works on financing and restructuring.",
+        "sources": [
+          "https://www.reuters.com/world/asia-pacific/malaysias-finance-ministry-hires-adviser-assess-airasias-funding-needs-sources-2026-09-03/"
+        ],
+        "evidence": [
+          {
+            "evidenceIndex": 1,
+            "content": "Title: Malaysia assesses AirAsia funding needs\nSource: Reuters\nURL: https://www.reuters.com/world/asia-pacific/malaysias-finance-ministry-hires-adviser-assess-airasias-funding-needs-sources-2026-09-03/\nContent: Malaysia's finance ministry hired an adviser to assess AirAsia's funding needs while the airline works on financing and restructuring.",
+            "url": "https://www.reuters.com/world/asia-pacific/malaysias-finance-ministry-hires-adviser-assess-airasias-funding-needs-sources-2026-09-03/",
+            "source": "Reuters",
+            "platform": "Website",
+            "publishedAt": "2026-09-03"
+          }
+        ],
+        "verdict": "TRUE",
+        "consensus": {
+          "verdict": "TRUE",
+          "voteCounts": {
+            "TRUE": 2,
+            "FALSE": 0,
+            "UNCERTAIN": 0
+          },
+          "totalModels": 2,
+          "totalVotes": 2,
+          "failedModels": 0,
+          "consensusReached": true,
+          "disagreement": false
+        },
+        "truthScore": {
+          "truthScore": 88.96,
+          "averageConfidence": 0.94,
+          "baseScore": 96.75,
+          "coverage": 0.67,
+          "reliability": 0.83,
+          "consensusFactor": 1
+        },
+        "reasoning": [
+          "The claim is directly supported by the provided Reuters report, which is a credible and authoritative news source. The report explicitly states that Malaysia's finance ministry hired an adviser to assess AirAsia's funding needs while the airline works on financing and restructuring. No contradictory evidence is present in the provided information.",
+          "The provided Reuters article, dated September 3, 2026, directly supports the claim. The headline states 'Malaysia assesses AirAsia funding needs' and the article content explicitly confirms that 'Malaysia's finance ministry hired an adviser to assess AirAsia's funding needs while the airline works on financing and restructuring.' This matches the claim verbatim. Reuters is a credible and established news organization. The claim is factual and straightforward in nature, involving a specific government action regarding a named airline. While this is a single source, it is from a reliable news agency and provides direct, unambiguous support for the claim without contradiction."
+        ],
+        "verification": {
+          "results": [
+            {
+              "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+              "requestId": "req-1788638737158196208-1243442",
+              "messageId": "msg_5d20d2f6a0926bf5a788bba7",
+              "result": {
+                "verdict": "TRUE",
+                "confidence": 0.95,
+                "reasoning": "The claim is directly supported by the provided Reuters report, which is a credible and authoritative news source. The report explicitly states that Malaysia's finance ministry hired an adviser to assess AirAsia's funding needs while the airline works on financing and restructuring. No contradictory evidence is present in the provided information.",
+                "evidence": [
+                  "Reuters article titled 'Malaysia assesses AirAsia funding needs' states: 'Malaysia's finance ministry hired an adviser to assess AirAsia's funding needs while the airline works on financing and restructuring.'",
+                  "The source is Reuters, a major international news agency known for factual reporting.",
+                  "The claim matches the evidence verbatim, indicating direct support."
+                ]
+              }
+            },
+            {
+              "model": "MiniMaxAI/MiniMax-M2.7",
+              "requestId": "req-1788638757563125356-1243500",
+              "messageId": "msg_03413f99e83d01f96aaf1cd6",
+              "result": {
+                "verdict": "TRUE",
+                "confidence": 0.92,
+                "reasoning": "The provided Reuters article, dated September 3, 2026, directly supports the claim. The headline states 'Malaysia assesses AirAsia funding needs' and the article content explicitly confirms that 'Malaysia's finance ministry hired an adviser to assess AirAsia's funding needs while the airline works on financing and restructuring.' This matches the claim verbatim. Reuters is a credible and established news organization. The claim is factual and straightforward in nature, involving a specific government action regarding a named airline. While this is a single source, it is from a reliable news agency and provides direct, unambiguous support for the claim without contradiction.",
+                "evidence": [
+                  "Reuters article title 'Malaysia assesses AirAsia funding needs' directly confirms the claim about Malaysia's finance ministry assessing AirAsia's funding needs.",
+                  "Reuters article content explicitly states 'Malaysia's finance ministry hired an adviser to assess AirAsia's funding needs while the airline works on financing and restructuring,' matching the claim word-for-word."
+                ]
+              }
+            }
+          ],
+          "failures": []
+        },
+        "requestIds": [
+          {
+            "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+            "requestId": "req-1788638737158196208-1243442"
+          },
+          {
+            "model": "MiniMaxAI/MiniMax-M2.7",
+            "requestId": "req-1788638757563125356-1243500"
+          }
+        ],
+        "verificationStatus": "verified"
+      },
+      {
+        "id": "BUS002",
+        "title": "Bursa Malaysia closes higher after BNM decision",
+        "category": "Business & Money",
+        "summary": "The FBM KLCI rose after Bank Negara Malaysia kept its benchmark interest rate unchanged.",
+        "source": "BERNAMA",
+        "platform": "Website",
+        "url": "https://www.bernama.com/en/market/news.php?id=2602551",
+        "publishedAt": "2026-09-03",
+        "claim": "The FBM KLCI rose after Bank Negara Malaysia kept its benchmark interest rate unchanged.",
+        "sources": [
+          "https://www.bernama.com/en/market/news.php?id=2602551"
+        ],
+        "evidence": [
+          {
+            "evidenceIndex": 1,
+            "content": "Title: Bursa Malaysia closes higher after BNM decision\nSource: BERNAMA\nURL: https://www.bernama.com/en/market/news.php?id=2602551\nContent: The FBM KLCI rose after Bank Negara Malaysia kept its benchmark interest rate unchanged.",
+            "url": "https://www.bernama.com/en/market/news.php?id=2602551",
+            "source": "BERNAMA",
+            "platform": "Website",
+            "publishedAt": "2026-09-03"
+          }
+        ],
+        "verdict": "TRUE",
+        "consensus": {
+          "verdict": "TRUE",
+          "voteCounts": {
+            "TRUE": 2,
+            "FALSE": 0,
+            "UNCERTAIN": 0
+          },
+          "totalModels": 2,
+          "totalVotes": 2,
+          "failedModels": 0,
+          "consensusReached": true,
+          "disagreement": false
+        },
+        "truthScore": {
+          "truthScore": 87.5,
+          "averageConfidence": 0.9,
+          "baseScore": 95,
+          "coverage": 0.67,
+          "reliability": 0.83,
+          "consensusFactor": 1
+        },
+        "reasoning": [
+          "The claim is directly supported by the provided news article from BERNAMA, a credible Malaysian national news agency. The article title and content explicitly state that the FBM KLCI rose after Bank Negara Malaysia kept its benchmark interest rate unchanged. No contradictory evidence was provided.",
+          "The evidence from BERNAMA, Malaysia's official national news agency, directly and explicitly confirms the claim. The source content states: 'The FBM KLCI rose after Bank Negara Malaysia kept its benchmark interest rate unchanged.' This matches the claim word-for-word. BERNAMA is a credible, authoritative news source, and the evidence provides direct confirmation of the claim without contradiction. While I cannot independently verify the underlying market data, the evidence provided is consistent and from a reliable source."
+        ],
+        "verification": {
+          "results": [
+            {
+              "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+              "requestId": "req-1788638757639363934-1243501",
+              "messageId": "msg_c6b7bc0611dd7b98d7f6acc7",
+              "result": {
+                "verdict": "TRUE",
+                "confidence": 0.85,
+                "reasoning": "The claim is directly supported by the provided news article from BERNAMA, a credible Malaysian national news agency. The article title and content explicitly state that the FBM KLCI rose after Bank Negara Malaysia kept its benchmark interest rate unchanged. No contradictory evidence was provided.",
+                "evidence": [
+                  "BERNAMA article titled 'Bursa Malaysia closes higher after BNM decision' reports that the FBM KLCI rose after Bank Negara Malaysia kept its benchmark interest rate unchanged.",
+                  "The source is a reputable national news agency, adding credibility to the report."
+                ]
+              }
+            },
+            {
+              "model": "MiniMaxAI/MiniMax-M2.7",
+              "requestId": "req-1788638778664740257-1243554",
+              "messageId": "msg_e747bc933b51a5a4fd93a0d5",
+              "result": {
+                "verdict": "TRUE",
+                "confidence": 0.95,
+                "reasoning": "The evidence from BERNAMA, Malaysia's official national news agency, directly and explicitly confirms the claim. The source content states: 'The FBM KLCI rose after Bank Negara Malaysia kept its benchmark interest rate unchanged.' This matches the claim word-for-word. BERNAMA is a credible, authoritative news source, and the evidence provides direct confirmation of the claim without contradiction. While I cannot independently verify the underlying market data, the evidence provided is consistent and from a reliable source.",
+                "evidence": [
+                  "BERNAMA (Malaysian National News Agency) explicitly states in the article: 'The FBM KLCI rose after Bank Negara Malaysia kept its benchmark interest rate unchanged.'",
+                  "The source is BERNAMA, which is Malaysia's official national news agency and considered an authoritative source for Malaysian financial and economic news."
+                ]
+              }
+            }
+          ],
+          "failures": []
+        },
+        "requestIds": [
+          {
+            "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+            "requestId": "req-1788638757639363934-1243501"
+          },
+          {
+            "model": "MiniMaxAI/MiniMax-M2.7",
+            "requestId": "req-1788638778664740257-1243554"
+          }
+        ],
+        "verificationStatus": "verified"
+      },
+      {
+        "id": "BUS003",
+        "title": "Bank Negara Malaysia keeps OPR at 2.75%",
+        "category": "Business & Money",
+        "summary": "Malaysia's central bank maintained its Overnight Policy Rate at 2.75% amid resilient economic growth.",
+        "source": "The Wall Street Journal",
+        "platform": "Website",
+        "url": "https://www.wsj.com/economy/central-banking/malaysia-central-bank-holds-rates-as-growth-stays-firm-a7b16bb7",
+        "publishedAt": "2026-09-03",
+        "claim": "Malaysia's central bank maintained its Overnight Policy Rate at 2.75% amid resilient economic growth.",
+        "sources": [
+          "https://www.wsj.com/economy/central-banking/malaysia-central-bank-holds-rates-as-growth-stays-firm-a7b16bb7"
+        ],
+        "evidence": [
+          {
+            "evidenceIndex": 1,
+            "content": "Title: Bank Negara Malaysia keeps OPR at 2.75%\nSource: The Wall Street Journal\nURL: https://www.wsj.com/economy/central-banking/malaysia-central-bank-holds-rates-as-growth-stays-firm-a7b16bb7\nContent: Malaysia's central bank maintained its Overnight Policy Rate at 2.75% amid resilient economic growth.",
+            "url": "https://www.wsj.com/economy/central-banking/malaysia-central-bank-holds-rates-as-growth-stays-firm-a7b16bb7",
+            "source": "The Wall Street Journal",
+            "platform": "Website",
+            "publishedAt": "2026-09-03"
+          }
+        ],
+        "verdict": "TRUE",
+        "consensus": {
+          "verdict": "TRUE",
+          "voteCounts": {
+            "TRUE": 2,
+            "FALSE": 0,
+            "UNCERTAIN": 0
+          },
+          "totalModels": 2,
+          "totalVotes": 2,
+          "failedModels": 0,
+          "consensusReached": true,
+          "disagreement": false
+        },
+        "truthScore": {
+          "truthScore": 88.96,
+          "averageConfidence": 0.94,
+          "baseScore": 96.75,
+          "coverage": 0.67,
+          "reliability": 0.83,
+          "consensusFactor": 1
+        },
+        "reasoning": [
+          "The claim is directly supported by the provided source, The Wall Street Journal, which is a credible financial news outlet. The source's headline and content explicitly state that Bank Negara Malaysia kept the Overnight Policy Rate at 2.75% amid resilient economic growth. No contradictory evidence was provided or found.",
+          "The Wall Street Journal article directly states that Malaysia's central bank maintained its Overnight Policy Rate at 2.75% amid resilient economic growth, which verbatim matches the claim. The source is from a credible financial news outlet. The evidence provided is internally consistent and directly supports the claim without contradiction. The claim appears to be a factual reporting of Bank Negara Malaysia's monetary policy decision."
+        ],
+        "verification": {
+          "results": [
+            {
+              "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+              "requestId": "req-1788638778739214995-1243555",
+              "messageId": "msg_fc42c22955de9c97d9c69d86",
+              "result": {
+                "verdict": "TRUE",
+                "confidence": 0.95,
+                "reasoning": "The claim is directly supported by the provided source, The Wall Street Journal, which is a credible financial news outlet. The source's headline and content explicitly state that Bank Negara Malaysia kept the Overnight Policy Rate at 2.75% amid resilient economic growth. No contradictory evidence was provided or found.",
+                "evidence": [
+                  "Wall Street Journal article titled 'Bank Negara Malaysia keeps OPR at 2.75%' directly states the central bank maintained the rate at 2.75%.",
+                  "The article's content mentions 'resilient economic growth' as the context for the decision, matching the claim's phrasing.",
+                  "The source is a reputable financial publication, lending credibility to the report."
+                ]
+              }
+            },
+            {
+              "model": "MiniMaxAI/MiniMax-M2.7",
+              "requestId": "req-1788638794183179509-1243582",
+              "messageId": "msg_eb112fc22fd51a8f3cf8c26b",
+              "result": {
+                "verdict": "TRUE",
+                "confidence": 0.92,
+                "reasoning": "The Wall Street Journal article directly states that Malaysia's central bank maintained its Overnight Policy Rate at 2.75% amid resilient economic growth, which verbatim matches the claim. The source is from a credible financial news outlet. The evidence provided is internally consistent and directly supports the claim without contradiction. The claim appears to be a factual reporting of Bank Negara Malaysia's monetary policy decision.",
+                "evidence": [
+                  "Wall Street Journal headline states: 'Bank Negara Malaysia keeps OPR at 2.75%'",
+                  "The article content confirms: 'Malaysia's central bank maintained its Overnight Policy Rate at 2.75% amid resilient economic growth.'"
+                ]
+              }
+            }
+          ],
+          "failures": []
+        },
+        "requestIds": [
+          {
+            "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+            "requestId": "req-1788638778739214995-1243555"
+          },
+          {
+            "model": "MiniMaxAI/MiniMax-M2.7",
+            "requestId": "req-1788638794183179509-1243582"
+          }
+        ],
+        "verificationStatus": "verified"
+      },
+      {
+        "id": "BUS004",
+        "title": "South Korea exports boosted by AI chip demand",
+        "category": "Business & Money",
+        "summary": "Strong global demand for AI-related semiconductors helped South Korea's exports reach record levels.",
+        "source": "Reuters",
+        "platform": "Website",
+        "url": "https://www.reuters.com/world/asia-pacific/south-korea-exports-surpass-full-year-record-hit-7094-billion-ytd-2026-09-05/",
+        "publishedAt": "2026-09-05",
+        "claim": "Strong global demand for AI-related semiconductors helped South Korea's exports reach record levels.",
+        "sources": [
+          "https://www.reuters.com/world/asia-pacific/south-korea-exports-surpass-full-year-record-hit-7094-billion-ytd-2026-09-05/"
+        ],
+        "evidence": [
+          {
+            "evidenceIndex": 1,
+            "content": "Title: South Korea exports boosted by AI chip demand\nSource: Reuters\nURL: https://www.reuters.com/world/asia-pacific/south-korea-exports-surpass-full-year-record-hit-7094-billion-ytd-2026-09-05/\nContent: Strong global demand for AI-related semiconductors helped South Korea's exports reach record levels.",
+            "url": "https://www.reuters.com/world/asia-pacific/south-korea-exports-surpass-full-year-record-hit-7094-billion-ytd-2026-09-05/",
+            "source": "Reuters",
+            "platform": "Website",
+            "publishedAt": "2026-09-05"
+          }
+        ],
+        "verdict": "UNCERTAIN",
+        "consensus": {
+          "verdict": "UNCERTAIN",
+          "voteCounts": {
+            "TRUE": 0,
+            "FALSE": 0,
+            "UNCERTAIN": 2
+          },
+          "totalModels": 2,
+          "totalVotes": 2,
+          "failedModels": 0,
+          "consensusReached": true,
+          "disagreement": false
+        },
+        "truthScore": {
+          "truthScore": 50,
+          "averageConfidence": 0.45,
+          "baseScore": 50,
+          "coverage": 0.67,
+          "reliability": 0.83,
+          "consensusFactor": 1
+        },
+        "reasoning": [
+          "The claim is directly supported by the provided Reuters headline and content, but the verification is based solely on that single source, and the URL suggests a future date (2026), making it impossible to confirm independently with my training data. No contradicting evidence is provided, but the lack of multiple independent sources and the unusual date reduce confidence.",
+          "The provided source content is identical to the claim itself, which raises concerns about whether this is genuine independent evidence. While Reuters is generally a credible news source, the claim and the source content are verbatim copies of each other, making it impossible to verify if the source actually contains this information or if this is circular evidence. Additionally, the date (2026-09-05) appears to be in the future relative to typical reference points. Without access to verify the actual content of the Reuters article or additional independent sources corroborating this information about South Korea's export records and AI semiconductor demand, I cannot confidently classify this claim as TRUE or FALSE."
+        ],
+        "verification": {
+          "results": [
+            {
+              "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+              "requestId": "req-1788638794264879156-1243583",
+              "messageId": "msg_5f2a67d7773c9bc6db13fad6",
+              "result": {
+                "verdict": "UNCERTAIN",
+                "confidence": 0.5,
+                "reasoning": "The claim is directly supported by the provided Reuters headline and content, but the verification is based solely on that single source, and the URL suggests a future date (2026), making it impossible to confirm independently with my training data. No contradicting evidence is provided, but the lack of multiple independent sources and the unusual date reduce confidence.",
+                "evidence": [
+                  "Reuters article titled 'South Korea exports boosted by AI chip demand' explicitly states that strong global demand for AI-related semiconductors helped South Korea's exports reach record levels.",
+                  "The Reuters URL indicates a publication date of September 5, 2026, which is after my knowledge cutoff and cannot be independently verified with other sources.",
+                  "No additional corroborating or contradicting evidence was supplied beyond the single Reuters article."
+                ]
+              }
+            },
+            {
+              "model": "MiniMaxAI/MiniMax-M2.7",
+              "requestId": "req-1788638794337105359-1243584",
+              "messageId": "msg_cfeea60436eb58b2c6399c1e",
+              "result": {
+                "verdict": "UNCERTAIN",
+                "confidence": 0.4,
+                "reasoning": "The provided source content is identical to the claim itself, which raises concerns about whether this is genuine independent evidence. While Reuters is generally a credible news source, the claim and the source content are verbatim copies of each other, making it impossible to verify if the source actually contains this information or if this is circular evidence. Additionally, the date (2026-09-05) appears to be in the future relative to typical reference points. Without access to verify the actual content of the Reuters article or additional independent sources corroborating this information about South Korea's export records and AI semiconductor demand, I cannot confidently classify this claim as TRUE or FALSE.",
+                "evidence": [
+                  "The provided 'evidence' content is identical to the claim being verified, which suggests potential circular sourcing rather than independent verification.",
+                  "The URL indicates a date of September 5, 2026, which appears to be a future date, making it impossible to verify the current existence and accuracy of this article through independent means."
+                ]
+              }
+            }
+          ],
+          "failures": []
+        },
+        "requestIds": [
+          {
+            "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+            "requestId": "req-1788638794264879156-1243583"
+          },
+          {
+            "model": "MiniMaxAI/MiniMax-M2.7",
+            "requestId": "req-1788638794337105359-1243584"
+          }
+        ],
+        "verificationStatus": "verified"
+      }
+    ]
+  }
+}

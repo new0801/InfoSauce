@@ -172,8 +172,8 @@ async function verifyClaim(input) {
 
             if (
                 !result ||
-                typeof result.id !== "string" ||
-                result.id.trim() === ""
+                typeof result.requestId !== "string" ||
+                result.requestId.trim() === ""
             ) {
                 throw new Error("verifier.js: Gonka response is missing a request ID");
             }
@@ -181,8 +181,9 @@ async function verifyClaim(input) {
             // 5. Store this model's result
             results.push({
                 model: model,
-                requestId: result.id,
-                result: verificationResult
+    		requestId: result.requestId,
+    		messageId: result.id,
+    		result: verificationResult
             });
 
         } catch (error) {

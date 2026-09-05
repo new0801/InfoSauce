@@ -1,5 +1,6 @@
 type NewsCardProps = {
   category: string;
+  source?: string;
   title: string;
   summary: string;
   content: string;
@@ -12,6 +13,7 @@ type NewsCardProps = {
 
 export default function NewsCard({
   category,
+  source,
   title,
   summary,
   content,
@@ -31,6 +33,12 @@ export default function NewsCard({
       <h2 className="mb-3 text-3xl leading-none">
         {title}
       </h2>
+
+      {source && (
+        <p className="mb-3 text-sm text-muted-foreground">
+          Source: {source}
+        </p>
+      )}
 
       {/* Summary */}
       <p className="mb-5 text-base leading-7 text-muted-foreground">

@@ -188,9 +188,14 @@ ${input.evidence.length > 0
             );
         }
 
-        const data = await response.json();
+const data = await response.json();
 
-        return data;
+const requestId = response.headers.get("x-request-id");
+
+return {
+    ...data,
+    requestId
+};
 
     } catch (error) {
         console.error("gonka.js: Gonka request failed:", error);

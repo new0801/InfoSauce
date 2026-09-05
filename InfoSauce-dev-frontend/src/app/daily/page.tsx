@@ -5,6 +5,10 @@ import GlowCursor from "../../components/GlowCursor";
 import FactCheckResult from "../../components/FactCheckResult";
 import Navbar from "../../components/Navbar";
 import NewsCard from "../../components/NewsCard";
+import {
+  type DailyResult,
+  normalizeDailyResult,
+} from "../../lib/articleData";
 
 const categories = [
   "AI & Technology",
@@ -13,54 +17,8 @@ const categories = [
   "Business & Money",
 ];
 
-type BackendResult = {
-  id: string | null;
-  title: string;
-  content: string;
-  source: string;
-  sourceType?: string;
-  url: string;
-  publishedAt?: string | null;
-
-  claim: string;
-
-  verdict: "TRUE" | "FALSE" | "UNCERTAIN";
-  truthScore: number;
-
-  consensus: {
-    verdict: "TRUE" | "FALSE" | "UNCERTAIN";
-    voteCounts?: {
-      TRUE?: number;
-      FALSE?: number;
-      UNCERTAIN?: number;
-    };
-    totalModels?: number;
-    totalVotes?: number;
-    failedModels?: string[];
-    consensusReached?: boolean;
-    disagreement?: boolean;
-  };
-
-  reasoning: string[];
-
-  evidence: Array<{
-    evidenceIndex?: number;
-    title?: string | null;
-    content?: string | null;
-    url?: string | null;
-    source?: string | null;
-    platform?: string | null;
-    publishedAt?: string | null;
-  }>;
-
-  requestIds?: Array<{
-    model: string;
-    requestId: string;
-  }>;
-};
-
 function convertVerdictToStatus(
-  verdict: BackendResult["verdict"]
+  verdict: DailyResult["verdict"]
 ): "Supported" | "Partially Supported" | "False" | "Unverified" {
   if (verdict === "TRUE") {
     return "Supported";
@@ -73,13 +31,13 @@ function convertVerdictToStatus(
   return "Unverified";
 }
 
-function getSummary(result: BackendResult) {
-  if (result.claim) {
-    return result.claim;
+function getSummary(result: DailyResult) {
+  if (result.content) {
+    return result.content;
   }
 
-  if (result.content) {
-    return result.content.slice(0, 180) + "...";
+  if (result.claim) {
+    return result.claim;
   }
 
   return "No summary available.";
@@ -87,7 +45,7 @@ function getSummary(result: BackendResult) {
 
 function getDisplayCategory(
   selectedCategory: string,
-  result: BackendResult
+  result: DailyResult
 ) {
   if (selectedCategory) {
     return selectedCategory;
@@ -100,8 +58,8 @@ function getDisplayCategory(
   return "Daily Sauce";
 }
 
-function getExplanation(result: BackendResult) {
-  if (!result.reasoning || result.reasoning.length === 0) {
+function getExplanation(result: DailyResult) {
+  if (result.reasoning.length === 0) {
     return "The claim was checked against the available evidence.";
   }
 
@@ -109,7 +67,7 @@ function getExplanation(result: BackendResult) {
 }
 
 function getVerdictLabel(
-  verdict: BackendResult["verdict"]
+  verdict: DailyResult["verdict"]
 ) {
   if (verdict === "TRUE") {
     return "Mostly Accurate";
@@ -126,10 +84,10 @@ export default function DailyPage() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const [results, setResults] = useState<BackendResult[]>([]);
+  const [results, setResults] = useState<DailyResult[]>([]);
   const [hasGenerated, setHasGenerated] = useState(false);
   const [expandedResult, setExpandedResult] =
-    useState<BackendResult | null>(null);
+    useState<DailyResult | null>(null);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -241,7 +199,7 @@ export default function DailyPage() {
         );
       }
 
-      setResults(data.results);
+      setResults(data.results.map(normalizeDailyResult));
 
       console.log(
   "Daily Sauce results:",
@@ -516,6 +474,7 @@ export default function DailyPage() {
                         selectedCategory,
                         item
                       )}
+                      source={item.source}
                       title={item.title}
                       summary={getSummary(item)}
                       content={item.content}
@@ -622,6 +581,11 @@ export default function DailyPage() {
               <p className="mt-6 max-w-3xl leading-8 text-muted-foreground">
                 {expandedResult.content}
               </p>
+              {expandedResult.source && (
+                <p className="mt-4 text-sm text-muted-foreground">
+                  Source: {expandedResult.source}
+                </p>
+              )}
 
               <div className="mt-10 flex flex-col gap-3 border-t border-white/15 pt-5 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
                 <span>{convertVerdictToStatus(expandedResult.verdict)}</span>
@@ -631,7 +595,7 @@ export default function DailyPage() {
               <FactCheckResult
                 accuracy={Math.round(expandedResult.truthScore)}
                 verdict={getVerdictLabel(expandedResult.verdict)}
-                verificationTrace={expandedResult.requestIds ?? []}
+                verificationTrace={expandedResult.requestIds}
                 explanation={getExplanation(expandedResult)}
                 sources={expandedResult.evidence.map(
                   (evidenceItem, evidenceIndex) =>

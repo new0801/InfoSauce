@@ -1,108 +1,277 @@
 const express = require("express");
-const {
-  trending,
-  daily,
-  getDailyItems,
-} = require("../data/demoData");
+
+const verifiedData = require("../data/verifiedDemoData.json");
 
 const router = express.Router();
 
+function getDailyItems() {
+  return Object.values(verifiedData.daily).flat();
+}
+
+function toTrendingResult(item) {
+  return {
+    category: item.category,
+
+    claim: item.claim,
+
+    news: {
+      id: item.id,
+      title: item.title,
+      content: item.summary || item.content || "",
+      url: item.url,
+      source: item.source,
+      publishedAt: item.publishedAt,
+      area: item.category,
+    },
+
+    evidence: item.evidence || [],
+
+    consensus: item.consensus || {
+      verdict: item.verdict || "UNCERTAIN",
+    },
+
+    truthScore: item.truthScore || {
+      truthScore: 0,
+    },
+
+    verification: item.verification || {
+      results: [],
+      failures: [],
+    },
+
+    verificationTrace: item.requestIds || [],
+  };
+}
+
+function toDailyResult(item) {
+  return {
+    id: item.id,
+
+    title: item.title,
+
+    content:
+      item.summary ||
+      item.content ||
+      "",
+
+    source: item.source,
+
+    sourceType:
+      item.platform ||
+      "web",
+
+    url: item.url,
+
+    publishedAt:
+      item.publishedAt,
+
+    claim:
+      item.claim ||
+      item.summary ||
+      item.title,
+
+    verdict:
+      item.verdict ||
+      item.consensus?.verdict ||
+      "UNCERTAIN",
+
+    truthScore:
+      typeof item.truthScore === "number"
+        ? item.truthScore
+        : item.truthScore?.truthScore ?? 0,
+
+    consensus:
+      item.consensus || {
+        verdict:
+          item.verdict ||
+          "UNCERTAIN",
+      },
+
+    reasoning:
+      Array.isArray(item.reasoning)
+        ? item.reasoning
+        : [],
+
+    evidence:
+      Array.isArray(item.evidence)
+        ? item.evidence
+        : [],
+
+    requestIds:
+      Array.isArray(item.requestIds)
+        ? item.requestIds
+        : [],
+  };
+}
+
+
+// ==============================
+// Trending
+// ==============================
+
 router.get("/trending", (req, res) => {
+  const results =
+    verifiedData.trending.map(
+      toTrendingResult
+    );
+
   return res.status(200).json({
     success: true,
-    data: trending,
+    data: results,
   });
 });
 
+
+// ==============================
+// Daily
+// ==============================
+
 router.get("/daily", (req, res) => {
+  const items =
+    getDailyItems().map(
+      toDailyResult
+    );
+
   return res.status(200).json({
     success: true,
-    categories: daily,
-    items: getDailyItems(),
+    items,
   });
 });
+
+
+// ==============================
+// Daily Search
+// ==============================
 
 router.post("/search", (req, res) => {
   try {
-    const { query, category } = req.body || {};
+    const {
+      query,
+      category,
+    } = req.body || {};
 
-    if (category && daily[category]) {
-      return res.status(200).json({
-        success: true,
-        results: daily[category],
-      });
+    let items =
+      getDailyItems();
+
+    if (
+      category &&
+      verifiedData.daily[category]
+    ) {
+      items =
+        verifiedData.daily[category];
     }
 
-    const allItems = getDailyItems();
-
-    if (typeof query === "string" && query.trim() !== "") {
-      const searchTerm = query.trim().toLowerCase();
-
-      const matchedItems = allItems.filter((item) => {
-        const searchableText = [
-          item.title,
-          item.summary,
-          item.content,
-          item.category,
-          item.source,
-        ]
-          .filter(Boolean)
-          .join(" ")
+    if (
+      typeof query === "string" &&
+      query.trim() !== ""
+    ) {
+      const searchTerm =
+        query
+          .trim()
           .toLowerCase();
 
-        return searchableText.includes(searchTerm);
-      });
+      const matchedItems =
+        items.filter((item) => {
+          const searchableText = [
+            item.title,
+            item.summary,
+            item.content,
+            item.category,
+            item.source,
+            item.claim,
+          ]
+            .filter(Boolean)
+            .join(" ")
+            .toLowerCase();
 
-      return res.status(200).json({
-        success: true,
-        results:
-          matchedItems.length > 0
-            ? matchedItems
-            : allItems,
-      });
+          return searchableText.includes(
+            searchTerm
+          );
+        });
+
+      if (matchedItems.length > 0) {
+        items = matchedItems;
+      }
     }
 
     return res.status(200).json({
       success: true,
-      results: allItems,
+
+      results:
+        items.map(
+          toDailyResult
+        ),
     });
+
   } catch (error) {
-    console.error("Daily route failed:", error);
+    console.error(
+      "Daily route failed:",
+      error
+    );
 
     return res.status(500).json({
       success: false,
       results: [],
-      error: "Unable to load Daily Sauce.",
+      error:
+        "Unable to load Daily Sauce.",
     });
   }
 });
 
+
+// ==============================
+// Homepage Trending
+// ==============================
+
 router.post("/category", (req, res) => {
   try {
-    const { areas } = req.body || {};
+    const {
+      areas,
+    } = req.body || {};
 
-    if (!Array.isArray(areas) || areas.length === 0) {
-      return res.status(200).json({
-        success: true,
-        results: trending,
-      });
+    let items =
+      verifiedData.trending;
+
+    if (
+      Array.isArray(areas) &&
+      areas.length > 0
+    ) {
+      const filtered =
+        verifiedData.trending.filter(
+          (item) =>
+            areas.includes(
+              item.category
+            )
+        );
+
+      if (filtered.length > 0) {
+        items = filtered;
+      }
     }
-
-    const results = areas.flatMap((area) => daily[area] || []);
 
     return res.status(200).json({
       success: true,
-      results,
+
+      results:
+        items.map(
+          toTrendingResult
+        ),
     });
+
   } catch (error) {
-    console.error("Category route failed:", error);
+    console.error(
+      "Category route failed:",
+      error
+    );
 
     return res.status(500).json({
       success: false,
       results: [],
       error: {
-        code: "CATEGORY_ERROR",
-        message: "Unable to load category results.",
+        code:
+          "CATEGORY_ERROR",
+        message:
+          "Unable to load category results.",
       },
     });
   }

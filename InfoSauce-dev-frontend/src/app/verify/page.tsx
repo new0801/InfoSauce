@@ -118,7 +118,7 @@ export default function VerifyPage() {
       } else {
         const socialUrl = link.trim();
 
-        if (!isSocialMediaUrl(socialUrl)) {
+        if (!socialUrl) {
           throw new Error("Enter a valid social media post URL or upload a screenshot.");
         }
 
