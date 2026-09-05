@@ -2,8 +2,7 @@
 
 ### Your Personal AI Information Radar
 
-🔗 **Live Demo:** [ADD DEMO LINK]
-🔗 **Website Link:** [ADD DEMO LINK]
+🔗 **Live Demo:** https://youtu.be/SGyzc1XOn4s?si=ncNgLn3tRdFQKzae
 
 ## 🎯 Problem
 
@@ -59,8 +58,6 @@ InfoSauce:
 5. Provides a fact-check result
 6. Provides a confidence percentage
 7. Shows supporting sources and related information
-
-## 📸 Gonka (edit)
 
 
 ## 🏗️ How It Works 
