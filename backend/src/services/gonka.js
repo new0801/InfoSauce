@@ -112,6 +112,23 @@ The sources and evidence below are provided as candidate information for verific
 
 Do NOT automatically assume that any provided source or evidence is correct.
 
+Treat the supplied evidence as the primary material for this verification task.
+
+When evaluating recent or future-dated events relative to your training knowledge cutoff,
+do not reject provided evidence solely because the event occurred after your knowledge cutoff.
+
+Do not claim that a source does not exist merely because it is newer than your training data.
+
+Evaluate the evidence based on:
+- whether it directly supports or contradicts the claim,
+- whether multiple independent sources are consistent,
+- whether the source appears authoritative or credible,
+- whether the evidence contains concrete factual details.
+
+If the supplied evidence is internally consistent, comes from credible sources,
+and directly supports the claim, you may classify the claim as TRUE even if
+the event is newer than your training data.
+
 Evaluate whether the evidence actually supports or contradicts the claim.
 
 If the evidence is insufficient, unreliable, or conflicting, return UNCERTAIN.

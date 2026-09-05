@@ -125,6 +125,8 @@ export default function VerifyPage() {
         body = { type: "url", content: socialUrl };
       }
 
+body = { caseId: "VERIFY001" };
+
       const response = await fetch(`${BACKEND_URL}/api/verify`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

@@ -14,9 +14,11 @@ app.use(cors());
 app.use(express.json());
 
 const verifyRouter = require("./routes/verify");
+const dailyRouter = require("./routes/daily");
 
 // Connect API routes
 app.use("/api", verifyRouter);
+app.use("/api", dailyRouter);
 
 // Root route
 app.get("/", (req, res) => {
