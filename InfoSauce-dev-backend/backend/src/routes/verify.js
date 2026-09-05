@@ -2,8 +2,10 @@ const express = require("express");
 const { verifyClaim } = require("../services/verifier");
 const { calculateConsensus } = require("../services/consensus");
 const { calculateTruthScore } = require("../services/truthscore");
-const { getNewsByArea } = require("../services/data");
-const { prepareAiInput } = require("../services/prepareAIInput");
+const {
+    getNewsByArea,
+    searchNews
+} = require("../services/data");const { prepareAiInput } = require("../services/prepareAIInput");
 const { extractClaim } = require("../services/claimextractor");
 const { retrieveEvidence } = require("../services/evidence");
 
@@ -1708,6 +1710,340 @@ function rankEvidence(
         );
 }
 
+// --------------------------------------------------
+// Daily Sauce evidence scoring
+// --------------------------------------------------
+
+function calculateDailySauceEvidenceScore(
+    claim,
+    evidenceItem
+) {
+    if (
+        !claim ||
+        typeof claim !== "string" ||
+        !evidenceItem ||
+        typeof evidenceItem !== "object"
+    ) {
+        return 0;
+    }
+
+    const claimWords =
+        getMeaningfulWords(claim);
+
+    if (claimWords.length === 0) {
+        return 0;
+    }
+
+    const title =
+        normalizeText(
+            evidenceItem.title
+        );
+
+    const content =
+        normalizeText(
+            evidenceItem.content
+        );
+
+    const source =
+        normalizeText(
+            evidenceItem.source
+        );
+
+    const combinedText =
+        `${title} ${content}`;
+
+    let score = 0;
+
+
+    // --------------------------------------------------
+    // 1. Important claim-word coverage
+    // --------------------------------------------------
+
+    let matchedWords = 0;
+
+    for (
+        const word of claimWords
+    ) {
+        const wordPattern =
+            new RegExp(
+                `\\b${escapeRegExp(word)}\\b`,
+                "i"
+            );
+
+        if (
+            wordPattern.test(
+                combinedText
+            )
+        ) {
+            matchedWords++;
+        }
+    }
+
+    const overlapRatio =
+        matchedWords /
+        claimWords.length;
+
+    score +=
+        overlapRatio * 40;
+
+
+    // --------------------------------------------------
+    // 2. Title relevance
+    // --------------------------------------------------
+
+    let titleMatches = 0;
+
+    for (
+        const word of claimWords
+    ) {
+        const wordPattern =
+            new RegExp(
+                `\\b${escapeRegExp(word)}\\b`,
+                "i"
+            );
+
+        if (
+            wordPattern.test(title)
+        ) {
+            titleMatches++;
+        }
+    }
+
+    const titleRatio =
+        titleMatches /
+        claimWords.length;
+
+    score +=
+        titleRatio * 25;
+
+
+    // --------------------------------------------------
+    // 3. Multi-word phrase relevance
+    // --------------------------------------------------
+
+    const claimPhrases =
+        extractClaimPhrases(
+            claim
+        );
+
+    let matchedPhrases = 0;
+
+    for (
+        const phrase of claimPhrases
+    ) {
+        if (
+            combinedText.includes(
+                phrase
+            )
+        ) {
+            matchedPhrases++;
+        }
+    }
+
+    if (
+        claimPhrases.length > 0
+    ) {
+        const phraseRatio =
+            matchedPhrases /
+            claimPhrases.length;
+
+        score +=
+            phraseRatio * 20;
+    }
+
+
+    // --------------------------------------------------
+    // 4. Source availability
+    // --------------------------------------------------
+
+    if (
+        typeof evidenceItem.url ===
+            "string" &&
+        evidenceItem.url.trim() !== ""
+    ) {
+        score += 5;
+    }
+
+
+    // --------------------------------------------------
+    // 5. Authority hint
+    // --------------------------------------------------
+
+    const highAuthoritySources = [
+        "reuters",
+        "associated press",
+        "ap news",
+        "bbc",
+        "bloomberg",
+        "cnn",
+        "cnbc",
+        "guardian",
+        "new york times",
+        "washington post",
+        "financial times",
+        "wall street journal",
+        "united nations",
+        "who",
+        "nasa",
+        "government",
+        "gov"
+    ];
+
+    for (
+        const authority
+        of highAuthoritySources
+    ) {
+        if (
+            source.includes(
+                authority
+            ) ||
+            title.includes(
+                authority
+            )
+        ) {
+            score += 10;
+            break;
+        }
+    }
+
+
+    return Math.min(
+        100,
+        Math.max(
+            0,
+            score
+        )
+    );
+}
+
+
+// --------------------------------------------------
+// Extract meaningful two-word phrases from claim
+// --------------------------------------------------
+
+function extractClaimPhrases(
+    claim
+) {
+    const words =
+        getMeaningfulWords(
+            claim
+        );
+
+    const phrases = [];
+
+    for (
+        let i = 0;
+        i < words.length - 1;
+        i++
+    ) {
+        const phrase =
+            `${words[i]} ${words[i + 1]}`;
+
+        if (
+            phrase.length >= 5
+        ) {
+            phrases.push(
+                phrase
+            );
+        }
+    }
+
+    return [
+        ...new Set(
+            phrases
+        )
+    ];
+}
+
+
+// --------------------------------------------------
+// Escape text for RegExp
+// --------------------------------------------------
+
+function escapeRegExp(
+    value
+) {
+    return value.replace(
+        /[.*+?^${}()|[\]\\]/g,
+        "\\$&"
+    );
+}
+
+
+// --------------------------------------------------
+// Daily Sauce evidence ranking
+// --------------------------------------------------
+
+function rankDailySauceEvidence(
+    claim,
+    evidence
+) {
+    if (
+        !Array.isArray(
+            evidence
+        )
+    ) {
+        return [];
+    }
+
+    const uniqueEvidence = [];
+    const seen = new Set();
+
+    for (
+        const item of evidence
+    ) {
+        if (
+            !item ||
+            typeof item !== "object"
+        ) {
+            continue;
+        }
+
+        const key =
+            getEvidenceKey(
+                item
+            );
+
+        if (
+            seen.has(key)
+        ) {
+            continue;
+        }
+
+        seen.add(key);
+
+        uniqueEvidence.push({
+            ...item,
+            _score:
+                calculateDailySauceEvidenceScore(
+                    claim,
+                    item
+                )
+        });
+    }
+
+    uniqueEvidence.sort(
+        (a, b) =>
+            b._score - a._score
+    );
+
+    return uniqueEvidence
+        .slice(
+            0,
+            MAX_SELECTED_EVIDENCE
+        )
+        .map(
+            item => {
+                const {
+                    _score,
+                    ...cleanItem
+                } = item;
+
+                return cleanItem;
+            }
+        );
+}
+
 
 // ======================================================
 // POST /api/verify
@@ -2602,6 +2938,750 @@ router.post(
     }
 );
 
+function createSnippet(
+    text,
+    maxLength
+) {
+    if (
+        typeof text !== "string"
+    ) {
+        return "";
+    }
 
+    const cleanText =
+        text
+            .replace(/\s+/g, " ")
+            .trim();
+
+    if (
+        cleanText.length <= maxLength
+    ) {
+        return cleanText;
+    }
+
+    return (
+        cleanText
+            .slice(
+                0,
+                maxLength
+            )
+            .trim() +
+        "..."
+    );
+}
+// ======================================================
+// POST /api/search
+// DAILY SAUCE
+// ======================================================
+router.post(
+    "/search",
+    async (req, res) => {
+        const startTime = Date.now();
+
+        try {
+            const { query } = req.body;
+
+            // --------------------------------------------------
+            // 1. Validate query
+            // --------------------------------------------------
+
+            if (
+                !query ||
+                typeof query !== "string" ||
+                query.trim() === ""
+            ) {
+                return res.status(400).json({
+                    success: false,
+                    error: "Query must be a non-empty string"
+                });
+            }
+
+            const cleanQuery =
+                query.trim();
+
+            console.log(
+                "\n=============================="
+            );
+
+            console.log(
+                "DAILY SAUCE SEARCH"
+            );
+
+            console.log(
+                "=============================="
+            );
+
+            console.log(
+                "Query:",
+                cleanQuery
+            );
+
+
+            // --------------------------------------------------
+            // 2. Search Data service
+            // --------------------------------------------------
+
+            const researchStart =
+                Date.now();
+
+            const newsItems =
+                await searchNews(
+                    cleanQuery
+                );
+
+            console.log(
+                `⏱️ RESEARCH TIME: ${
+                    Date.now() -
+                    researchStart
+                } ms`
+            );
+
+
+            if (
+                !Array.isArray(
+                    newsItems
+                ) ||
+                newsItems.length === 0
+            ) {
+                return res.json({
+                    success: true,
+                    query: cleanQuery,
+                    results: [],
+                    message:
+                        "No relevant results found",
+                    totalResults: 0,
+                    totalTime:
+                        Date.now() -
+                        startTime
+                });
+            }
+
+
+            console.log(
+                `📰 NEWS CANDIDATES: ${
+                    newsItems.length
+                }`
+            );
+
+
+            // --------------------------------------------------
+            // 3. Filter candidates
+            // --------------------------------------------------
+
+            const filteringStart =
+                Date.now();
+
+            const usableCandidates =
+                filterTrendingCandidates(
+                    newsItems
+                );
+
+            console.log(
+                `⏱️ CANDIDATE FILTERING TIME: ${
+                    Date.now() -
+                    filteringStart
+                } ms`
+            );
+
+            console.log(
+                `📰 USABLE CANDIDATES: ${
+                    usableCandidates.length
+                }`
+            );
+
+
+            if (
+                usableCandidates.length === 0
+            ) {
+                return res.json({
+                    success: true,
+                    query: cleanQuery,
+                    results: [],
+                    message:
+                        "No usable news candidates found",
+                    totalResults: 0,
+                    totalTime:
+                        Date.now() -
+                        startTime
+                });
+            }
+
+
+            // --------------------------------------------------
+            // 4. Rank candidates
+            // --------------------------------------------------
+
+            const rankingStart =
+                Date.now();
+
+            const rankedCandidates =
+                rankTrendingCandidates(
+                    usableCandidates,
+                    cleanQuery
+                );
+
+            console.log(
+                `⏱️ CANDIDATE RANKING TIME: ${
+                    Date.now() -
+                    rankingStart
+                } ms`
+            );
+
+            console.log(
+                `📊 RANKED CANDIDATES: ${
+                    rankedCandidates.length
+                }`
+            );
+
+
+            rankedCandidates
+                .slice(
+                    0,
+                    Math.min(
+                        5,
+                        rankedCandidates.length
+                    )
+                )
+                .forEach(
+                    (
+                        candidate,
+                        index
+                    ) => {
+
+                        console.log(
+                            `   [${index}] score=${
+                                candidate.score.toFixed(
+                                    2
+                                )
+                            } | ${
+                                candidate.item.source ||
+                                "Unknown source"
+                            } | ${
+                                candidate.item.title ||
+                                "Untitled"
+                            } | ${
+                                candidate.item.url ||
+                                "No URL"
+                            }`
+                        );
+                    }
+                );
+
+
+            // --------------------------------------------------
+            // 5. Select top candidates
+            // --------------------------------------------------
+
+            const selectedCandidates =
+                rankedCandidates
+                    .slice(
+                        0,
+                        Math.min(
+                            MAX_NEWS_CANDIDATES_PER_AREA,
+                            rankedCandidates.length
+                        )
+                    );
+
+            console.log(
+                `Selected ${
+                    selectedCandidates.length
+                } Daily Sauce candidates`
+            );
+
+
+            const results = [];
+
+
+            // --------------------------------------------------
+            // 6. Fact-check each candidate
+            // --------------------------------------------------
+
+            for (
+                let candidateIndex = 0;
+                candidateIndex <
+                selectedCandidates.length;
+                candidateIndex++
+            ) {
+
+                const candidate =
+                    selectedCandidates[
+                        candidateIndex
+                    ];
+
+                const newsItem =
+                    candidate.item;
+
+
+                try {
+
+                    console.log(
+                        `\n--- DAILY SAUCE STORY ${
+                            candidateIndex + 1
+                        }/${
+                            selectedCandidates.length
+                        } ---`
+                    );
+
+                    console.log(
+                        newsItem.title
+                    );
+
+
+                    // --------------------------------------------------
+                    // 6A. Validate NewsItem
+                    // --------------------------------------------------
+
+                    if (
+                        !newsItem ||
+                        typeof newsItem !==
+                            "object"
+                    ) {
+                        console.log(
+                            "Invalid news item. Skipping."
+                        );
+
+                        continue;
+                    }
+
+
+                    if (
+                        typeof newsItem.content !==
+                            "string" ||
+                        newsItem.content.trim() === ""
+                    ) {
+                        console.log(
+                            "News item has no usable content. Skipping."
+                        );
+
+                        continue;
+                    }
+
+
+                    // --------------------------------------------------
+                    // 6B. Extract claim
+                    // --------------------------------------------------
+
+                    const claimStart =
+                        Date.now();
+
+                    const claimResult =
+                        await extractClaim(
+                            newsItem.content
+                        );
+
+                    console.log(
+                        `⏱️ CLAIM EXTRACTION TIME: ${
+                            Date.now() -
+                            claimStart
+                        } ms`
+                    );
+
+
+                    if (
+                        !claimResult ||
+                        !claimResult.hasClaim ||
+                        typeof claimResult.claim !==
+                            "string" ||
+                        claimResult.claim.trim() === ""
+                    ) {
+                        console.log(
+                            "No valid factual claim extracted. Skipping."
+                        );
+
+                        continue;
+                    }
+
+
+                    const claim =
+                        claimResult.claim.trim();
+
+
+                    console.log(
+                        `✅ FACTUAL CLAIM FOUND: ${claim}`
+                    );
+
+
+                    // --------------------------------------------------
+                    // 6C. Retrieve evidence
+                    // --------------------------------------------------
+
+                    console.log(
+                        ">>> REACHED EVIDENCE RETRIEVAL"
+                    );
+
+
+                    const evidenceStart =
+                        Date.now();
+
+                    const evidenceResult =
+                        await retrieveEvidence(
+                            claim
+                        );
+
+                    console.log(
+                        `⏱️ EVIDENCE RETRIEVAL TIME: ${
+                            Date.now() -
+                            evidenceStart
+                        } ms`
+                    );
+
+
+                    if (
+                        !evidenceResult ||
+                        !Array.isArray(
+                            evidenceResult.evidence
+                        ) ||
+                        evidenceResult.evidence.length === 0
+                    ) {
+                        console.log(
+                            "No usable evidence found. Skipping."
+                        );
+
+                        continue;
+                    }
+
+
+                    console.log(
+                        `>>> EVIDENCE RETRIEVED: ${
+                            evidenceResult.evidence.length
+                        }`
+                    );
+
+
+                    // --------------------------------------------------
+                    // 6D. Rank evidence
+                    // --------------------------------------------------
+
+                    const selectedEvidence =
+                        rankDailySauceEvidence(
+                            claim,
+                            evidenceResult.evidence
+                        );
+
+
+                    console.log(
+                        `>>> SELECTED EVIDENCE: ${
+                            selectedEvidence.length
+                        }`
+                    );
+
+
+                    if (
+                        selectedEvidence.length === 0
+                    ) {
+                        console.log(
+                            "No usable selected evidence. Skipping."
+                        );
+
+                        continue;
+                    }
+
+
+                    // --------------------------------------------------
+                    // 6E. Prepare AI input
+                    // --------------------------------------------------
+
+                    const aiInput =
+                        prepareAiInput(
+                            newsItem,
+                            selectedEvidence
+                        );
+
+                    aiInput.claim =
+                        claim;
+
+
+                    // --------------------------------------------------
+                    // 6F. Final verification
+                    // --------------------------------------------------
+
+                    const verificationStart =
+                        Date.now();
+
+                    const verification =
+                        await verifyClaim(
+                            aiInput
+                        );
+
+                    console.log(
+                        `⏱️ FINAL VERIFICATION TIME: ${
+                            Date.now() -
+                            verificationStart
+                        } ms`
+                    );
+
+
+                    if (
+                        !verification ||
+                        !Array.isArray(
+                            verification.results
+                        )
+                    ) {
+                        console.log(
+                            "Verification returned an invalid result. Skipping."
+                        );
+
+                        continue;
+                    }
+
+
+                    // --------------------------------------------------
+                    // 6G. Consensus
+                    // --------------------------------------------------
+
+                    const consensus =
+                        calculateConsensus(
+                            verification
+                        );
+
+
+                    // --------------------------------------------------
+                    // 6H. Truth Score
+                    // --------------------------------------------------
+
+                    const truthScore =
+                        calculateTruthScore(
+                            verification.results,
+                            consensus
+                        );
+                    console.log(
+    "TRUTH SCORE RESULT:",
+    truthScore
+);
+
+
+                    // --------------------------------------------------
+                    // 6I. Verification trace
+                    // --------------------------------------------------
+
+                    const requestIds =
+                        verification.results.map(
+                            result => ({
+                                model:
+                                    result.model,
+                                requestId:
+                                    result.requestId
+                            })
+                        );
+
+
+                    // --------------------------------------------------
+                    // 6J. Compact reasoning
+                    // --------------------------------------------------
+                    //
+                    // Keep reasoning useful for the frontend,
+                    // but prevent huge responses.
+                    //
+                    // --------------------------------------------------
+
+                    const reasoning =
+                        verification.results
+                            .map(
+                                result =>
+                                    result.result
+                                        ?.reasoning
+                            )
+                            .filter(
+                                value =>
+                                    typeof value ===
+                                    "string" &&
+                                    value.trim() !== ""
+                            )
+                            .map(
+                                value =>
+                                    value.length > 800
+                                        ? `${value.slice(0, 800)}...`
+                                        : value
+                            );
+
+
+                    // --------------------------------------------------
+                    // 6K. Compact evidence
+                    // --------------------------------------------------
+                    //
+                    // Full evidence was already used internally
+                    // for ranking and verification.
+                    //
+                    // The frontend only receives a short snippet.
+                    //
+                    // --------------------------------------------------
+
+                    const evidence =
+                        selectedEvidence.map(
+                            (
+                                item,
+                                index
+                            ) => ({
+
+                                evidenceIndex:
+                                    index,
+
+                                title:
+                                    item.title ||
+                                    null,
+
+                                content:
+                                    createSnippet(
+                                        item.content,
+                                        300
+                                    ),
+
+                                url:
+                                    item.url ||
+                                    null,
+
+                                source:
+                                    item.source ||
+                                    null,
+
+                                platform:
+                                    item.platform ||
+                                    null,
+
+                                publishedAt:
+                                    item.publishedAt ||
+                                    null
+                            })
+                        );
+
+
+                    // --------------------------------------------------
+                    // 6L. Compact article content
+                    // --------------------------------------------------
+                    //
+                    // Keep only a short preview for the frontend.
+                    //
+                    // The full article content is NOT lost during
+                    // verification because newsItem.content was already
+                    // used above.
+                    //
+                    // --------------------------------------------------
+
+                    const content =
+                        createSnippet(
+                            newsItem.content,
+                            500
+                        );
+
+
+                    // --------------------------------------------------
+                    // 6M. Add result
+                    // --------------------------------------------------
+
+                    results.push({
+                        id:
+                            newsItem.id ||
+                            null,
+
+                        title:
+                            newsItem.title,
+
+                        content,
+
+                        source:
+                            newsItem.source,
+
+                        sourceType:
+                            newsItem.sourceType,
+
+                        url:
+                            newsItem.url,
+
+                        publishedAt:
+                            newsItem.publishedAt ||
+                            null,
+
+                        claim,
+
+                        verdict:
+                            consensus.verdict,
+
+                        truthScore:
+                            truthScore.truthScore,
+
+                        consensus,
+
+                        reasoning,
+
+                        evidence,
+
+                        requestIds
+                    });
+
+
+                    console.log(
+                        `✅ SUCCESSFULLY FACT-CHECKED: ${
+                            newsItem.id
+                        }`
+                    );
+
+                } catch (error) {
+
+                    console.error(
+                        `Daily Sauce story failed: ${
+                            newsItem.id
+                        }`,
+                        error.message
+                    );
+
+                    continue;
+                }
+            }
+
+
+            // --------------------------------------------------
+            // 7. Final response
+            // --------------------------------------------------
+
+            const totalTime =
+                Date.now() -
+                startTime;
+
+
+            console.log(
+                `\nDAILY SAUCE TOTAL TIME: ${
+                    totalTime
+                } ms`
+            );
+
+
+            console.log(
+                `SUCCESSFULLY FACT-CHECKED: ${
+                    results.length
+                }`
+            );
+            
+
+
+            return res.json({
+                success: true,
+
+                query:
+                    cleanQuery,
+
+                results,
+
+                totalResults:
+                    results.length,
+
+                totalTime
+            });
+
+        } catch (error) {
+
+            console.error(
+                "Daily Sauce search failed:",
+                error
+            );
+
+
+            return res.status(500).json({
+                success: false,
+                error:
+                    error.message
+            });
+        }
+    }
+);
 
 module.exports = router;
