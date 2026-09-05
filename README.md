@@ -633,16 +633,147 @@ npm run dev
 
 Then open `http://localhost:3000` in your browser.
 
-## 📂 Project Structure (edit)
+## 📂 Project Structure 
 
-The current workspace contains only:
+## 📁 Project Structure
+
+InfoSauce is organized into separate frontend, backend, and data/research layers. This separation allows each part of the system to focus on a specific responsibility while remaining easy to develop and integrate.
 
 ```text
-.
-├── outputs/
-├── work/
-└── README.md
+InfoSauce/
+│
+├── src/
+│   ├── app/
+│   │   ├── pages and UI
+│   │   ├── application routes
+│   │   └── frontend API integration
+│   │
+│   └── data/
+│       ├── news and category data
+│       ├── research functions
+│       ├── evidence processing
+│       ├── source information
+│       └── shared data types
+│
+├── backend/
+│   └── src/
+│       ├── routes/
+│       │   └── API endpoints
+│       │
+│       ├── services/
+│       │   ├── claim processing
+│       │   ├── evidence processing
+│       │   ├── Gonka AI verification
+│       │   ├── model consensus
+│       │   └── Truth Score calculation
+│       │
+│       ├── testing/
+│       │   └── backend testing utilities
+│       │
+│       └── server.js
+│           └── Express backend entry point
+│
+├── public/
+│   └── static assets
+│
+├── InfoSauce-dev-frontend/
+│   └── frontend development workspace
+│
+├── InfoSauce-dev-backend/
+│   └── backend development workspace
+│
+├── InfoSauce-dev-data/
+│   └── data and research development workspace
+│
+├── package.json
+├── next.config.ts
+├── tsconfig.json
+├── README.md
+└── .gitignore
 ```
+
+### Frontend
+
+The frontend is built with **Next.js and TypeScript**. It provides the user interface for the three main InfoSauce features:
+
+* **Trending** — displays information currently gaining attention.
+* **Daily Sauce** — generates personalized topic-based information briefings.
+* **Sauce Verify** — allows users to verify submitted information or URLs.
+
+The frontend communicates with the backend through API endpoints and presents research results, evidence, AI verdicts, consensus results, and Truth Scores to users.
+
+### Backend
+
+The backend handles the main application logic and coordinates the verification pipeline.
+
+Its responsibilities include:
+
+* Receiving frontend requests
+* Extracting factual claims
+* Requesting and processing evidence
+* Preparing evidence for AI verification
+* Sending claims and evidence to Gonka Router
+* Combining multiple AI model verdicts
+* Calculating the final Truth Score
+* Returning structured verification results to the frontend
+
+### Data & Research Layer
+
+The data layer is responsible for retrieving and organizing information from different sources.
+
+It handles:
+
+* Topic and news data
+* Multi-platform research
+* Source metadata
+* Evidence collection
+* Evidence filtering and ranking
+* Data transformation
+* Shared types and structures used by the application
+
+Research results are passed to the backend verification pipeline before being displayed to users.
+
+### Gonka Verification Layer
+
+Gonka Router acts as the AI verification layer of InfoSauce.
+
+```text
+User Request
+     │
+     ▼
+Frontend
+     │
+     ▼
+Backend
+     │
+     ▼
+Data / Research
+     │
+     ▼
+Evidence Selection
+     │
+     ▼
+Gonka Router
+     │
+     ├──────────────┐
+     ▼              ▼
+ DeepSeek        MiniMax
+     │              │
+     └──────┬───────┘
+            ▼
+       Consensus
+            │
+            ▼
+       Truth Score
+            │
+            ▼
+         Result
+            │
+            ▼
+        Frontend
+```
+
+This architecture keeps **information retrieval**, **AI verification**, **business logic**, and **user interface** separated, making InfoSauce easier to maintain, test, and extend.
 
 ## 👥 Team
 
