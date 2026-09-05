@@ -18,16 +18,27 @@ type VerifyResult = {
   claim: string;
   consensus: { verdict: string };
   truthScore: { truthScore: number };
-  verificationTrace?: { model: string; requestId: string }[];
+  sources?: string[];
   verification: {
-    results: Array<{ result: { reasoning: string } }>;
+    results: Array<{
+      model: string;
+      requestId: string;
+      messageId?: string;
+      result: {
+        verdict?: string;
+        confidence?: number;
+        reasoning: string;
+      };
+    }>;
   };
-  evidence: Array<{
-    source?: string | null;
-    title?: string | null;
-    url?: string | null;
-  }>;
+  evidence: string[];
 };
+
+function getVerdictFromTruthScore(score: number) {
+  if (score <= 49) return "FALSE";
+  if (score === 50) return "UNCERTAIN";
+  return "TRUE";
+}
 
 export default function VerifyPage() {
   const [image, setImage] = useState<File | null>(null);
@@ -150,6 +161,10 @@ body = { caseId: "VERIFY001" };
       setIsLoading(false);
     }
   }
+
+  const roundedTruthScore = result
+    ? Math.round(result.truthScore.truthScore)
+    : 0;
 
   return (
     <GlowCursor className="relative isolate min-h-screen overflow-hidden bg-background text-foreground" color="#67E8F9" secondaryColor="#A78BFA" trailLength={40} trailWidth={8} trailTaper={0.8} followSpeed={0.16} glowIntensity={1.9} glowSpread={1.2} hotspot={0.65} brightness={1.25} opacity={1} pulseSpeed={1.1} noiseStrength={0} idleFade idleTimeout={700} fadeDuration={900} blendMode="screen">
@@ -274,17 +289,17 @@ body = { caseId: "VERIFY001" };
         {showResult && !isLoading && result && (
           <>
             <FactCheckResult
-              accuracy={Math.round(result.truthScore.truthScore)}
-              verdict={result.consensus.verdict}
-              verificationTrace={result.verificationTrace ?? []}
+              accuracy={roundedTruthScore}
+              verdict={getVerdictFromTruthScore(roundedTruthScore)}
+              verificationTrace={result.verification.results.map((item) => ({
+                model: item.model,
+                requestId: item.requestId,
+              }))}
               explanation={
                 result.verification.results[0]?.result.reasoning ??
                 "No verification reasoning available."
               }
-              sources={result.evidence.map(
-                (item, index) =>
-                  item.source || item.title || item.url || `Evidence ${index + 1}`
-              )}
+              sources={result.sources ?? []}
             />
 
             <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5">
