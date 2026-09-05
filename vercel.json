@@ -5,7 +5,10 @@
             "framework": "nextjs"
         },
         "backend": {
-            "root": "backend"
+            "root": "backend",
+            "framework": "express",
+            "runtime": "node",
+            "entrypoint": "src/server.js"
         }
     },
     "rewrites": [
