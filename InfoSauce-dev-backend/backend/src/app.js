@@ -25,7 +25,15 @@ app.use(
     })
 );
 
-const verifyRouter = require("./routes/verify");
+const verifyRouterModule = require("./routes/verify");
+const verifyRouter =
+    typeof verifyRouterModule === "function"
+        ? verifyRouterModule
+        : verifyRouterModule.default;
+
+if (typeof verifyRouter !== "function") {
+    throw new TypeError("The verification router did not export an Express handler.");
+}
 
 app.use("/api", verifyRouter);
 
