@@ -26,8 +26,10 @@ app.use(
 );
 
 const verifyRouter = require("./routes/verify");
+const { createDemoRouter } = require("./routes/demo");
 
 app.use("/api", verifyRouter);
+app.use("/api/demo", createDemoRouter());
 
 app.get("/", (_req, res) => {
     res.json({ message: "Welcome to InfoSauce Backend" });
