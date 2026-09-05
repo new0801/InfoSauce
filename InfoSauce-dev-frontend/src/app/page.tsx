@@ -7,6 +7,40 @@ import Navbar from "../components/Navbar";
 import NewsCard from "../components/NewsCard";
 
 const BACKEND_URL = "http://localhost:3000";
+const CARD_SUMMARY_MAX_LENGTH = 240;
+const EVIDENCE_PREVIEW_MAX_LENGTH = 400;
+
+function getCardSummary(content?: string, claim?: string) {
+  const text = (content || claim || "No summary available.")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  if (text.length <= CARD_SUMMARY_MAX_LENGTH) {
+    return text;
+  }
+
+  const truncated = text
+    .slice(0, CARD_SUMMARY_MAX_LENGTH)
+    .replace(/\s+\S*$/, "")
+    .trim();
+
+  return `${truncated || text.slice(0, CARD_SUMMARY_MAX_LENGTH)}…`;
+}
+
+function getEvidencePreview(content: string) {
+  const text = content.replace(/\s+/g, " ").trim();
+
+  if (text.length <= EVIDENCE_PREVIEW_MAX_LENGTH) {
+    return text;
+  }
+
+  const truncated = text
+    .slice(0, EVIDENCE_PREVIEW_MAX_LENGTH)
+    .replace(/\s+\S*$/, "")
+    .trim();
+
+  return `${truncated || text.slice(0, EVIDENCE_PREVIEW_MAX_LENGTH)}…`;
+}
 
 type TrendingItem = {
   category?: string;
@@ -152,9 +186,10 @@ export default function Home() {
           "Untitled Story",
 
         summary:
-          item.news?.content ||
-          item.claim ||
-          "No summary available.",
+          getCardSummary(
+            item.news?.content,
+            item.claim
+          ),
 
         content:
           item.news?.content ||
@@ -704,7 +739,7 @@ export default function Home() {
 
                             {item.content && (
                               <p className="mt-2 leading-7 text-muted-foreground">
-                                {item.content}
+                                {getEvidencePreview(item.content)}
                               </p>
                             )}
 

@@ -128,6 +128,8 @@ export default function DailyPage() {
 
   const [results, setResults] = useState<BackendResult[]>([]);
   const [hasGenerated, setHasGenerated] = useState(false);
+  const [expandedResult, setExpandedResult] =
+    useState<BackendResult | null>(null);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -200,6 +202,7 @@ export default function DailyPage() {
     setError("");
     setResults([]);
     setHasGenerated(true);
+    setExpandedResult(null);
 
     try {
       console.log(
@@ -521,137 +524,20 @@ export default function DailyPage() {
                         item.evidence?.length ||
                         0
                       }
-                      href={item.url}
-                    />
-
-                    <FactCheckResult
-                      accuracy={Math.round(
-                        item.truthScore
-                      )}
-                      verdict={getVerdictLabel(
-                        item.verdict
-                      )}
-                      explanation={getExplanation(
-                        item
-                      )}
-                      sources={
-                        item.evidence
-                          ?.slice(0, 5)
-                          .map(
-                            (evidenceItem, evidenceIndex) =>
-                              evidenceItem.source ||
-                              evidenceItem.title ||
-                              `Source ${evidenceIndex + 1}`
-                          ) || []
+                      onReadMore={() =>
+                        setExpandedResult(item)
                       }
                     />
 
-                    {/* Truth Score */}
-                    <div className="glassmorphism rounded-2xl p-5">
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-muted-foreground">
-                          Truth Score
-                        </span>
-
-                        <span className="text-2xl font-medium">
-                          {item.truthScore.toFixed(
-                            2
-                          )}
-                          /100
-                        </span>
-                      </div>
-
-                      <div className="mt-3 h-2 overflow-hidden rounded-full bg-white/10">
-                        <div
-                          className="h-full rounded-full bg-foreground transition-all duration-700"
-                          style={{
-                            width: `${Math.min(
-                              100,
-                              Math.max(
-                                0,
-                                item.truthScore
-                              )
-                            )}%`,
-                          }}
-                        />
-                      </div>
-                    </div>
-
-                    {/* Evidence */}
-                    {item.evidence &&
-                      item.evidence.length >
-                        0 && (
-                        <div className="glassmorphism rounded-2xl p-5">
-                          <h3 className="mb-4 text-xl">
-                            Evidence
-                          </h3>
-
-                          <div className="space-y-4">
-                            {item.evidence
-                              .slice(0, 5)
-                              .map(
-                                (
-                                  evidenceItem,
-                                  evidenceIndex
-                                ) => (
-                                  <div
-                                    key={
-                                      evidenceItem.url ||
-                                      `${item.id}-evidence-${evidenceIndex}`
-                                    }
-                                    className="border-b border-white/10 pb-4 last:border-b-0 last:pb-0"
-                                  >
-                                    <p className="font-medium">
-                                      {evidenceItem.title ||
-                                        `Source ${evidenceIndex + 1}`}
-                                    </p>
-
-                                    {evidenceItem.source && (
-                                      <p className="mt-1 text-sm text-muted-foreground">
-                                        {
-                                          evidenceItem.source
-                                        }
-                                      </p>
-                                    )}
-
-                                    {evidenceItem.content && (
-                                      <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                                        {
-                                          evidenceItem.content
-                                        }
-                                      </p>
-                                    )}
-
-                                    {evidenceItem.url && (
-                                      <a
-                                        href={
-                                          evidenceItem.url
-                                        }
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="mt-2 inline-block text-sm text-foreground underline underline-offset-4"
-                                      >
-                                        View Source
-                                      </a>
-                                    )}
-                                  </div>
-                                )
-                              )}
-                          </div>
-                        </div>
-                      )}
-
-                    {/* Verification Trace */}
-                    {item.requestIds &&
-                      item.requestIds.length >
-                        0 && (
+                    {false &&
+                      (item.requestIds?.length ?? 0) > 0 && (
                         <details className="glassmorphism rounded-2xl p-5">
                           <summary className="cursor-pointer text-sm text-muted-foreground">
                             Verification details
                           </summary>
 
                           <div className="mt-4 space-y-2 text-sm">
-                            {item.requestIds.map(
+                            {item.requestIds?.map(
                               (request) => (
                                 <div
                                   key={
@@ -684,6 +570,147 @@ export default function DailyPage() {
             </div>
           )}
       </section>
+
+      {expandedResult && (
+        <section
+          className="fixed inset-0 z-30 flex items-center justify-center overflow-y-auto bg-black/15 p-6 sm:p-10"
+          aria-modal="true"
+          role="dialog"
+          aria-label="Daily news investigation"
+        >
+          <GlowCursor
+            className="expanded-news w-full max-w-5xl overflow-hidden rounded-[2rem]"
+            color="#67E8F9"
+            secondaryColor="#A78BFA"
+            trailLength={40}
+            trailWidth={8}
+            trailTaper={0.8}
+            followSpeed={0.16}
+            glowIntensity={1.9}
+            glowSpread={1.2}
+            hotspot={0.65}
+            brightness={1.25}
+            opacity={1}
+            pulseSpeed={1.1}
+            noiseStrength={0}
+            idleFade
+            idleTimeout={700}
+            fadeDuration={900}
+            blendMode="screen"
+          >
+            <article className="trending-scrollbar max-h-[calc(100vh-5rem)] overflow-y-auto p-8 sm:p-14">
+              <div className="mb-10">
+                <button
+                  type="button"
+                  onClick={() => setExpandedResult(null)}
+                  aria-label="Close article"
+                  className="glassmorphism glassmorphism--deep rounded-full px-4 py-2 text-sm text-foreground"
+                >
+                  × Close
+                </button>
+              </div>
+
+              <p className="mb-5 text-lg text-muted-foreground">
+                {getDisplayCategory(selectedCategory, expandedResult)}
+              </p>
+              <h2 className="max-w-3xl text-5xl leading-[0.95] sm:text-7xl">
+                {expandedResult.title}
+              </h2>
+              <p className="mt-7 max-w-2xl text-xl leading-8 text-muted-foreground">
+                {getSummary(expandedResult)}
+              </p>
+              <p className="mt-6 max-w-3xl leading-8 text-muted-foreground">
+                {expandedResult.content}
+              </p>
+
+              <div className="mt-10 flex flex-col gap-3 border-t border-white/15 pt-5 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+                <span>{convertVerdictToStatus(expandedResult.verdict)}</span>
+                <span>Evidence sources: {expandedResult.evidence.length}</span>
+              </div>
+
+              <FactCheckResult
+                accuracy={Math.round(expandedResult.truthScore)}
+                verdict={getVerdictLabel(expandedResult.verdict)}
+                verificationTrace={expandedResult.requestIds ?? []}
+                explanation={getExplanation(expandedResult)}
+                sources={expandedResult.evidence.map(
+                  (evidenceItem, evidenceIndex) =>
+                    evidenceItem.source ||
+                    evidenceItem.title ||
+                    `Source ${evidenceIndex + 1}`
+                )}
+              />
+
+              <div className="mt-10 rounded-2xl border border-white/10 bg-white/5 p-6">
+                <p className="mb-2 text-sm uppercase tracking-wider text-muted-foreground">
+                  Claim being checked
+                </p>
+                <p className="leading-7">{expandedResult.claim}</p>
+              </div>
+
+              {expandedResult.evidence.length > 0 && (
+                <div className="mt-10">
+                  <h3 className="mb-5 text-2xl">Evidence</h3>
+                  <div className="space-y-4">
+                    {expandedResult.evidence.map((evidenceItem, index) => (
+                      <div
+                        key={
+                          evidenceItem.evidenceIndex ??
+                          evidenceItem.url ??
+                          index
+                        }
+                        className="rounded-2xl border border-white/10 bg-white/5 p-5"
+                      >
+                        <div className="mb-2 flex flex-wrap items-center gap-2">
+                          <span className="text-sm text-muted-foreground">
+                            Evidence {index + 1}
+                          </span>
+                          {evidenceItem.source && (
+                            <span className="text-sm text-muted-foreground">
+                              • {evidenceItem.source}
+                            </span>
+                          )}
+                        </div>
+                        {evidenceItem.title && (
+                          <h4 className="text-lg">{evidenceItem.title}</h4>
+                        )}
+                        {evidenceItem.content && (
+                          <p className="mt-2 leading-7 text-muted-foreground">
+                            {evidenceItem.content}
+                          </p>
+                        )}
+                        {evidenceItem.url && (
+                          <a
+                            href={evidenceItem.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mt-4 inline-block text-sm underline underline-offset-4"
+                          >
+                            View source →
+                          </a>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {expandedResult.url && (
+                <div className="mt-10 border-t border-white/15 pt-8">
+                  <a
+                    href={expandedResult.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="glassmorphism inline-flex rounded-full px-6 py-3 text-sm transition-transform hover:scale-[1.03]"
+                  >
+                    Read Original Article →
+                  </a>
+                </div>
+              )}
+            </article>
+          </GlowCursor>
+        </section>
+      )}
     </GlowCursor>
   );
 }
