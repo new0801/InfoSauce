@@ -32,7 +32,14 @@ const verifyRouter =
         : verifyRouterModule.default;
 
 if (typeof verifyRouter !== "function") {
-    throw new TypeError("The verification router did not export an Express handler.");
+    const exportShape =
+        verifyRouterModule && typeof verifyRouterModule === "object"
+            ? Object.keys(verifyRouterModule).join(",") || "empty object"
+            : typeof verifyRouterModule;
+
+    throw new TypeError(
+        `The verification router did not export an Express handler (${exportShape}).`
+    );
 }
 
 app.use("/api", verifyRouter);
