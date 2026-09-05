@@ -15,7 +15,15 @@
                     "format": "url",
                     "env": "DATA_API_URL"
                 }
-            ]
+            ],
+            "functions": {
+                "src/app.js": {
+                    "includeFiles": [
+                        "src/routes/**/*.js",
+                        "src/services/**/*.js"
+                    ]
+                }
+            }
         },
         "data": {
             "root": "InfoSauce-dev-data",
