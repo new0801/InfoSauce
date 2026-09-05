@@ -1,28 +1,30 @@
-async function test() {
+require("dotenv").config();
 
-    const claim = "The Earth is flat";
+const { retrieveEvidence } = require("../services/evidence");
 
-    const url =
-        "https://news.google.com/rss/search?q=" +
-        encodeURIComponent(claim) +
-        "&hl=en-US&gl=US&ceid=US:en";
+async function main() {
+
+    const claim =
+        "NASA announced that humans will land on Mars in 2030.";
+
+    console.log("CLAIM:");
+    console.log(claim);
 
     try {
 
-        const response = await fetch(url);
+        const result = await retrieveEvidence(claim);
 
-        console.log("HTTP STATUS:", response.status);
-
-        const text = await response.text();
-
-        console.log("===== GOOGLE NEWS RESPONSE =====");
-        console.log(text.slice(0, 5000));
-        console.log("================================");
+        console.log("\nEVIDENCE RESULT:");
+        console.log(
+            JSON.stringify(result, null, 2)
+        );
 
     } catch (error) {
 
-        console.error("Google News request failed:", error);
+        console.error("\nERROR:");
+        console.error(error.message);
+
     }
 }
 
-test();
+main();

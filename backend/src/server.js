@@ -2,16 +2,20 @@
 require("dotenv").config();
 
 const express = require("express");
+const cors = require("cors");
 
 const app = express();
 
-const PORT = 3000;
+const PORT = Number(process.env.PORT) || 3001;
 
 app.use(express.json());
+app.use(cors());
 
 const verifyRouter = require("./routes/verify");
+const dailyRouter = require("./routes/daily");
 //connects a specific web path prefix to a router module you imported earlier
 app.use("/api", verifyRouter);
+app.use("/api/daily", dailyRouter);
 
 //When someone sends a GET request to /, run this function.
 // "/" represents the root URL.

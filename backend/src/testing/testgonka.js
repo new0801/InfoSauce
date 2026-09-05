@@ -1,19 +1,30 @@
 require("dotenv").config();
-const { askGonka } = require("./services/gonka");
 
-async function testGonka() {
+const { askGonkaPrompt } = require("../services/gonka");
+
+async function test() {
+
+    console.log("=================================");
+    console.log("GONKA RETRY TEST");
+    console.log("=================================");
+
     try {
-        const result = await askGonka(
-            "Reply with exactly: InfoSauce Gonka connection works."
+
+        const response = await askGonkaPrompt(
+            "Return exactly this JSON and nothing else: {\"test\": \"success\"}",
+            "deepseek-ai/DeepSeek-V4-Flash-0731"
         );
 
-        console.log("Gonka response:");
-        console.log(result);
+        console.log("\n===== GONKA RESPONSE =====");
+        console.log(JSON.stringify(response, null, 2));
+
+        console.log("\n===== TEST PASSED =====");
 
     } catch (error) {
-        console.error("Test failed:");
-        console.error(error.message);
+
+        console.error("\n===== TEST FAILED =====");
+        console.error(error);
     }
 }
 
-testGonka();
+test();

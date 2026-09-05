@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-const { verifyClaim } = require("./services/verifier");
+const { verifyClaim } = require("../services/verifier");
 
 async function test() {
     const input = {

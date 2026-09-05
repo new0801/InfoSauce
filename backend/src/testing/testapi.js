@@ -1,11 +1,11 @@
-// Test the InfoSauce API endpoint
+// Test the InfoSauce Category API endpoint
 
 async function testAPI() {
 
     try {
 
         const response = await fetch(
-            "http://localhost:3000/api/verify",
+            "http://localhost:3000/api/category",
             {
                 method: "POST",
 
@@ -14,21 +14,7 @@ async function testAPI() {
                 },
 
                 body: JSON.stringify({
-                    newsId: "test-001",
-
-                    title: "Example fact-check",
-
-                    content: "The Earth is flat according to this post.",
-
-                    claim: "The Earth is flat.",
-
-                    sources: [
-                        "https://example.com/source1"
-                    ],
-
-                    evidence: [
-                        "Scientific measurements and observations demonstrate that Earth is approximately spherical."
-                    ]
+                    area: "Space"
                 })
             }
         );

@@ -1,5 +1,5 @@
-const { calculateConsensus } = require("./services/consensus");
-const { calculateTruthScore } = require("./services/truthscore");
+const { calculateConsensus } = require("../services/consensus");
+const { calculateTruthScore } = require("../services/truthscore");
 
 function runTest(name, verification) {
 

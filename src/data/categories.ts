@@ -44,4 +44,15 @@ export const categories = {
     "Food",
     "Social Trends"
   ]
-};
+} as const;
+
+export type CategoryArea = keyof typeof categories;
+export type CategoryTopic = (typeof categories)[CategoryArea][number];
+
+export function isCategoryArea(value: string): value is CategoryArea {
+  return value in categories;
+}
+
+export function isCategoryTopic(value: string): value is CategoryTopic {
+  return Object.values(categories).some((topics) => topics.includes(value as never));
+}
