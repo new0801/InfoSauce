@@ -321,9 +321,11 @@ async function verifyClaim(input) {
 
             // 5. Validate Gonka request ID
             if (
-                typeof result.id !==
+                typeof result.requestId !==
                     "string" ||
-                result.id.trim() === ""
+                !/^req[-_]/.test(
+                    result.requestId
+                )
             ) {
                 throw new Error(
                     "verifier.js: Gonka response is missing a request ID"
@@ -334,7 +336,7 @@ async function verifyClaim(input) {
                     success: true,
                     value: {
                         model,
-                        requestId: result.id,
+                        requestId: result.requestId,
                         result: verificationResult
                     }
                 };

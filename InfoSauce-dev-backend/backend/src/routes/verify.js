@@ -2618,7 +2618,8 @@ router.post(
 // ======================================================
 
 async function processArea(
-    area
+    area,
+    prefetchedNewsItems
 ) {
     console.log(
         `\n===== PROCESSING AREA: ${area} =====`
@@ -2633,6 +2634,7 @@ async function processArea(
         Date.now();
 
     const newsItems =
+        prefetchedNewsItems ||
         await getNewsByArea(
             area
         );
@@ -3270,14 +3272,47 @@ router.post(
 
 
             // --------------------------------------------------
-            // Process areas concurrently
+            // Fetch each area's news concurrently. This is deliberately
+            // separate from verification concurrency: all research can be
+            // ready while the existing two-area Gonka limit protects model
+            // throughput and preserves the verification workflow.
             // --------------------------------------------------
+
+            const prefetchedNews =
+                requestedAreas.map(
+                    area =>
+                        getNewsByArea(area)
+                            .then(newsItems => ({
+                                newsItems
+                            }))
+                            .catch(error => ({
+                                error
+                            }))
+                );
 
             const areaResults =
                 await runWithConcurrency(
-                    requestedAreas,
+                    requestedAreas.map(
+                        (area, index) => ({
+                            area,
+                            newsPromise:
+                                prefetchedNews[index]
+                        })
+                    ),
                     MAX_CONCURRENT_AREAS,
-                    processArea
+                    async ({ area, newsPromise }) => {
+                        const prefetched =
+                            await newsPromise;
+
+                        if (prefetched.error) {
+                            throw prefetched.error;
+                        }
+
+                        return processArea(
+                            area,
+                            prefetched.newsItems
+                        );
+                    }
                 );
 
 

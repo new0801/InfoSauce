@@ -1,4 +1,39 @@
-//Communicate with Gonka Router.
+// Communicate with Gonka Router.
+const GONKA_REQUEST_TIMEOUT_MS = Math.max(
+    10000,
+    Number.parseInt(process.env.GONKA_REQUEST_TIMEOUT_MS || "45000", 10) || 45000
+);
+
+function createGonkaHttpError(response) {
+    const error = new Error(`gonka.js: Gonka API error: ${response.status}`);
+    error.status = response.status;
+    const retryAfter = Number.parseFloat(response.headers.get("retry-after") || "");
+
+    if (Number.isFinite(retryAfter) && retryAfter > 0) {
+        error.retryAfterMs = retryAfter * 1000;
+    }
+
+    return error;
+}
+
+function getRetryDelay(error) {
+    return error?.retryAfterMs || (error?.status === 429 ? 8000 : 2000);
+}
+
+function getGonkaInferenceRequestId(response, data) {
+    const candidates = [
+        response.headers.get("request-id"),
+        response.headers.get("x-request-id"),
+        response.headers.get("x-gonka-request-id"),
+        data?.request_id,
+        data?.requestId,
+        data?.x_gonka?.request_id
+    ];
+
+    return candidates.find(
+        value => typeof value === "string" && /^req[-_]/.test(value)
+    ) || null;
+}
 async function askGonka(input, model) {
 
     const MAX_RETRIES = 1;
@@ -17,6 +52,7 @@ async function askGonka(input, model) {
                         "anthropic-version": "2023-06-01",
                         "Content-Type": "application/json"
                     },
+                    signal: AbortSignal.timeout(GONKA_REQUEST_TIMEOUT_MS),
 
                     body: JSON.stringify({
                         model: model,
@@ -209,14 +245,15 @@ URL: ${item.url || "Not provided"}
             );
 
             if (!response.ok) {
-                throw new Error(
-                    `gonka.js: Gonka API error: ${response.status}`
-                );
+                throw createGonkaHttpError(response);
             }
 
             const data = await response.json();
 
-            return data;
+            return {
+                ...data,
+                requestId: getGonkaInferenceRequestId(response, data)
+            };
 
         } catch (error) {
 
@@ -232,12 +269,14 @@ URL: ${item.url || "Not provided"}
             }
 
             // First attempt failed → retry once
+            const delayMs = getRetryDelay(error);
+
             console.log(
-                `gonka.js: Request failed for ${model}. Retrying in 2 seconds...`
+                `gonka.js: Request failed for ${model}. Retrying in ${delayMs / 1000} seconds...`
             );
 
             await new Promise(
-                resolve => setTimeout(resolve, 2000)
+                resolve => setTimeout(resolve, delayMs)
             );
         }
     }
@@ -262,6 +301,7 @@ async function askGonkaMessageContent(content, model, maxTokens = 1024) {
                         "anthropic-version": "2023-06-01",
                         "Content-Type": "application/json"
                     },
+                    signal: AbortSignal.timeout(GONKA_REQUEST_TIMEOUT_MS),
 
                     body: JSON.stringify({
                         model: model,
@@ -277,14 +317,15 @@ async function askGonkaMessageContent(content, model, maxTokens = 1024) {
             );
 
             if (!response.ok) {
-                throw new Error(
-                    `gonka.js: Gonka API error: ${response.status}`
-                );
+                throw createGonkaHttpError(response);
             }
 
             const data = await response.json();
 
-            return data;
+            return {
+                ...data,
+                requestId: getGonkaInferenceRequestId(response, data)
+            };
 
         } catch (error) {
 
@@ -299,12 +340,14 @@ async function askGonkaMessageContent(content, model, maxTokens = 1024) {
             }
 
             // Wait 2 seconds before retrying.
+            const delayMs = getRetryDelay(error);
+
             console.log(
-                `gonka.js: Request failed for ${model}. Retrying in 2 seconds...`
+                `gonka.js: Request failed for ${model}. Retrying in ${delayMs / 1000} seconds...`
             );
 
             await new Promise(
-                resolve => setTimeout(resolve, 2000)
+                resolve => setTimeout(resolve, delayMs)
             );
         }
     }
