@@ -2,7 +2,7 @@
 
 ### Your Personal AI Information Radar
 
-🔗 **Live Demo:** https://youtu.be/SGyzc1XOn4s?si=ncNgLn3tRdFQKzae
+🔗 **Video Pitch:** https://youtu.be/SGyzc1XOn4s?si=ncNgLn3tRdFQKzae
 
 ## 🎯 Problem
 
