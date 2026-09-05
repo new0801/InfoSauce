@@ -272,20 +272,13 @@ async function verifyClaim(input) {
         );
     }
 
-    const results = [];
-    const failures = [];
-
-    // 2. Ask every configured model to verify
-    // the claim using ONLY the supplied evidence.
-    for (const model of models) {
-
-        try {
-
-            const result =
-                await askGonka(
-                    input,
-                    model
-                );
+    // The model calls are independent. Running them serially makes the
+    // verification time roughly the sum of both provider latencies; running
+    // them together makes it bounded by the slowest successful model.
+    const modelResults = await Promise.all(
+        models.map(async model => {
+            try {
+                const result = await askGonka(input, model);
 
             // 3. Validate Gonka response
             if (
@@ -337,27 +330,35 @@ async function verifyClaim(input) {
                 );
             }
 
-            // 6. Store successful result
-            results.push({
-                model,
-                requestId: result.id,
-                result: verificationResult
-            });
+                return {
+                    success: true,
+                    value: {
+                        model,
+                        requestId: result.id,
+                        result: verificationResult
+                    }
+                };
+            } catch (error) {
+                console.error(`Model ${model} failed:`, error);
 
-        } catch (error) {
+                return {
+                    success: false,
+                    value: {
+                        model,
+                        status: "failed",
+                        error: error.message
+                    }
+                };
+            }
+        })
+    );
 
-            console.error(
-                `Model ${model} failed:`,
-                error
-            );
-
-            failures.push({
-                model,
-                status: "failed",
-                error: error.message
-            });
-        }
-    }
+    const results = modelResults
+        .filter(item => item.success)
+        .map(item => item.value);
+    const failures = modelResults
+        .filter(item => !item.success)
+        .map(item => item.value);
 
     // 7. Require at least one successful model
     if (results.length === 0) {

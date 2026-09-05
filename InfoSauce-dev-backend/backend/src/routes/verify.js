@@ -2,13 +2,53 @@ const express = require("express");
 const { verifyClaim } = require("../services/verifier");
 const { calculateConsensus } = require("../services/consensus");
 const { calculateTruthScore } = require("../services/truthscore");
-const { searchNews } = require("../services/data");
+const { searchNews, getNewsByArea } = require("../services/data");
 const { prepareAiInput } = require("../services/prepareAIInput");
 const { extractClaim } = require("../services/claimextractor");
 const { retrieveEvidence } = require("../services/evidence");
 const { selectEvidence } = require("../services/evidenceselector");
 
 const router = express.Router();
+const MAX_CONCURRENT_AREAS = Math.max(
+    1,
+    Number.parseInt(process.env.MAX_CONCURRENT_AREAS || "2", 10) || 2
+);
+const MAX_CANDIDATES_PER_AREA = Math.min(
+    10,
+    Math.max(
+        1,
+        Number.parseInt(process.env.MAX_CANDIDATES_PER_AREA || "3", 10) || 3
+    )
+);
+
+async function runWithConcurrency(items, concurrency, worker) {
+    const results = new Array(items.length);
+    let nextIndex = 0;
+
+    async function runWorker() {
+        while (nextIndex < items.length) {
+            const index = nextIndex++;
+
+            try {
+                results[index] = {
+                    status: "fulfilled",
+                    value: await worker(items[index])
+                };
+            } catch (reason) {
+                results[index] = { status: "rejected", reason };
+            }
+        }
+    }
+
+    await Promise.all(
+        Array.from(
+            { length: Math.min(concurrency, items.length) },
+            runWorker
+        )
+    );
+
+    return results;
+}
 
 // ======================================================
 // POST /api/verify
@@ -95,454 +135,439 @@ const input = req.body;
 
 });
 
-// ======================================================
-// POST /api/category
-// ======================================================
+async function processArea(area) {
+    console.log(`\n===== PROCESSING AREA: ${area} =====`);
 
-router.post("/category", async (req, res) => {
-  const startTime = Date.now();
+    // 1. Get news specifically for this area
+    const researchStart = Date.now();
 
-  try {
-    const { area, areas } = req.body;
+    const newsItems = await getNewsByArea(area);
 
-    // Support both:
-    // { "area": "AI" }
-    // and:
-    // { "areas": ["World", "Business", "Science", "Culture"] }
-
-    const categoryAreas = Array.isArray(areas)
-      ? areas
-      : [area];
-
-    // 1. Validate areas
-    if (
-      !Array.isArray(categoryAreas) ||
-      categoryAreas.length === 0 ||
-      categoryAreas.some(
-        item =>
-          typeof item !== "string" ||
-          item.trim() === ""
-      )
-    ) {
-      return res.status(400).json({
-        success: false,
-        error: {
-          code: "INVALID_AREA",
-          message: "At least one non-empty area is required"
-        }
-      });
-    }
-
-    const requestedAreas = categoryAreas.map(
-      item => item.trim()
+    console.log(
+        `⏱️ RESEARCH TIME (${area}): ${
+            Date.now() - researchStart
+        } ms`
     );
 
-    // Prevent accidentally requesting too many areas
-    if (requestedAreas.length > 4) {
-      return res.status(400).json({
-        success: false,
-        error: {
-          code: "TOO_MANY_AREAS",
-          message: "A maximum of 4 areas is allowed"
-        }
-      });
+    if (!Array.isArray(newsItems)) {
+        throw new Error(
+            `Invalid research response for area: ${area}`
+        );
     }
 
-    const results = [];
-    const unavailableAreas = [];
-    const MAX_CANDIDATES = 10;
-
-    // 2. Process each area
-    for (const area of requestedAreas) {
-      console.log(`\n===== PROCESSING AREA: ${area} =====`);
-
-      try {
-        // Research
-        const researchStart = Date.now();
-
-        const newsItems = await searchNews(area);
-
-        console.log(
-          `⏱️ RESEARCH TIME (${area}): ${Date.now() - researchStart} ms`
+    if (newsItems.length === 0) {
+        throw new Error(
+            `No news found for area: ${area}`
         );
+    }
 
-        if (!Array.isArray(newsItems)) {
-          console.log(
-            `⏭️ Invalid research response for area: ${area}`
-          );
-
-          unavailableAreas.push(area);
-          continue;
-        }
-
-        if (newsItems.length === 0) {
-          console.log(
-            `⏭️ No news found for area: ${area}`
-          );
-
-          unavailableAreas.push(area);
-          continue;
-        }
-
-        let areaSuccess = false;
-
-        // 3. Try up to MAX_CANDIDATES until one succeeds
-        for (
-          const newsItem of newsItems.slice(
+    // Try candidates in relevance order and stop after the first usable one.
+    for (
+        const newsItem of newsItems.slice(
             0,
-            MAX_CANDIDATES
-          )
-        ) {
-          if (areaSuccess) {
-            break;
-          }
+            MAX_CANDIDATES_PER_AREA
+        )
+    ) {
+        try {
+            console.log(
+                `\n--- TRYING NEWS ITEM: ${newsItem.id} ---`
+            );
 
-          try {
-            // ============================
             // CLAIM EXTRACTION
-            // ============================
-
             const claimStart = Date.now();
 
             const extractedClaim =
-              await extractClaim(
-                newsItem.content
-              );
+                await extractClaim(
+                    newsItem.content
+                );
 
             console.log(
-              `⏱️ CLAIM EXTRACTION TIME: ${
-                Date.now() - claimStart
-              } ms`
+                `⏱️ CLAIM EXTRACTION TIME: ${
+                    Date.now() - claimStart
+                } ms`
             );
 
             if (!extractedClaim.hasClaim) {
-              console.log(
-                `⏭️ Skipping non-factual item: ${newsItem.id}`
-              );
+                console.log(
+                    `⏭️ Skipping non-factual item: ${newsItem.id}`
+                );
 
-              continue;
+                continue;
             }
 
             const claim =
-              extractedClaim.claim;
+                extractedClaim.claim;
 
             console.log(
-              `✅ FACTUAL CLAIM FOUND: ${claim}`
+                `✅ FACTUAL CLAIM FOUND: ${claim}`
             );
 
-            // ============================
             // EVIDENCE RETRIEVAL
-            // ============================
-
             console.log(
-              ">>> REACHED EVIDENCE RETRIEVAL"
+                ">>> REACHED EVIDENCE RETRIEVAL"
             );
 
             const evidenceStart = Date.now();
 
             const evidenceResult =
-              await retrieveEvidence(claim);
+                await retrieveEvidence(claim);
 
             console.log(
-              `⏱️ EVIDENCE RETRIEVAL TIME: ${
-                Date.now() - evidenceStart
-              } ms`
+                `⏱️ EVIDENCE RETRIEVAL TIME: ${
+                    Date.now() - evidenceStart
+                } ms`
             );
 
             if (
-              !evidenceResult ||
-              !Array.isArray(
-                evidenceResult.evidence
-              )
+                !evidenceResult ||
+                !Array.isArray(
+                    evidenceResult.evidence
+                )
             ) {
-              throw new Error(
-                "Invalid evidence retrieval response"
-              );
+                throw new Error(
+                    "Invalid evidence retrieval response"
+                );
             }
 
             console.log(
-              ">>> EVIDENCE RETRIEVED:",
-              evidenceResult.evidence.length
+                ">>> EVIDENCE RETRIEVED:",
+                evidenceResult.evidence.length
             );
 
             if (
-              evidenceResult.evidence.length === 0
+                evidenceResult.evidence.length === 0
             ) {
-              console.log(
-                `⏭️ No evidence found for ${newsItem.id}`
-              );
+                console.log(
+                    `⏭️ No evidence found for ${newsItem.id}`
+                );
 
-              continue;
+                continue;
             }
 
-            // ============================
             // EVIDENCE SELECTION
-            // ============================
-
             const selectionStart =
-              Date.now();
+                Date.now();
 
             const evidenceSelection =
-              await selectEvidence(
-                claim,
-                evidenceResult.evidence
-              );
-
-            console.log(
-              `⏱️ EVIDENCE SELECTION TIME: ${
-                Date.now() - selectionStart
-              } ms`
-            );
-
-            console.log(
-              "===== EVIDENCE SELECTION DEBUG ====="
-            );
-
-            console.log(
-              JSON.stringify(
-                evidenceSelection,
-                null,
-                2
-              )
-            );
-
-            console.log(
-              "===================================="
-            );
-
-            if (
-              !evidenceSelection ||
-              !Array.isArray(
-                evidenceSelection.results
-              ) ||
-              evidenceSelection.results.length ===
-                0
-            ) {
-              console.log(
-                `⏭️ Evidence selection failed for ${newsItem.id}`
-              );
-
-              continue;
-            }
-
-            const selectedIndexes =
-              evidenceSelection.results[0]
-                .selectedEvidence;
-
-            if (
-              !Array.isArray(selectedIndexes)
-            ) {
-              console.log(
-                `⏭️ Invalid evidence selection for ${newsItem.id}`
-              );
-
-              continue;
-            }
-
-            const selectedEvidence =
-              selectedIndexes
-                .map(
-                  index =>
-                    evidenceResult.evidence[
-                      index
-                    ]
-                )
-                .filter(
-                  item =>
-                    item !== undefined
+                await selectEvidence(
+                    claim,
+                    evidenceResult.evidence
                 );
 
             console.log(
-              ">>> SELECTED EVIDENCE:",
-              selectedEvidence.length
+                `⏱️ EVIDENCE SELECTION TIME: ${
+                    Date.now() - selectionStart
+                } ms`
             );
 
             if (
-              selectedEvidence.length === 0
+                !evidenceSelection ||
+                !Array.isArray(
+                    evidenceSelection.results
+                ) ||
+                evidenceSelection.results.length ===
+                    0
             ) {
-              console.log(
-                `⏭️ No relevant evidence for ${newsItem.id}`
-              );
+                console.log(
+                    `⏭️ Evidence selection failed for ${newsItem.id}`
+                );
 
-              continue;
+                continue;
             }
 
-            // ============================
+            const selectedIndexes =
+                evidenceSelection.results[0]
+                    .selectedEvidence;
+
+            if (
+                !Array.isArray(selectedIndexes)
+            ) {
+                console.log(
+                    `⏭️ Invalid evidence selection for ${newsItem.id}`
+                );
+
+                continue;
+            }
+
+            const selectedEvidence =
+                selectedIndexes
+                    .map(
+                        index =>
+                            evidenceResult.evidence[
+                                index
+                            ]
+                    )
+                    .filter(
+                        item =>
+                            item !== undefined
+                    );
+
+            console.log(
+                ">>> SELECTED EVIDENCE:",
+                selectedEvidence.length
+            );
+
+            if (
+                selectedEvidence.length === 0
+            ) {
+                console.log(
+                    `⏭️ No relevant evidence for ${newsItem.id}`
+                );
+
+                continue;
+            }
+
             // PREPARE AI INPUT
-            // ============================
-
             const aiInput =
-              prepareAiInput(
-                newsItem,
-                selectedEvidence
-              );
+                prepareAiInput(
+                    newsItem,
+                    selectedEvidence
+                );
 
-            // Make sure the extracted factual
-            // claim is used for verification
             aiInput.claim = claim;
 
-            // ============================
             // FINAL VERIFICATION
-            // ============================
-
             const verificationStart =
-              Date.now();
+                Date.now();
 
             const verification =
-              await verifyClaim(
-                aiInput
-              );
+                await verifyClaim(
+                    aiInput
+                );
 
             console.log(
-              `⏱️ FINAL VERIFICATION TIME: ${
-                Date.now() -
-                verificationStart
-              } ms`
+                `⏱️ FINAL VERIFICATION TIME: ${
+                    Date.now() -
+                    verificationStart
+                } ms`
             );
 
-            // ============================
             // CONSENSUS
-            // ============================
-
             const consensus =
-              calculateConsensus(
-                verification
-              );
+                calculateConsensus(
+                    verification
+                );
 
-            // ============================
             // TRUTH SCORE
-            // ============================
-
             const truthScore =
-              calculateTruthScore(
-                verification.results,
-                consensus
-              );
+                calculateTruthScore(
+                    verification.results,
+                    consensus
+                );
 
-            // ============================
             // VERIFICATION TRACE
-            // ============================
-
             const verificationTrace =
-              verification.results.map(
-                item => ({
-                  model: item.model,
-                  requestId:
-                    item.requestId
-                })
-              );
+                verification.results.map(
+                    item => ({
+                        model: item.model,
+                        requestId:
+                            item.requestId
+                    })
+                );
 
-            // ============================
             // FORMAT EVIDENCE
-            // ============================
-
             const evidence =
-              selectedEvidence.map(
-                (item, index) => ({
-                  evidenceIndex: index,
-                  title:
-                    item.title || null,
-                  content:
-                    item.content || null,
-                  url:
-                    item.url || null,
-                  source:
-                    item.source || null,
-                  platform:
-                    item.platform || null,
-                  publishedAt:
-                    item.publishedAt ||
-                    null
-                })
-              );
+                selectedEvidence.map(
+                    (item, index) => ({
+                        evidenceIndex: index,
+                        title:
+                            item.title || null,
+                        content:
+                            item.content || null,
+                        url:
+                            item.url || null,
+                        source:
+                            item.source || null,
+                        platform:
+                            item.platform || null,
+                        publishedAt:
+                            item.publishedAt ||
+                            null
+                    })
+                );
 
-            // ============================
-            // SAVE SUCCESSFUL RESULT
-            // ============================
-
-            results.push({
-              area,
-              news: newsItem,
-              claim,
-              factCheckable: true,
-              evidenceSelection,
-              evidence,
-              verification,
-              verificationTrace,
-              consensus,
-              truthScore
-            });
-
+            // SUCCESS
             console.log(
-              `✅ SUCCESSFULLY FACT-CHECKED: ${newsItem.id}`
+                `✅ SUCCESSFULLY FACT-CHECKED: ${newsItem.id}`
             );
 
-            // We only need ONE successful
-            // story for this area
-            areaSuccess = true;
+            return {
+                area,
+                news: newsItem,
+                claim,
+                factCheckable: true,
+                evidenceSelection,
+                evidence,
+                verification,
+                verificationTrace,
+                consensus,
+                truthScore
+            };
 
-          } catch (error) {
+        } catch (error) {
             console.error(
-              `Failed to process news item ${newsItem.id} in area ${area}:`,
-              error
+                `Failed to process news item ${newsItem.id} in area ${area}:`,
+                error.message
             );
 
-            // Try the next candidate
             continue;
-          }
         }
-
-        if (!areaSuccess) {
-          console.log(
-            `❌ Could not find a fact-checkable story for area: ${area}`
-          );
-
-          unavailableAreas.push(area);
-        }
-
-      } catch (error) {
-        console.error(
-          `Failed to process area ${area}:`,
-          error
-        );
-
-        unavailableAreas.push(area);
-      }
     }
 
-    console.log(
-      `⏱️ CATEGORY TOTAL TIME: ${
-        Date.now() - startTime
-      } ms`
+    throw new Error(
+        `Could not find a fact-checkable story for area: ${area}`
     );
+}
 
-    // ============================
-    // FINAL RESPONSE
-    // ============================
+// ======================================================
+// POST /api/category
+// ======================================================
+router.post("/category", async (req, res) => {
+    const startTime = Date.now();
 
-    return res.status(200).json({
-      success: true,
-      areas: requestedAreas,
-      count: results.length,
-      results,
-      unavailableAreas
-    });
+    try {
+        const { area, areas } = req.body;
 
-  } catch (error) {
-    console.error(
-      "Category verification failed:",
-      error
-    );
+        // Support:
+        // { "area": "World" }
+        // or:
+        // { "areas": ["World", "Business", "Science", "Culture"] }
 
-    return res.status(500).json({
-      success: false,
-      error: {
-        code: "INTERNAL_SERVER_ERROR",
-        message:
-          "An unexpected error occurred while processing the categories"
-      }
-    });
-  }
+        const categoryAreas = Array.isArray(areas)
+            ? areas
+            : [area];
+
+        // Validate
+        if (
+            !Array.isArray(categoryAreas) ||
+            categoryAreas.length === 0 ||
+            categoryAreas.some(
+                item =>
+                    typeof item !== "string" ||
+                    item.trim() === ""
+            )
+        ) {
+            return res.status(400).json({
+                success: false,
+                error: {
+                    code: "INVALID_AREA",
+                    message:
+                        "At least one non-empty area is required"
+                }
+            });
+        }
+
+        const requestedAreas =
+            categoryAreas.map(
+                item => item.trim()
+            );
+
+        // Maximum 4 areas
+        if (requestedAreas.length > 4) {
+            return res.status(400).json({
+                success: false,
+                error: {
+                    code: "TOO_MANY_AREAS",
+                    message:
+                        "A maximum of 4 areas is allowed"
+                }
+            });
+        }
+
+        console.log(
+            "\n======================================"
+        );
+
+        console.log(
+            "STARTING CATEGORY PROCESSING"
+        );
+
+        console.log(
+            "AREAS:",
+            requestedAreas
+        );
+
+        console.log(
+            "======================================\n"
+        );
+
+        // A category can have up to four areas, and each area may fall back
+        // through several candidates. Bound that fan-out so Gonka and the
+        // data service do not queue or rate-limit every request.
+        const areaResults =
+            await runWithConcurrency(
+                requestedAreas,
+                MAX_CONCURRENT_AREAS,
+                processArea
+            );
+
+        const results = [];
+        const unavailableAreas = [];
+
+        areaResults.forEach(
+            (result, index) => {
+                const area =
+                    requestedAreas[index];
+
+                if (
+                    result.status ===
+                    "fulfilled"
+                ) {
+                    results.push(
+                        result.value
+                    );
+                } else {
+                    console.error(
+                        `❌ AREA FAILED: ${area}`,
+                        result.reason?.message ||
+                            result.reason
+                    );
+
+                    unavailableAreas.push(
+                        area
+                    );
+                }
+            }
+        );
+
+        console.log(
+            `\n⏱️ CATEGORY TOTAL TIME: ${
+                Date.now() - startTime
+            } ms`
+        );
+
+        console.log(
+            `✅ SUCCESSFUL AREAS: ${results.length}`
+        );
+
+        console.log(
+            `❌ UNAVAILABLE AREAS: ${unavailableAreas.length}`
+        );
+
+        return res.status(200).json({
+            success: true,
+            areas: requestedAreas,
+            count: results.length,
+            results,
+            unavailableAreas
+        });
+
+    } catch (error) {
+        console.error(
+            "Category verification failed:",
+            error
+        );
+
+        return res.status(500).json({
+            success: false,
+            error: {
+                code:
+                    "INTERNAL_SERVER_ERROR",
+                message:
+                    "An unexpected error occurred while processing the categories"
+            }
+        });
+    }
 });
 
 module.exports = router;
