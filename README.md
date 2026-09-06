@@ -3,6 +3,7 @@
 ### Your Personal AI Information Radar
 
 🔗 **Video Pitch:** https://youtu.be/SGyzc1XOn4s?si=ncNgLn3tRdFQKzae
+
 🔗 **Slide Link:** https://canva.link/dpqadd28jluilio
 
 ## 🎯 Problem
