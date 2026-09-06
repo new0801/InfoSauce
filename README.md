@@ -7,6 +7,7 @@
 🔗 **Slide Link:** https://canva.link/dpqadd28jluilio
 
 🔗 **Demo Website Link:** https://infosauce-frontend.onrender.com/
+
 ⚠️ Demo Website Notice
 
 Due to technical limitations with deploying our backend within the available development time, the deployed demo website uses demonstration data and does not represent the full live backend functionality.
