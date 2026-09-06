@@ -6,6 +6,13 @@
 
 🔗 **Slide Link:** https://canva.link/dpqadd28jluilio
 
+🔗 **Demo Website Link:** https://infosauce-frontend.onrender.com/
+⚠️ Demo Website Notice
+
+Due to technical limitations with deploying our backend within the available development time, the deployed demo website uses demonstration data and does not represent the full live backend functionality.
+
+To see the fully working version of InfoSauce, including the backend, social media data integration, and AI-powered fact-checking through Gonka Router, please refer to our video pitch/demo on YouTube, where the complete functionality is demonstrated.
+
 ## 🎯 Problem
 
 Information is fragmented across news websites, social media platforms and other online sources. Users need to switch between platforms, repeat searches, and compare conflicting claims to understand what is happening.
